@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.FirebaseApp;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button catalogbtn;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseApp.initializeApp(this);
 
         catalogbtn = findViewById(R.id.main_cataloguebtn);
         mainAppbar = findViewById(R.id.mainAppbar);
