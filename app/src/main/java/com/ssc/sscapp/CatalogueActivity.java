@@ -1,5 +1,6 @@
 package com.ssc.sscapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
 import android.support.annotation.NonNull;
@@ -30,6 +31,7 @@ import java.util.List;
 
 public class CatalogueActivity extends AppCompatActivity {
 
+    private String companyname;
 
     private DatabaseReference mCompanyRef;
     private FloatingActionButton addbtn;
@@ -73,13 +75,14 @@ public class CatalogueActivity extends AppCompatActivity {
             }
         });
 
-        query.addValueEventListener(valueEventListener);
-
-
+        ;
+            query.addValueEventListener(valueEventListener);
         //mCompanyRef = FirebaseDatabase.getInstance().getReference().child("Companies");
     }
 
-    ValueEventListener valueEventListener = new ValueEventListener() {
+
+
+    public ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             companiesList.clear();
@@ -97,5 +100,60 @@ public class CatalogueActivity extends AppCompatActivity {
 
         }
     };
-}
 
+    class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.CompaniesViewHolder> {
+
+        private Context mctx;
+        private List<Companies> CompaniesList;
+
+
+        public CompaniesAdapter (Context mctx, List<Companies> CompaniesList){
+            this.mctx = mctx;
+            this.CompaniesList = CompaniesList;
+        }
+
+        @NonNull
+        @Override
+        public CompaniesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+            View view = LayoutInflater.from(mctx).inflate(R.layout.single_name_layout, parent, false);
+
+            return new CompaniesViewHolder(view);
+
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull CompaniesViewHolder CompaniesViewHolder, final int i) {
+            Companies Companies = CompaniesList.get(i);
+            CompaniesViewHolder.name.setText(Companies.name);
+
+
+            CompaniesViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    companyname = CompaniesList.get(i).name;
+                    Intent profileIntent = new Intent(CatalogueActivity.this, CompanyActivity.class);
+                    profileIntent.putExtra("Company name", companyname);
+                    startActivity(profileIntent);
+                }
+            });
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return CompaniesList.size();
+        }
+
+        public class CompaniesViewHolder extends RecyclerView.ViewHolder {
+
+            TextView name;
+            public CompaniesViewHolder(@NonNull View itemView) {
+                super(itemView);
+                name = itemView.findViewById(R.id.name);
+
+
+            }
+        }
+    }
+}

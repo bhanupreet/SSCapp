@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SSCapp</string>
     <string name="catalogue">Catalogue</string>
+    <string name="title_activity_company">CompanyActivity</string>
 </resources>

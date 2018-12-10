@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddPartNo">
+
+    <include layout="@layout/appbar"
+        android:id="@+id/addpartno_appbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"></include>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/partnoInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addpartno_appbar"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="Part no">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint = "Part no" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/addpartnoBtn_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/partnoInput"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Add"
+        android:textColor="#ffffff" />
+
+
+</RelativeLayout>
