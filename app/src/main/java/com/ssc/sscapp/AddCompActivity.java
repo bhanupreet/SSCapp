@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddCompActivity extends AppCompatActivity {
 
-    private TextInputLayout mpartnoname;
+    private TextInputLayout mcompampanyname;
     private Button mAddBtn;
     private DatabaseReference mDatabase;
     private DatabaseReference mCompanyRef;
@@ -32,19 +32,17 @@ public class AddCompActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAddBtn = findViewById(R.id.addCompBtn);
         FirebaseApp.initializeApp(this);
-        mpartnoname = findViewById(R.id.name_input);
+        mcompampanyname = findViewById(R.id.name_input);
 
         mAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String partnonamestring = mpartnoname.getEditText().getText().toString();
-
-
-                if(!partnonamestring.equals("")) {
+                String companynamestring = mcompampanyname.getEditText().getText().toString();
+                if(!companynamestring.equals("")) {
                     // DatabaseReference companyref = FirebaseDatabase.getInstance().getReference("Comapnies").push();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference().child("Companies").child(partnonamestring);
-                    myRef.child("name").setValue(partnonamestring);
+                    DatabaseReference myRef = database.getReference().child("Companies").child(companynamestring);
+                    myRef.child("name").setValue(companynamestring);
                 }
 
             }
@@ -52,3 +50,4 @@ public class AddCompActivity extends AppCompatActivity {
 
     }
 }
+

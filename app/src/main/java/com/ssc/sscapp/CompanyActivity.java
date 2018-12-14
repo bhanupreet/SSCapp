@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +31,12 @@ import java.util.List;
 public class CompanyActivity extends AppCompatActivity {
 
     private RecyclerView PartnoRecycler;
-    private List<String> partNoList;
+    private List<PartNo> partNoList;
     private PartNoAdapter adapter;
     private FloatingActionButton addbtn;
     private DatabaseReference PartNoRef;
     private String partnorefstring;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class CompanyActivity extends AppCompatActivity {
 
          PartNoRef= FirebaseDatabase.getInstance().getReference().child("Companies").child(companyName);
         Query query = FirebaseDatabase.getInstance()
-                .getReference().child("Companies").child(companyName);
+                .getReference().child("PartNo").orderByChild("company name").equalTo(companyName);
 
         addbtn = findViewById(R.id.addpartnoBtn);
         addbtn.setOnClickListener(new View.OnClickListener() {
@@ -81,12 +83,12 @@ public class CompanyActivity extends AppCompatActivity {
         public void onDataChange(DataSnapshot dataSnapshot) {
             partNoList.clear();
             if (dataSnapshot.exists()) {
-                partnorefstring= dataSnapshot.getKey();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String partNo = snapshot.getValue(String.class);
+                     PartNo partNo= snapshot.getValue(PartNo.class);
                     partNoList.add(partNo);
                 }
                 adapter.notifyDataSetChanged();
+
             }
         }
 
@@ -96,31 +98,27 @@ public class CompanyActivity extends AppCompatActivity {
         }
     };
 
-    class PartNoAdapter extends RecyclerView.Adapter<PartNoAdapter.PartNoViewHolder> {
-
+    private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
         private Context mctx;
-        private List<String> partNoList;
+        private List<PartNo> partNoList;
+        public PartNoAdapter(Context mctx, List<PartNo> partNoList) {
 
-
-        public PartNoAdapter (Context mctx, List<String> partNoList){
+            this.partNoList= partNoList;
             this.mctx = mctx;
-            this.partNoList = partNoList;
         }
 
         @NonNull
         @Override
         public PartNoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+
             View view = LayoutInflater.from(mctx).inflate(R.layout.single_name_layout, parent, false);
-
             return new PartNoViewHolder(view);
-
         }
 
         @Override
         public void onBindViewHolder(@NonNull PartNoViewHolder partNoViewHolder, int i) {
-            String partNo = partNoList.get(i);
-            partNoViewHolder.name.setText(partNo);
-
+            PartNo partNo = partNoList.get(i);
+            partNoViewHolder.name.setText(partNo.name);
 
         }
 
@@ -128,17 +126,16 @@ public class CompanyActivity extends AppCompatActivity {
         public int getItemCount() {
             return partNoList.size();
         }
-
-        public class PartNoViewHolder extends RecyclerView.ViewHolder {
-
-            TextView name;
-            public PartNoViewHolder(@NonNull View itemView) {
-                super(itemView);
-                name = itemView.findViewById(R.id.name);
-
-
-            }
-        }
     }
 
+    private class PartNoViewHolder extends RecyclerView.ViewHolder {
+
+        TextView name;
+        public PartNoViewHolder(@NonNull View itemView) {
+            super(itemView);
+            name = itemView.findViewById(R.id.name);
+
+
+        }
+    }
 }

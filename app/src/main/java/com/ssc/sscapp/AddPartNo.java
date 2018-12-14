@@ -11,6 +11,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Map;
+
 public class AddPartNo extends AppCompatActivity {
     private TextInputLayout mpartno;
     private Button mAddBtn;
@@ -42,8 +44,10 @@ public class AddPartNo extends AppCompatActivity {
                 if(!partno.equals("")) {
                     // DatabaseReference companyref = FirebaseDatabase.getInstance().getReference("Comapnies").push();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference().child("Companies").child(companyname).push().child("part no name");
-                    myRef.setValue(partno);
+                    DatabaseReference myRef = database.getReference().child("PartNo").child(partno).child("company name");
+                    myRef.setValue(companyname);
+                    DatabaseReference myRef2 = database.getReference().child("PartNo").child(partno).child("name");
+                    myRef2.setValue(partno);
                 }
 
             }
