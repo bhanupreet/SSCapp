@@ -116,9 +116,19 @@ public class CompanyActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull PartNoViewHolder partNoViewHolder, int i) {
+        public void onBindViewHolder(@NonNull PartNoViewHolder partNoViewHolder, final int i) {
             PartNo partNo = partNoList.get(i);
             partNoViewHolder.name.setText(partNo.name);
+
+            partNoViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    partnorefstring = partNoList.get(i).name;
+                    Intent profileIntent = new Intent(CompanyActivity.this, PartNoDetails.class);
+                    profileIntent.putExtra("partnorefstring", partnorefstring);
+                    startActivity(profileIntent);
+                }
+            });
 
         }
 

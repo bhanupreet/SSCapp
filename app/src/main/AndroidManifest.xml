@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ssc.sscapp">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,17 +18,22 @@
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddCompActivity"
-            android:parentActivityName=".CatalogueActivity"/>
+        <activity
+            android:name=".AddCompActivity"
+            android:parentActivityName=".CatalogueActivity" />
         <activity
             android:name=".CompanyActivity"
-            android:parentActivityName=".CatalogueActivity"
             android:label="@string/title_activity_company"
+            android:parentActivityName=".CatalogueActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".AddPartNo"
+        <activity
+            android:name=".AddPartNo"
+            android:parentActivityName=".CompanyActivity" />
+        <activity android:name=".PartNoDetails"
             android:parentActivityName=".CompanyActivity"></activity>
     </application>
 

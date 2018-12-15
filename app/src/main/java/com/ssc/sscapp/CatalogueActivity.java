@@ -55,7 +55,11 @@ public class CatalogueActivity extends AppCompatActivity {
 
         CompanyNamesRecycler = findViewById(R.id.companynamesrecycler);
         CompanyNamesRecycler.setHasFixedSize(true);
-        CompanyNamesRecycler.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        CompanyNamesRecycler.setLayoutManager(layoutManager);
+
 
         companiesList = new ArrayList<>();
         adapter = new CompaniesAdapter(this, companiesList);
@@ -64,7 +68,7 @@ public class CatalogueActivity extends AppCompatActivity {
 
         mCompanyRef = FirebaseDatabase.getInstance().getReference().child("Companies");
         Query query = FirebaseDatabase.getInstance()
-                .getReference().child("Companies");
+                .getReference().child("Companies").orderByChild("name");
 
         addbtn = findViewById(R.id.addBtn);
         addbtn.setOnClickListener(new View.OnClickListener() {
