@@ -45,7 +45,7 @@ public class CompanyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
         final String companyName = getIntent().getStringExtra("Company name");
-        Toast.makeText(this,companyName,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,companyName,Toast.LENGTH_SHORT).show();
         Toolbar toolbar = findViewById(R.id.companyToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(companyName);

@@ -9,6 +9,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="108dp"
+        android:padding="2dp"
+        android:backgroundTint="#212121"
         android:src="@drawable/ic_settings_black_24dp"/>
     <TextView
         android:layout_width="wrap_content"

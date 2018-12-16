@@ -18,9 +18,30 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="200dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/rectanglebg"
         android:textColor="#ffffff"
         android:layout_marginTop="64dp"
         android:text="@string/catalogue" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="About Us"
+        android:background="@drawable/rectanglebg"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="90dp"
+        android:id="@+id/aboutusbtn"
+        android:layout_marginBottom="140dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="FAQ"
+        android:background="@drawable/rectanglebg"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="230dp"
+        android:id="@+id/faqbtn"
+        android:layout_marginBottom="140dp"/>
+
 
 </RelativeLayout>
