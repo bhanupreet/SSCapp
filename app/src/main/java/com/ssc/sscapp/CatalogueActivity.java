@@ -1,5 +1,6 @@
 package com.ssc.sscapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
@@ -13,7 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -41,9 +44,11 @@ public class CatalogueActivity extends AppCompatActivity {
 
     private List<Companies> companiesList;
     private CompaniesAdapter adapter;
+    private ProgressDialog mprogressdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogue);
@@ -53,11 +58,15 @@ public class CatalogueActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Catalogue");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mprogressdialog = new ProgressDialog(this);
+        mprogressdialog.setCanceledOnTouchOutside(false);
+        mprogressdialog.setTitle("Please wait while we load the data");
+        mprogressdialog.setMessage("Fetching data...");
+        mprogressdialog.show();
+
         CompanyNamesRecycler = findViewById(R.id.companynamesrecycler);
         CompanyNamesRecycler.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
         CompanyNamesRecycler.setLayoutManager(layoutManager);
 
 
@@ -79,8 +88,7 @@ public class CatalogueActivity extends AppCompatActivity {
             }
         });
 
-        ;
-            query.addValueEventListener(valueEventListener);
+        query.addValueEventListener(valueEventListener);
         //mCompanyRef = FirebaseDatabase.getInstance().getReference().child("Companies");
     }
 
@@ -96,13 +104,18 @@ public class CatalogueActivity extends AppCompatActivity {
                     companiesList.add(companies);
                 }
                 adapter.notifyDataSetChanged();
+                mprogressdialog.dismiss();
+
             }
         }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
+            mprogressdialog.dismiss();
+            Toast.makeText(getApplicationContext()  ,"an error occured while fetching data",Toast.LENGTH_SHORT).show();
 
         }
+
     };
 
     class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.CompaniesViewHolder> {

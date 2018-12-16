@@ -1,5 +1,6 @@
 package com.ssc.sscapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class CompanyActivity extends AppCompatActivity {
     private FloatingActionButton addbtn;
     private DatabaseReference PartNoRef;
     private String partnorefstring;
+    private ProgressDialog mprogressdialog;
 
 
     @Override
@@ -44,10 +46,16 @@ public class CompanyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_company);
         final String companyName = getIntent().getStringExtra("Company name");
         Toast.makeText(this,companyName,Toast.LENGTH_SHORT).show();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.companyToolbar);
+        Toolbar toolbar = findViewById(R.id.companyToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(companyName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mprogressdialog = new ProgressDialog(this);
+        mprogressdialog.setCanceledOnTouchOutside(false);
+        mprogressdialog.setTitle("please wait while we load the data");
+        mprogressdialog.setMessage("fetching data");
+        mprogressdialog.show();
 
         PartnoRecycler = findViewById(R.id.partnoRecycler);
         PartnoRecycler.setHasFixedSize(true);
@@ -88,12 +96,15 @@ public class CompanyActivity extends AppCompatActivity {
                     partNoList.add(partNo);
                 }
                 adapter.notifyDataSetChanged();
+                mprogressdialog.dismiss();
 
             }
         }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
+            mprogressdialog.dismiss();
+            Toast.makeText(getApplicationContext()  ,"an error occured while fetching data",Toast.LENGTH_SHORT).show();
 
         }
     };

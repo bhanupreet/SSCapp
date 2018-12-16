@@ -1,5 +1,6 @@
 package com.ssc.sscapp;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -22,12 +23,19 @@ public class AddCompActivity extends AppCompatActivity {
     private Button mAddBtn;
     private DatabaseReference mDatabase;
     private DatabaseReference mCompanyRef;
+    private ProgressDialog mprogressdialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_comp);
+
+        mprogressdialog = new ProgressDialog(this);
+        mprogressdialog.setCanceledOnTouchOutside(false);
+        mprogressdialog.setTitle("Please wait while we upload the data");
+        mprogressdialog.setMessage("Uploading data...");
+
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAddBtn = findViewById(R.id.addCompBtn);
@@ -37,12 +45,27 @@ public class AddCompActivity extends AppCompatActivity {
         mAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mprogressdialog.show();
                 String companynamestring = mcompampanyname.getEditText().getText().toString();
+                companynamestring = companynamestring.substring(0,1).toUpperCase() + companynamestring.substring(1).toLowerCase();
                 if(!companynamestring.equals("")) {
                     // DatabaseReference companyref = FirebaseDatabase.getInstance().getReference("Comapnies").push();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference().child("Companies").child(companynamestring);
-                    myRef.child("name").setValue(companynamestring);
+                    myRef.child("name").setValue(companynamestring).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()) {
+                                mprogressdialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Company added successfully", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                mprogressdialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "An error occurred please try again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                 }
 
             }
