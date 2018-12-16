@@ -12,10 +12,15 @@
         android:layout_width="match_parent"></include>
 
     <Button
+        android:id="@+id/main_cataloguebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/catalogue"
-        android:layout_below="@+id/mainAppbar"
-        android:id="@+id/main_cataloguebtn"/>
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="200dp"
+        android:background="@color/colorAccent"
+        android:textColor="#ffffff"
+        android:layout_marginTop="64dp"
+        android:text="@string/catalogue" />
 
 </RelativeLayout>

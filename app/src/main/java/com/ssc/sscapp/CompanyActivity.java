@@ -68,7 +68,7 @@ public class CompanyActivity extends AppCompatActivity {
 
          PartNoRef= FirebaseDatabase.getInstance().getReference().child("Companies").child(companyName);
         Query query = FirebaseDatabase.getInstance()
-                .getReference().child("PartNo").orderByChild("company name").equalTo(companyName);
+                .getReference().child("PartNo").orderByChild("companyname").equalTo(companyName);
 
         addbtn = findViewById(R.id.addpartnoBtn);
         addbtn.setOnClickListener(new View.OnClickListener() {

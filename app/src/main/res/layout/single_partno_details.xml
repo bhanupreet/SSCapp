@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/itemimage_partnoDetaild"
+        android:layout_width="144dp"
+        android:layout_height="143dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="108dp"
+        android:src="@drawable/ic_settings_black_24dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/itemimage_partnoDetaild"
+        android:text="sample part no"
+        android:id="@+id/samplepartno"
+        android:textColor="#212121"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#4141"
+        android:id="@+id/firstline"
+        android:layout_marginTop="120dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/itemimage_partnoDetaild"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OEM Number"
+        android:textSize="18sp"
+        android:layout_marginLeft= "10dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@id/secondline"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="#12344"
+        android:id="@+id/oemnumber"
+        android:textSize="16sp"
+        android:layout_marginLeft= "10dp"
+        android:textColor="#212121"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/secondline"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#4141"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/secondline"
+        android:layout_below="@id/gpnumber"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="APPLICATION"
+        android:textSize="18sp"
+        android:layout_marginLeft= "10dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@id/thirdline"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="#12344"
+        android:textSize="16sp"
+        android:id="@+id/application"
+        android:layout_marginLeft= "10dp"
+        android:textColor="#212121"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/thirdline"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#4141"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/FOURTline"
+        android:layout_below="@id/application"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GP Number"
+        android:textSize="18sp"
+        android:layout_marginLeft= "10dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@id/firstline"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="#12344"
+        android:id="@+id/gpnumber"
+        android:textSize="16sp"
+        android:layout_marginLeft= "10dp"
+        android:textColor="#212121"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/firstline"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#4141"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/fifthline"
+        android:layout_below="@id/Model"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MODEL"
+        android:textSize="18sp"
+        android:layout_marginLeft= "10dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@id/FOURTline"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="#12344"
+        android:id="@+id/Model"
+        android:textSize="16sp"
+        android:layout_marginLeft= "10dp"
+        android:textColor="#212121"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/FOURTline"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#4141"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/thirdline"
+        android:layout_below="@id/oemnumber"/>
+</RelativeLayout>

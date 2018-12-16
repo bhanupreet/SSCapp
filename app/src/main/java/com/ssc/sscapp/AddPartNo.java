@@ -16,6 +16,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class AddPartNo extends AppCompatActivity {
@@ -54,12 +55,19 @@ public class AddPartNo extends AppCompatActivity {
                 partno= partno.substring(0,1).toUpperCase() + partno.substring(1).toLowerCase();
 
                 if(!partno.equals("")) {
+                    HashMap<String, Object> result = new HashMap<>();
+                    result.put("companyname", companyname);
+                    result.put("name", partno);
+                    result.put("gpNumber", "default gp number");
+                    result.put("oemNumber", "default oem number");
+                    result.put("application", "default apliction");
+                    result.put("model", "default model");
+                    result.put("image","default image");
+
                     // DatabaseReference companyref = FirebaseDatabase.getInstance().getReference("Comapnies").push();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference().child("PartNo").child(partno).child("company name");
-                    myRef.setValue(companyname);
-                    DatabaseReference myRef2 = database.getReference().child("PartNo").child(partno).child("name");
-                    myRef2.setValue(partno).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    DatabaseReference myRef = database.getReference().child("PartNo").child(partno);
+                    myRef.setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
