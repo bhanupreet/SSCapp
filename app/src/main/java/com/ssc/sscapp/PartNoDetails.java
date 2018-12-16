@@ -1,6 +1,7 @@
 package com.ssc.sscapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -35,7 +36,7 @@ public class PartNoDetails extends AppCompatActivity {
     private RecyclerView PartnoRecycler;
     private List<PartNo> partNoList;
     private PartNoAdapter adapter;
-    private String partno;
+    private String partnorefsrtring;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +49,18 @@ public class PartNoDetails extends AppCompatActivity {
         maddbtn =   findViewById(R.id.add_partnoDetails_btn);
         mToolbar = findViewById(R.id.partnodetails_toolbar);
         setSupportActionBar(mToolbar);
-        partno = getIntent().getStringExtra("partnorefstring");
-        getSupportActionBar().setTitle(partno);
+        partnorefsrtring = getIntent().getStringExtra("partnorefstring");
+        getSupportActionBar().setTitle(partnorefsrtring);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        maddbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addintent = new Intent(getApplicationContext(),addPartnoDetailsActivity.class);
+                addintent.putExtra("partnorefstring",partnorefsrtring);
+                startActivity(addintent);
+            }
+        });
 
         PartnoRecycler.setHasFixedSize(true);
         PartnoRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -63,7 +71,7 @@ public class PartNoDetails extends AppCompatActivity {
 
 
         Query query = FirebaseDatabase.getInstance()
-                .getReference().child("PartNo").orderByChild("name").equalTo(partno);
+                .getReference().child("PartNo").orderByChild("name").equalTo(partnorefsrtring);
 
 
         query.addValueEventListener(valueEventListener);
@@ -114,6 +122,7 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
             partNoViewHolder.mApplication.setText(partNo.application);
             partNoViewHolder.mModel.setText(partNo.model);
             partNoViewHolder.moemnumber.setText(partNo.oemNumber);
+            partNoViewHolder.mSamplePartNo.setText(partnorefsrtring);
             Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
 
         }
@@ -130,7 +139,7 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
         ImageView mItemImage;
         public PartNoViewHolder(@NonNull View itemView) {
             super(itemView);
-            mSamplePartNo = findViewById(R.id.samplepartno);
+            mSamplePartNo = itemView.findViewById(R.id.samplepartno);
             mGPnumber = itemView.findViewById(R.id.gpnumber);
             moemnumber = itemView.findViewById(R.id.oemnumber);
             mApplication = itemView.findViewById(R.id.application);

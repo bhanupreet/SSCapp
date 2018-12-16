@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/itemimage_partnoDetaild"
-        android:text="sample part no"
+        android:text="@string/sample_part_no"
         android:id="@+id/samplepartno"
         android:textColor="#212121"
         android:layout_marginTop="20dp"
@@ -61,7 +61,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="APPLICATION"
+        android:text="Application"
         android:textSize="18sp"
         android:layout_marginLeft= "10dp"
         android:layout_marginTop="4dp"
@@ -117,7 +117,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MODEL"
+        android:text="Model"
         android:textSize="18sp"
         android:layout_marginLeft= "10dp"
         android:layout_marginTop="4dp"

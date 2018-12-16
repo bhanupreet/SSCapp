@@ -2,4 +2,8 @@
     <string name="app_name">SSCapp</string>
     <string name="catalogue">Catalogue</string>
     <string name="title_activity_company">CompanyActivity</string>
+    <string name="oem_number">OEM Number</string>
+    <string name="gp_number">GP number</string>
+    <string name="application">Application</string>
+    <string name="sample_part_no">sample part no</string>
 </resources>
