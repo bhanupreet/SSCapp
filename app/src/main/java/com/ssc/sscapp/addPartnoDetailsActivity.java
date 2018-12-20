@@ -35,15 +35,23 @@ import id.zelory.compressor.Compressor;
 
 public class addPartnoDetailsActivity extends AppCompatActivity {
 
-    private TextInputLayout mGPnumber, mOEMnumber, mApplication, mModel;
-    private String gpnumber, oemnumner, application, model, partnorefstring;
+    private TextInputLayout mSamplePartNo, mSSS_code, mreference, mModel, msuitable_for, mPrice, mCost_price;
+    private String SSCcode, reference, suitable_for, model, partnorefstring, price, cost_price;
+    private String ssccoderefstring,referencestring,suitableforstring,pricestring,costpricestring,modelstring;
     private Button mAddBtn, mUploadimagebtn;
     private android.support.v7.widget.Toolbar mToolbar;
     private ProgressDialog mProgressDialaog;
     private StorageReference mImageStorage;
-    private String downloadUrl="";
+    private String downloadUrl = "";
     private TextView resultdisplay;
 
+    //retrieve part details also done
+    //price change for all objects 
+    //photo open in new activity
+    //truck photo , truck parts in main acrtivity
+    //contact us page
+    //change name to ssc truck parts (satnam sales corporation ) in main activity
+    //watermark
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +59,28 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_partno_details);
 
         partnorefstring = getIntent().getStringExtra("partnorefstring");
+        ssccoderefstring = getIntent().getStringExtra("ssccoderefstring");
+        referencestring = getIntent().getStringExtra("referencestring");
+        suitableforstring = getIntent().getStringExtra("suitableforstring");
+        pricestring = getIntent().getStringExtra("pricestring");
+        costpricestring = getIntent().getStringExtra("costpricestring");
+        modelstring = getIntent().getStringExtra("modelstring");
 
-        mGPnumber = findViewById(R.id.gpnumberinput);
-        mOEMnumber = findViewById(R.id.oemnumberinput);
-        mApplication = findViewById(R.id.applicationinput);
+        // mSamplePartNo = findViewById(R.id.samplepartno);
+        mSSS_code = findViewById(R.id.ssc_code_input);
+        mreference = findViewById(R.id.reference_input);
+        msuitable_for = findViewById(R.id.suitablefor_input);
+        mPrice = findViewById(R.id.price_input);
+        mCost_price = findViewById(R.id.cost_price_input);
+        mModel = findViewById(R.id.modelinput);
+
+        mSSS_code.getEditText().setText(ssccoderefstring);
+        mreference.getEditText().setText(referencestring);
+        msuitable_for.getEditText().setText(suitableforstring);
+        mPrice.getEditText().setText(pricestring);
+        mCost_price.getEditText().setText(costpricestring);
+        mModel.getEditText().setText(modelstring);
+
         mModel = findViewById(R.id.modelinput);
         mAddBtn = findViewById(R.id.addpartnodetails_addbtn);
         mUploadimagebtn = findViewById(R.id.uploadimagebtn);
@@ -67,27 +93,44 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
+        //retreive details from firebase and set them here
+
         mAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // mprogressdialog.show();
-                gpnumber = mGPnumber.getEditText().getText().toString();
-                oemnumner = mOEMnumber.getEditText().getText().toString();
-                application = mApplication.getEditText().getText().toString();
+                SSCcode = mSSS_code.getEditText().getText().toString();
+                reference = mreference.getEditText().getText().toString();
+                suitable_for = msuitable_for.getEditText().getText().toString();
+                price = mPrice.getEditText().getText().toString();
+                cost_price = mCost_price.getEditText().getText().toString();
                 model = mModel.getEditText().getText().toString();
+
                 HashMap<String, Object> result = new HashMap<>();
-                if (!gpnumber.equals("")) {
-                    result.put("gpNumber", gpnumber);
+
+                if (!SSCcode.equals("")) {
+                    result.put("ssc_code", SSCcode);
                 }
-                if (!oemnumner.equals("")) {
-                    result.put("oemNumber", oemnumner);
+
+                if (!reference.equals("")) {
+                    result.put("reference", reference);
                 }
-                if (!application.equals("")) {
-                    result.put("application", application);
+                if (!suitable_for.equals("")) {
+                    result.put("suitable_for", suitable_for);
                 }
+
+                if (!price.equals("")) {
+                    result.put("price", "N.A");
+                }
+
+                if (!cost_price.equals("")) {
+                    result.put("cost_price", "N.A.");
+                }
+
                 if (!model.equals("")) {
                     result.put("model", model);
                 }
+
                 if (!downloadUrl.equals("")) {
                     result.put("image", downloadUrl);
                 }
@@ -96,28 +139,31 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
                 // DatabaseReference companyref = FirebaseDatabase.getInstance().getReference("Comapnies").push();
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference().child("PartNo").child(partnorefstring);
-                myRef.updateChildren(result).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "details added successfully", Toast.LENGTH_SHORT).show();
-                            // mprogressdialog.dismiss();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "an error occured while uploadig data", Toast.LENGTH_SHORT).show();
-                            // mprogressdialog.dismiss();
-                        }
+                myRef.updateChildren(result).
 
-                    }
-                });
+                        addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(), "details added successfully", Toast.LENGTH_SHORT).show();
+                                    // mprogressdialog.dismiss();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "an error occured while uploadig data", Toast.LENGTH_SHORT).show();
+                                    // mprogressdialog.dismiss();
+                                }
+
+                            }
+                        });
             }
 
         });
 
-        mUploadimagebtn.setOnClickListener(new View.OnClickListener() {
+        mUploadimagebtn.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
                 CropImage.activity()
-                        .setAspectRatio(1, 1)
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(addPartnoDetailsActivity.this);
             }

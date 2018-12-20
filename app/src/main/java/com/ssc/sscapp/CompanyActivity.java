@@ -55,7 +55,7 @@ public class CompanyActivity extends AppCompatActivity {
         mprogressdialog.setCanceledOnTouchOutside(false);
         mprogressdialog.setTitle("please wait while we load the data");
         mprogressdialog.setMessage("fetching data");
-        mprogressdialog.show();
+
 
         PartnoRecycler = findViewById(R.id.partnoRecycler);
         PartnoRecycler.setHasFixedSize(true);
@@ -66,7 +66,7 @@ public class CompanyActivity extends AppCompatActivity {
         PartnoRecycler.setAdapter(adapter);
 
 
-         PartNoRef= FirebaseDatabase.getInstance().getReference().child("Companies").child(companyName);
+        PartNoRef= FirebaseDatabase.getInstance().getReference().child("Companies").child(companyName);
         Query query = FirebaseDatabase.getInstance()
                 .getReference().child("PartNo").orderByChild("companyname").equalTo(companyName);
 
@@ -79,8 +79,10 @@ public class CompanyActivity extends AppCompatActivity {
                 startActivity(AddIntent);
             }
         });
+        mprogressdialog.show();
 
         query.addValueEventListener(valueEventListener);
+
 
 
         //mCompanyRef = FirebaseDatabase.getInstance().getReference().child("Companies");
@@ -91,11 +93,17 @@ public class CompanyActivity extends AppCompatActivity {
         public void onDataChange(DataSnapshot dataSnapshot) {
             partNoList.clear();
             if (dataSnapshot.exists()) {
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                      PartNo partNo= snapshot.getValue(PartNo.class);
                     partNoList.add(partNo);
                 }
                 adapter.notifyDataSetChanged();
+                mprogressdialog.dismiss();
+
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"no parts found",Toast.LENGTH_SHORT).show();
                 mprogressdialog.dismiss();
 
             }

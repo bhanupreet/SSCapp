@@ -58,11 +58,13 @@ public class AddPartNo extends AppCompatActivity {
                     HashMap<String, Object> result = new HashMap<>();
                     result.put("companyname", companyname);
                     result.put("name", partno);
-                    result.put("gpNumber", "default gp number");
-                    result.put("oemNumber", "default oem number");
-                    result.put("application", "default apliction");
-                    result.put("model", "default model");
+                    result.put("ssc_code", "default ssc code");
+                    result.put("reference", "default reference");
+                    result.put("suitable_for", "default");
+                    result.put("model", "default model/size");
                     result.put("image","default image");
+                    result.put("price","N.A");
+                    result.put("cost_price","N.A.");
 
                     // DatabaseReference companyref = FirebaseDatabase.getInstance().getReference("Comapnies").push();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();

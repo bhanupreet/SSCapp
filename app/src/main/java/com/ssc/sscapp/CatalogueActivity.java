@@ -99,14 +99,20 @@ public class CatalogueActivity extends AppCompatActivity {
         public void onDataChange(DataSnapshot dataSnapshot) {
             companiesList.clear();
             if (dataSnapshot.exists()) {
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Companies companies = snapshot.getValue(Companies.class);
                     companiesList.add(companies);
                 }
                 adapter.notifyDataSetChanged();
-                mprogressdialog.dismiss();
+
 
             }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"no companies found",Toast.LENGTH_SHORT).show();
+            }
+            mprogressdialog.dismiss();
         }
 
         @Override

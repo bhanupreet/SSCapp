@@ -7,7 +7,7 @@
     tools:context=".AddCompActivity">
 
     <include layout="@layout/appbar"
-        android:id="@+id/status_app_bar"
+        android:id="@+id/addcomp_app_bar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"></include>
 
@@ -15,7 +15,7 @@
         android:id="@+id/name_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/status_app_bar"
+        android:layout_below="@+id/addcomp_app_bar"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

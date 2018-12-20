@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -13,11 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-
         <activity
             android:name=".CatalogueActivity"
             android:parentActivityName=".MainActivity" />
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,30 +24,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".AddCompActivity"
             android:parentActivityName=".CatalogueActivity" />
-
         <activity
             android:name=".CompanyActivity"
             android:label="@string/title_activity_company"
             android:parentActivityName=".CatalogueActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".AddPartNo"
             android:parentActivityName=".CompanyActivity" />
-
         <activity
             android:name=".PartNoDetails"
             android:parentActivityName=".CompanyActivity" />
-
-        <activity android:name=".addPartnoDetailsActivity"
-            android:parentActivityName=".PartNoDetails"/>
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity
+            android:name=".addPartnoDetailsActivity"
+            android:parentActivityName=".PartNoDetails" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".AboutUsActivity"></activity>
     </application>
 
 </manifest>

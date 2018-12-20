@@ -36,7 +36,7 @@ public class PartNoDetails extends AppCompatActivity {
     private RecyclerView PartnoRecycler;
     private List<PartNo> partNoList;
     private PartNoAdapter adapter;
-    private String partnorefsrtring;
+    private String partnorefsrtring,ssccoderefstring,referencestring,suitableforstring,pricestring,costpricestring,modelstring;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,12 @@ public class PartNoDetails extends AppCompatActivity {
             public void onClick(View v) {
                 Intent addintent = new Intent(getApplicationContext(),addPartnoDetailsActivity.class);
                 addintent.putExtra("partnorefstring",partnorefsrtring);
+                addintent.putExtra("ssccoderefstring",ssccoderefstring);
+                addintent.putExtra("referencestring",referencestring);
+                addintent.putExtra("suitableforstring",suitableforstring);
+                addintent.putExtra("pricestring",pricestring);
+                addintent.putExtra("costpricestring",costpricestring);
+                addintent.putExtra("modelstring",modelstring);
                 startActivity(addintent);
             }
         });
@@ -111,18 +117,28 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
         @Override
         public PartNoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
-            View view = LayoutInflater.from(mctx).inflate(R.layout.single_partno_details, parent, false);
+            View view = LayoutInflater.from(mctx).inflate(R.layout.single_partnodetails, parent, false);
             return new PartNoViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull PartNoViewHolder partNoViewHolder, final int i) {
             PartNo partNo = partNoList.get(i);
-            partNoViewHolder.mGPnumber.setText(partNo.gpNumber);
-            partNoViewHolder.mApplication.setText(partNo.application);
+            partNoViewHolder.mSamplePartNo.setText(partNo.name);
+            partNoViewHolder.mSSc_code.setText(partNo.ssc_code);
+            partNoViewHolder.mreference.setText(partNo.reference);
+            partNoViewHolder.msuitable_for.setText(partNo.suitable_for);
+            partNoViewHolder.mPrice.setText(partNo.price);
+            partNoViewHolder.mCost_price.setText(partNo.cost_price);
             partNoViewHolder.mModel.setText(partNo.model);
-            partNoViewHolder.moemnumber.setText(partNo.oemNumber);
-            partNoViewHolder.mSamplePartNo.setText(partnorefsrtring);
+
+            ssccoderefstring = partNo.ssc_code;
+            referencestring = partNo.reference;
+            suitableforstring = partNo.suitable_for;
+            pricestring = partNo.price;
+            costpricestring = partNo.cost_price;
+            modelstring = partNo.model;
+
             Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
 
         }
@@ -135,15 +151,17 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
 
     private class PartNoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView  mGPnumber, moemnumber, mApplication, mModel,mSamplePartNo;
+        TextView  mSSc_code, mreference, msuitable_for, mModel,mSamplePartNo,mPrice,mCost_price;
         ImageView mItemImage;
         public PartNoViewHolder(@NonNull View itemView) {
             super(itemView);
             mSamplePartNo = itemView.findViewById(R.id.samplepartno);
-            mGPnumber = itemView.findViewById(R.id.gpnumber);
-            moemnumber = itemView.findViewById(R.id.oemnumber);
-            mApplication = itemView.findViewById(R.id.application);
-            mModel = itemView.findViewById(R.id.Model);
+            mSSc_code = itemView.findViewById(R.id.ssc_code);
+            mreference = itemView.findViewById(R.id.reference);
+            msuitable_for = itemView.findViewById(R.id.suitablefor);
+            mPrice = itemView.findViewById(R.id.price);
+            mCost_price = itemView.findViewById(R.id.cost_price);
+            mModel = itemView.findViewById(R.id.model);
             mItemImage =   itemView.findViewById(R.id.itemimage_partnoDetaild);
 
         }

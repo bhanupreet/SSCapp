@@ -5,5 +5,7 @@
     <string name="oem_number">OEM Number</string>
     <string name="gp_number">GP number</string>
     <string name="application">Application</string>
-    <string name="sample_part_no">sample part no</string>
+    <string name="sample_part_no">Sample part no</string>
+    <string name="reference">Reference</string>
+    <string name="_12344">#12344</string>
 </resources>

@@ -11,7 +11,7 @@ import com.google.firebase.FirebaseApp;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button catalogbtn;
+    private Button catalogbtn,aboutusbtn, faqbtn;
     private android.support.v7.widget.Toolbar mainAppbar;
 
     @Override
@@ -21,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         catalogbtn = findViewById(R.id.main_cataloguebtn);
+        aboutusbtn = findViewById(R.id.aboutusbtn);
+        faqbtn = findViewById(R.id.faqbtn);
         mainAppbar = findViewById(R.id.mainAppbar);
+
         setSupportActionBar(mainAppbar);
         getSupportActionBar().setTitle("SSC");
 
@@ -32,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(CatalogueIntent);
             }
         });
+
+        aboutusbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent CatalogueIntent = new Intent(getApplicationContext(),AboutUsActivity.class);
+                startActivity(CatalogueIntent);
+            }
+        });
+
+
 
 
     }
