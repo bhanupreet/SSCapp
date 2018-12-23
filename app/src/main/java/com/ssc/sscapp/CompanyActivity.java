@@ -36,7 +36,7 @@ public class CompanyActivity extends AppCompatActivity {
     private PartNoAdapter adapter;
     private FloatingActionButton addbtn;
     private DatabaseReference PartNoRef;
-    private String partnorefstring;
+    private String partnorefstring,companyName;
     private ProgressDialog mprogressdialog;
 
 
@@ -44,7 +44,9 @@ public class CompanyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
-        final String companyName = getIntent().getStringExtra("Company name");
+
+        companyName = getIntent().getStringExtra("Company name");
+
         //Toast.makeText(this,companyName,Toast.LENGTH_SHORT).show();
         Toolbar toolbar = findViewById(R.id.companyToolbar);
         setSupportActionBar(toolbar);
@@ -64,7 +66,6 @@ public class CompanyActivity extends AppCompatActivity {
         partNoList = new ArrayList<>();
         adapter = new PartNoAdapter(this, partNoList);
         PartnoRecycler.setAdapter(adapter);
-
 
         PartNoRef= FirebaseDatabase.getInstance().getReference().child("Companies").child(companyName);
         Query query = FirebaseDatabase.getInstance()
@@ -144,6 +145,7 @@ public class CompanyActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     partnorefstring = partNoList.get(i).name;
                     Intent profileIntent = new Intent(CompanyActivity.this, PartNoDetails.class);
+                    profileIntent.putExtra("Company name",companyName);
                     profileIntent.putExtra("partnorefstring", partnorefstring);
                     startActivity(profileIntent);
                 }

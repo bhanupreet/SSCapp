@@ -37,7 +37,8 @@
             android:parentActivityName=".CompanyActivity" />
         <activity
             android:name=".PartNoDetails"
-            android:parentActivityName=".CompanyActivity" />
+            android:parentActivityName=".CompanyActivity"
+            />
         <activity
             android:name=".addPartnoDetailsActivity"
             android:parentActivityName=".PartNoDetails" />

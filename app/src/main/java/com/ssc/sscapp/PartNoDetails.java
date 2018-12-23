@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -36,7 +39,7 @@ public class PartNoDetails extends AppCompatActivity {
     private RecyclerView PartnoRecycler;
     private List<PartNo> partNoList;
     private PartNoAdapter adapter;
-    private String partnorefsrtring,ssccoderefstring,referencestring,suitableforstring,pricestring,costpricestring,modelstring;
+    private String partnorefsrtring,ssccoderefstring,referencestring,suitableforstring,pricestring,costpricestring,modelstring,imagestring,companyName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +47,27 @@ public class PartNoDetails extends AppCompatActivity {
         setContentView(R.layout.activity_part_no_details);
 
 
+        partnorefsrtring = getIntent().getStringExtra("partnorefstring");
+       companyName = getIntent().getStringExtra("Company name");
 
         PartnoRecycler = findViewById(R.id.partnodetailsReycler);
         maddbtn =   findViewById(R.id.add_partnoDetails_btn);
         mToolbar = findViewById(R.id.partnodetails_toolbar);
         setSupportActionBar(mToolbar);
-        partnorefsrtring = getIntent().getStringExtra("partnorefstring");
         getSupportActionBar().setTitle(partnorefsrtring);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent mainintent = new Intent(PartNoDetails.this, CompanyActivity.class);
+                mainintent.putExtra("Company name", companyName);
+                mainintent.putExtra("partnorefstring",partnorefsrtring);
+                startActivity(mainintent);
+                // perform whatever you want on back arrow click
+            }
+        });
 
         maddbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +80,8 @@ public class PartNoDetails extends AppCompatActivity {
                 addintent.putExtra("pricestring",pricestring);
                 addintent.putExtra("costpricestring",costpricestring);
                 addintent.putExtra("modelstring",modelstring);
+                addintent.putExtra("image",imagestring);
+                addintent.putExtra("Company name",companyName);
                 startActivity(addintent);
             }
         });
@@ -104,6 +122,8 @@ public class PartNoDetails extends AppCompatActivity {
         }
     };
 
+
+
 private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
         private Context mctx;
         private List<PartNo> partNoList;
@@ -132,14 +152,16 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
             partNoViewHolder.mCost_price.setText(partNo.cost_price);
             partNoViewHolder.mModel.setText(partNo.model);
 
+            Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
+
             ssccoderefstring = partNo.ssc_code;
             referencestring = partNo.reference;
             suitableforstring = partNo.suitable_for;
             pricestring = partNo.price;
             costpricestring = partNo.cost_price;
             modelstring = partNo.model;
-
-            Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
+            imagestring = partNo.image;
+            companyName = partNo.companyname;
 
         }
 
