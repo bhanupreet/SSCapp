@@ -98,6 +98,15 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(partnorefstring);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainintent = new Intent(addPartnoDetailsActivity.this, PartNoDetails.class);
+                mainintent.putExtra("Company name", companynamestring);
+                mainintent.putExtra("partnorefstring",partnorefstring);
+                startActivity(mainintent);
+            }
+        });
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
@@ -170,7 +179,7 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
                         });
 
 
-                Intent mainintent = new Intent(addPartnoDetailsActivity.this, CompanyActivity.class);
+                Intent mainintent = new Intent(addPartnoDetailsActivity.this, PartNoDetails.class);
                 mainintent.putExtra("Company name", companynamestring);
                 mainintent.putExtra("partnorefstring",nameinput);
                 startActivity(mainintent);
