@@ -1,6 +1,7 @@
 package com.ssc.sscapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +37,20 @@ public class AddPartNo extends AppCompatActivity {
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle("Part No");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final String companyname = getIntent().getStringExtra("Company name");
+
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainintent = new Intent(AddPartNo.this, CompanyActivity.class);
+                mainintent.putExtra("Company name", companyname);
+//                    mainintent.putExtra("partnorefstring",partnorefstring);
+                startActivity(mainintent);
+            }
+        });
+
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAddBtn = findViewById(R.id.addpartnoBtn_activity);
         FirebaseApp.initializeApp(this);

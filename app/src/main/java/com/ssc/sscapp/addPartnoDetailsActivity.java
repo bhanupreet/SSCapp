@@ -120,7 +120,6 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
                 cost_price = mCost_price.getEditText().getText().toString();
                 model = mModel.getEditText().getText().toString();
                 nameinput = mNameinput.getEditText().getText().toString();
-
                 HashMap<String, Object> result = new HashMap<>();
 
                 if (!SSCcode.equals("")) {

@@ -1,6 +1,7 @@
 package com.ssc.sscapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,14 @@ public class AddCompActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Add Company");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainintent = new Intent(AddCompActivity.this, CatalogueActivity.class);
+                startActivity(mainintent);
+            }
+        });
 
         mprogressdialog = new ProgressDialog(this);
         mprogressdialog.setCanceledOnTouchOutside(false);

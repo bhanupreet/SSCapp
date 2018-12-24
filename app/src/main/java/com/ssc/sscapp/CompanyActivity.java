@@ -38,6 +38,7 @@ public class CompanyActivity extends AppCompatActivity {
     private DatabaseReference PartNoRef;
     private String partnorefstring,companyName;
     private ProgressDialog mprogressdialog;
+    private Toolbar mtoolbar;
 
 
     @Override
@@ -48,10 +49,19 @@ public class CompanyActivity extends AppCompatActivity {
         companyName = getIntent().getStringExtra("Company name");
 
         //Toast.makeText(this,companyName,Toast.LENGTH_SHORT).show();
-        Toolbar toolbar = findViewById(R.id.companyToolbar);
-        setSupportActionBar(toolbar);
+        mtoolbar = findViewById(R.id.companyToolbar);
+        setSupportActionBar(mtoolbar);
         getSupportActionBar().setTitle(companyName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainintent = new Intent(CompanyActivity.this, CatalogueActivity.class);
+                mainintent.putExtra("Company name", companyName);
+                mainintent.putExtra("partnorefstring",partnorefstring);
+                startActivity(mainintent);
+            }
+        });
 
         mprogressdialog = new ProgressDialog(this);
         mprogressdialog.setCanceledOnTouchOutside(false);
