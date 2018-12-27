@@ -1,9 +1,8 @@
 package com.ssc.sscapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,7 +11,7 @@ import com.google.firebase.FirebaseApp;
 public class MainActivity extends AppCompatActivity {
 
     private Button catalogbtn,aboutusbtn, faqbtn;
-    private android.support.v7.widget.Toolbar mainAppbar;
+    private androidx.appcompat.widget.Toolbar mainAppbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,12 +9,12 @@
     <include layout="@layout/appbar" android:layout_height="wrap_content" android:layout_width="match_parent"
         android:id="@+id/partnodetails_toolbar"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/partnodetails_toolbar"
-        android:id="@+id/partnodetailsReycler"></android.support.v7.widget.RecyclerView>
-    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/partnodetailsReycler"></androidx.recyclerview.widget.RecyclerView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"

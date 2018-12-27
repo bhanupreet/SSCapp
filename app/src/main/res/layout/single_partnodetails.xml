@@ -7,7 +7,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp">
-
         <ImageView
             android:id="@+id/itemimage_partnoDetaild"
             android:layout_width="280dp"

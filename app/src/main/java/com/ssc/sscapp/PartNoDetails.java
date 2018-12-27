@@ -2,24 +2,22 @@ package com.ssc.sscapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+
+import com.github.chrisbanes.photoview.PhotoView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,7 +46,7 @@ public class PartNoDetails extends AppCompatActivity {
 
 
         partnorefsrtring = getIntent().getStringExtra("partnorefstring");
-       companyName = getIntent().getStringExtra("Company name");
+        companyName = getIntent().getStringExtra("Company name");
 
         PartnoRecycler = findViewById(R.id.partnodetailsReycler);
         maddbtn =   findViewById(R.id.add_partnoDetails_btn);
@@ -143,7 +141,7 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
 
         @Override
         public void onBindViewHolder(@NonNull PartNoViewHolder partNoViewHolder, final int i) {
-            PartNo partNo = partNoList.get(i);
+            final PartNo partNo = partNoList.get(i);
             partNoViewHolder.mSamplePartNo.setText(partNo.name);
             partNoViewHolder.mSSc_code.setText(partNo.ssc_code);
             partNoViewHolder.mreference.setText(partNo.reference);
@@ -153,6 +151,19 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
             partNoViewHolder.mModel.setText(partNo.model);
 
             Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
+
+            if(!partNo.image.equals("default image")) {
+                partNoViewHolder.mItemImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent picIntent = new Intent(PartNoDetails.this, imageActivity.class);
+                        picIntent.putExtra("image", partNo.image);
+                        picIntent.putExtra("partnorefstring", partNo.name);
+                        picIntent.putExtra("Company name", partNo.companyname);
+                        startActivity(picIntent);
+                    }
+                });
+            }
 
             ssccoderefstring = partNo.ssc_code;
             referencestring = partNo.reference;

@@ -2,11 +2,11 @@ package com.ssc.sscapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class AddPartNo extends AppCompatActivity {
     private TextInputLayout mpartno;
@@ -45,7 +44,7 @@ public class AddPartNo extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mainintent = new Intent(AddPartNo.this, CompanyActivity.class);
                 mainintent.putExtra("Company name", companyname);
-//                    mainintent.putExtra("partnorefstring",partnorefstring);
+//              mainintent.putExtra("partnorefstring",partnorefstring);
                 startActivity(mainintent);
             }
         });
@@ -89,6 +88,10 @@ public class AddPartNo extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast.makeText(getApplicationContext()  ,"part no added successfully",Toast.LENGTH_SHORT).show();
                                 mprogressdialog.dismiss();
+                                Intent mainintent = new Intent(AddPartNo.this, CompanyActivity.class);
+                                mainintent.putExtra("Company name", companyname);
+//              mainintent.putExtra("partnorefstring",partnorefstring);
+                                startActivity(mainintent);
                             }
                             else
                             {

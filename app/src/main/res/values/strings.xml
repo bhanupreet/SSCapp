@@ -8,4 +8,8 @@
     <string name="sample_part_no">Sample part no</string>
     <string name="reference">Reference</string>
     <string name="_12344">#12344</string>
+
+    <string name="title_activity_image">imageActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

@@ -1,21 +1,21 @@
 package com.ssc.sscapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,20 +27,15 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-
-import id.zelory.compressor.Compressor;
 
 public class addPartnoDetailsActivity extends AppCompatActivity {
 
     private TextInputLayout mSamplePartNo, mSSS_code, mreference, mModel, msuitable_for, mPrice, mCost_price, mNameinput;
     private String SSCcode, reference, suitable_for, model, partnorefstring, price, cost_price;
     private String ssccoderefstring, referencestring, suitableforstring, pricestring, costpricestring, modelstring, nameinput, companynamestring, imagestring = " ";
-    private Button mAddBtn, mUploadimagebtn;
-    private android.support.v7.widget.Toolbar mToolbar;
+    private Button mAddBtn, mUploadimagebtn,mDeletebtn;
+    private androidx.appcompat.widget.Toolbar mToolbar;
     private ProgressDialog mProgressDialaog;
     private StorageReference mImageStorage;
     private String downloadUrl = "";
@@ -91,6 +86,7 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         mAddBtn = findViewById(R.id.addpartnodetails_addbtn);
         mUploadimagebtn = findViewById(R.id.uploadimagebtn);
         resultdisplay = findViewById(R.id.result);
+        mDeletebtn = findViewById(R.id.partnodetails_deletebtn);
 
         resultdisplay.setText(imagestring);
 
@@ -107,6 +103,8 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
                 startActivity(mainintent);
             }
         });
+
+
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
@@ -196,7 +194,40 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
                         .start(addPartnoDetailsActivity.this);
             }
         });
+
+        mDeletebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(addPartnoDetailsActivity.this);
+
+                alert.setTitle("Delete entry");
+                alert.setMessage("Are you sure you want to delete?");
+                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        FirebaseDatabase.getInstance().getReference().child("PartNo").child(partnorefstring).removeValue();
+                        Intent profileIntent = new Intent(addPartnoDetailsActivity.this, CompanyActivity.class);
+                        profileIntent.putExtra("Company name", companynamestring);
+                        startActivity(profileIntent);
+
+
+                    }
+                });
+                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // close dialog
+                        dialog.cancel();
+                    }
+                });
+                alert.show();
+            }
+        });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
