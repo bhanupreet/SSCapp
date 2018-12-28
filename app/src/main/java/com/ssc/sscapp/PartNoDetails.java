@@ -151,6 +151,10 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
             partNoViewHolder.mModel.setText(partNo.model);
 
             Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
+            partNoViewHolder.mWatermark.setImageResource(R.drawable.watemark);
+            partNoViewHolder.mWatermark.setAlpha(0.5f);
+
+
 
             if(!partNo.image.equals("default image")) {
                 partNoViewHolder.mItemImage.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +165,17 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
                         picIntent.putExtra("partnorefstring", partNo.name);
                         picIntent.putExtra("Company name", partNo.companyname);
                         startActivity(picIntent);
+                    }
+                });
+                partNoViewHolder.mWatermark.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent picIntent = new Intent(PartNoDetails.this, imageActivity.class);
+                        picIntent.putExtra("image", partNo.image);
+                        picIntent.putExtra("partnorefstring", partNo.name);
+                        picIntent.putExtra("Company name", partNo.companyname);
+                        startActivity(picIntent);
+
                     }
                 });
             }
@@ -185,9 +200,10 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
     private class PartNoViewHolder extends RecyclerView.ViewHolder {
 
         TextView  mSSc_code, mreference, msuitable_for, mModel,mSamplePartNo,mPrice,mCost_price;
-        ImageView mItemImage;
+        ImageView mItemImage,mWatermark;
         public PartNoViewHolder(@NonNull View itemView) {
             super(itemView);
+            mWatermark = itemView.findViewById(R.id.watermark);
             mSamplePartNo = itemView.findViewById(R.id.samplepartno);
             mSSc_code = itemView.findViewById(R.id.ssc_code);
             mreference = itemView.findViewById(R.id.reference);

@@ -6,10 +6,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,21 +38,30 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
     private TextInputLayout mSamplePartNo, mSSS_code, mreference, mModel, msuitable_for, mPrice, mCost_price, mNameinput;
     private String SSCcode, reference, suitable_for, model, partnorefstring, price, cost_price;
     private String ssccoderefstring, referencestring, suitableforstring, pricestring, costpricestring, modelstring, nameinput, companynamestring, imagestring = " ";
-    private Button mAddBtn, mUploadimagebtn,mDeletebtn;
+    private Button mAddBtn, mUploadimagebtn, mDeletebtn;
     private androidx.appcompat.widget.Toolbar mToolbar;
     private ProgressDialog mProgressDialaog;
     private StorageReference mImageStorage;
     private String downloadUrl = "";
     private TextView resultdisplay;
 
-    //retrieve part details also done
-    //photo open in new activity
-    //price change for all objects
 
-    //truck photo , truck parts in main acrtivity
-    //contact us page
-    //change name to ssc truck parts (satnam sales corporation ) in main activity
+    // Done
+    //retrieve part details
+    //part no deletion
     //watermark
+    //photo open in new activity
+
+    //To do
+    //image compression
+    //item search
+    //company deletion
+    //front page    (truck photo , truck parts in main acrtivity)  (change name to ssc truck parts (satnam sales corporation ) in main activity")
+    //contact us page
+    //price updation of all parts (maybe)
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +112,10 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mainintent = new Intent(addPartnoDetailsActivity.this, PartNoDetails.class);
                 mainintent.putExtra("Company name", companynamestring);
-                mainintent.putExtra("partnorefstring",partnorefstring);
+                mainintent.putExtra("partnorefstring", partnorefstring);
                 startActivity(mainintent);
             }
         });
-
 
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
@@ -178,7 +190,7 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
 
                 Intent mainintent = new Intent(addPartnoDetailsActivity.this, PartNoDetails.class);
                 mainintent.putExtra("Company name", companynamestring);
-                mainintent.putExtra("partnorefstring",nameinput);
+                mainintent.putExtra("partnorefstring", nameinput);
                 startActivity(mainintent);
             }
 
@@ -209,6 +221,10 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                         FirebaseDatabase.getInstance().getReference().child("PartNo").child(partnorefstring).removeValue();
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = storage.getReference();
+                        StorageReference desertRef = storageRef.child("itemimages/" + partnorefstring + ".jpg");
+                        desertRef.delete();
                         Intent profileIntent = new Intent(addPartnoDetailsActivity.this, CompanyActivity.class);
                         profileIntent.putExtra("Company name", companynamestring);
                         startActivity(profileIntent);
@@ -226,7 +242,6 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     @Override

@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".imageActivity"
-    android:orientation="vertical">
-    <include layout="@layout/appbar"
-        android:layout_height="wrap_content"
+    tools:context=".imageActivity">
+
+
+    <include
+        android:id="@+id/fullscreenimagappbar"
+        layout="@layout/appbar"
         android:layout_width="match_parent"
-        android:id="@+id/fullscreenimagappbar"></include>
+        android:layout_height="wrap_content"></include>
+
     <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/fullscreenimage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fullscreenimage"/>
+        android:layout_below="@+id/fullscreenimagappbar" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/fullscreenwatermark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fullscreenimagappbar"
+        android:src="@drawable/watemark" />
+</RelativeLayout>
