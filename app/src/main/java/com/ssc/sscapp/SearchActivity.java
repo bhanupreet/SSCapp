@@ -19,7 +19,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 
-public class AboutUsActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
     private Button mUploadimagebtn;
     private Bitmap bitmap2;
     private ImageView testimage,tetwatermark;

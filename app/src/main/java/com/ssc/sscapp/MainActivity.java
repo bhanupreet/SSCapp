@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         aboutusbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent CatalogueIntent = new Intent(getApplicationContext(),AboutUsActivity.class);
+                Intent CatalogueIntent = new Intent(getApplicationContext(),SearchActivity.class);
                 startActivity(CatalogueIntent);
             }
         });

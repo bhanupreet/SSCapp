@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import id.zelory.compressor.Compressor;
 
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +33,9 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class addPartnoDetailsActivity extends AppCompatActivity {
@@ -51,11 +56,13 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
     //part no deletion
     //watermark
     //photo open in new activity
+    //image compression
+    //company deletion
 
     //To do
-    //image compression
+
     //item search
-    //company deletion
+
     //front page    (truck photo , truck parts in main acrtivity)  (change name to ssc truck parts (satnam sales corporation ) in main activity")
     //contact us page
     //price updation of all parts (maybe)
@@ -261,12 +268,28 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
                 mProgressDialaog.setCanceledOnTouchOutside(false);
                 mProgressDialaog.show();
                 Uri resultUri = result.getUri();
-                String display = resultUri.toString();
 
+                File thumb_filepath = new File(resultUri.getPath());
+
+
+                Bitmap thumb_bitmap = null;
+                try {
+                    thumb_bitmap = new Compressor(this)
+                            .setMaxWidth(250)
+                            .setMaxHeight(250)
+                            .setQuality(70)
+                            .compressToBitmap(thumb_filepath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+                thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+                byte[] thumb_byte = baos.toByteArray();
 
                 StorageReference filepath = mImageStorage.child("itemimages").child(partnorefstring + ".jpg");
 
-                UploadTask uploadTask = filepath.putFile(resultUri);
+                UploadTask uploadTask = filepath.putBytes(thumb_byte);
                 uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
