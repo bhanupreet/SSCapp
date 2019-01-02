@@ -83,7 +83,7 @@ public class CompanyActivity extends AppCompatActivity {
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent AddIntent = new Intent(getApplicationContext(), AddPartNo.class);
+                Intent AddIntent = new Intent(CompanyActivity.this, AddPartNo.class);
                 AddIntent.putExtra("Company name",companyName);
                 startActivity(AddIntent);
             }
@@ -112,7 +112,7 @@ public class CompanyActivity extends AppCompatActivity {
 
             }
             else {
-                Toast.makeText(getApplicationContext(),"no parts found",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CompanyActivity.this,"no parts found",Toast.LENGTH_SHORT).show();
                 mprogressdialog.dismiss();
 
             }
@@ -121,7 +121,7 @@ public class CompanyActivity extends AppCompatActivity {
         @Override
         public void onCancelled(DatabaseError databaseError) {
             mprogressdialog.dismiss();
-            Toast.makeText(getApplicationContext()  ,"an error occured while fetching data",Toast.LENGTH_SHORT).show();
+            Toast.makeText(CompanyActivity.this  ,"an error occured while fetching data",Toast.LENGTH_SHORT).show();
 
         }
     };

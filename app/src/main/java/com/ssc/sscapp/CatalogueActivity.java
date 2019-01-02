@@ -58,6 +58,8 @@ public class CatalogueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogue);
 
+//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         CatalogToolbar = findViewById(R.id.catalogueappbar);
         setSupportActionBar(CatalogToolbar);
         getSupportActionBar().setTitle("Catalogue");
@@ -88,7 +90,7 @@ public class CatalogueActivity extends AppCompatActivity {
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent AddIntent = new Intent(getApplicationContext(), AddCompActivity.class);
+                Intent AddIntent = new Intent(CatalogueActivity.this, AddCompActivity.class);
                 startActivity(AddIntent);
             }
         });
@@ -112,7 +114,7 @@ public class CatalogueActivity extends AppCompatActivity {
 
 
             } else {
-                Toast.makeText(getApplicationContext(), "no companies found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CatalogueActivity.this, "no companies found", Toast.LENGTH_SHORT).show();
             }
             mprogressdialog.dismiss();
         }
@@ -120,7 +122,7 @@ public class CatalogueActivity extends AppCompatActivity {
         @Override
         public void onCancelled(DatabaseError databaseError) {
             mprogressdialog.dismiss();
-            Toast.makeText(getApplicationContext(), "an error occured while fetching data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CatalogueActivity.this, "an error occured while fetching data", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -167,11 +169,13 @@ public class CatalogueActivity extends AppCompatActivity {
                 @Override
                 public boolean onLongClick(View v) {
                     AlertDialog.Builder delete = new AlertDialog.Builder(CatalogueActivity.this);
-                    CharSequence options[] = new CharSequence[]{"Delete"};
+                    CharSequence options[] = new CharSequence[]{"Delete","Rename"};
                     delete.setItems(options, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(CatalogueActivity.this);
+                            if (which == 0)
+                            {
+                                AlertDialog.Builder alert = new AlertDialog.Builder(CatalogueActivity.this);
                             alert.setTitle("Delete entry");
                             alert.setMessage("Are you sure you want to delete?");
                             alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -225,6 +229,14 @@ public class CatalogueActivity extends AppCompatActivity {
                             });
                             alert.show();
                         }
+                        if(which==1){
+                                Intent RenameIntent = new Intent(CatalogueActivity.this,RenameCompanyActivity.class);
+                                companyname = CompaniesList.get(i).name;
+                                RenameIntent.putExtra("companyname",companyname);
+                                startActivity(RenameIntent);
+                                finish();
+                            }
+                    }
                     });
 
                     delete.show();

@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity {
         // Splash screen timer
-        private static int SPLASH_TIME_OUT = 3000;
+        private static int SPLASH_TIME_OUT = 2000;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i);
 
                 // close this activity

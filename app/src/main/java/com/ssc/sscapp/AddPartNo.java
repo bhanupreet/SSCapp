@@ -86,7 +86,7 @@ public class AddPartNo extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(getApplicationContext()  ,"part no added successfully",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddPartNo.this ,"part no added successfully",Toast.LENGTH_SHORT).show();
                                 mprogressdialog.dismiss();
                                 Intent mainintent = new Intent(AddPartNo.this, CompanyActivity.class);
                                 mainintent.putExtra("Company name", companyname);
@@ -95,7 +95,7 @@ public class AddPartNo extends AppCompatActivity {
                             }
                             else
                             {
-                                Toast.makeText(getApplicationContext()  ,"an error occured while uploadig data",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddPartNo.this  ,"an error occured while uploadig data",Toast.LENGTH_SHORT).show();
                                 mprogressdialog.dismiss();
                             }
 

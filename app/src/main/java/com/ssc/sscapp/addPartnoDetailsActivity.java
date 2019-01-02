@@ -58,11 +58,10 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
     //photo open in new activity
     //image compression
     //company deletion
+    //company rename
 
     //To do
-
     //item search
-
     //front page    (truck photo , truck parts in main acrtivity)  (change name to ssc truck parts (satnam sales corporation ) in main activity")
     //contact us page
     //price updation of all parts (maybe)
@@ -184,9 +183,9 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
 
-                                    Toast.makeText(getApplicationContext(), "details added successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(addPartnoDetailsActivity.this, "details added successfully", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "an error occured while uploadig data", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(addPartnoDetailsActivity.this, "an error occured while uploadig data", Toast.LENGTH_SHORT).show();
 
                                 }
                                 // mProgressDialaog.dismiss();

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         catalogbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent CatalogueIntent = new Intent(getApplicationContext(),CatalogueActivity.class);
+                Intent CatalogueIntent = new Intent(MainActivity.this,CatalogueActivity.class);
                 startActivity(CatalogueIntent);
             }
         });
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         aboutusbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent CatalogueIntent = new Intent(getApplicationContext(),SearchActivity.class);
+                Intent CatalogueIntent = new Intent(MainActivity.this,SearchActivity.class);
                 startActivity(CatalogueIntent);
             }
         });

@@ -61,7 +61,8 @@ public class AddCompActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mprogressdialog.show();
                 String companynamestring = mcompampanyname.getEditText().getText().toString();
-                companynamestring = companynamestring.substring(0,1).toUpperCase() + companynamestring.substring(1).toLowerCase();
+                companynamestring = toTitleCase(companynamestring);
+                //companynamestring = companynamestring.substring(0,1).toUpperCase() + companynamestring.substring(1).toLowerCase();
                 if(!companynamestring.equals("")) {
                     // DatabaseReference companyref = FirebaseDatabase.getInstance().getReference("Comapnies").push();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -71,13 +72,13 @@ public class AddCompActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()) {
                                 mprogressdialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Company added successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddCompActivity.this, "Company added successfully", Toast.LENGTH_SHORT).show();
                                 Intent mainintent = new Intent(AddCompActivity.this, CatalogueActivity.class);
                                 startActivity(mainintent);
                             }
                             else {
                                 mprogressdialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "An error occurred please try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddCompActivity.this, "An error occurred please try again", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -87,6 +88,16 @@ public class AddCompActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public static String toTitleCase(String givenString) {
+        String[] arr = givenString.split(" ");
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < arr.length; i++) {
+            sb.append(Character.toUpperCase(arr[i].charAt(0)))
+                    .append(arr[i].substring(1)).append(" ");
+        }
+        return sb.toString().trim();
     }
 }
 

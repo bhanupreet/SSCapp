@@ -70,7 +70,7 @@ public class PartNoDetails extends AppCompatActivity {
         maddbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addintent = new Intent(getApplicationContext(),addPartnoDetailsActivity.class);
+                Intent addintent = new Intent(PartNoDetails.this,addPartnoDetailsActivity.class);
                 addintent.putExtra("partnorefstring",partnorefsrtring);
                 addintent.putExtra("ssccoderefstring",ssccoderefstring);
                 addintent.putExtra("referencestring",referencestring);
