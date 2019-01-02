@@ -2,6 +2,7 @@ package com.ssc.sscapp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,9 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,6 +103,92 @@ public class CatalogueActivity extends AppCompatActivity {
         //mCompanyRef = FirebaseDatabase.getInstance().getReference().child("Companies");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.search_actions, menu);
+
+        MenuItem searchViewItem = menu.findItem(R.id.action_search);
+        // Get the SearchView and set the searchable configuration
+        final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final SearchView searchView = (SearchView) searchViewItem.getActionView();
+        searchView.setQueryHint("Search");
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(true);// Do not iconify the widget; expand it by defaul
+
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextChange(String newText) {
+
+                if (newText.equals("")) {
+                    return false;
+                } else {
+                        newText = toTitleCase(newText);
+                        //  search(newText);
+                        // This is your adapter that will be filtered
+
+                        Query query = FirebaseDatabase.getInstance()
+                                .getReference().child("Companies").orderByChild("name");
+                        query.addValueEventListener(search(newText));
+                       // Toast.makeText(getApplicationContext(), "textChanged :" + newText, Toast.LENGTH_LONG).show();
+
+
+                return true;
+            }
+
+            }
+
+            public boolean onQueryTextSubmit(String query) {
+                // **Here you can get the value "query" which is entered in the search box.**
+
+                query = toTitleCase(query);
+             //   search(query);
+                Query query2 = FirebaseDatabase.getInstance()
+                        .getReference().child("Companies").orderByChild("name");
+
+                query2.addValueEventListener(search(query));
+              //  Toast.makeText(getApplicationContext(),"searchvalue :"+query,Toast.LENGTH_LONG).show();
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        return true;
+    }
+
+    public ValueEventListener search(final String searchtext) {
+        ValueEventListener searchvalueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                companiesList.clear();
+                if (dataSnapshot.exists()) {
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Companies companies = snapshot.getValue(Companies.class);
+                        if (companies.name.contains(searchtext)) {
+                            companiesList.add(companies);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+
+
+                } else {
+                    Toast.makeText(CatalogueActivity.this, "no companies found", Toast.LENGTH_SHORT).show();
+                }
+                mprogressdialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                mprogressdialog.dismiss();
+                Toast.makeText(CatalogueActivity.this, "an error occured while fetching data", Toast.LENGTH_SHORT).show();
+
+            }
+
+        };
+        return searchvalueEventListener;
+    }
+
 
     public ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
@@ -127,6 +217,17 @@ public class CatalogueActivity extends AppCompatActivity {
         }
 
     };
+    public static String toTitleCase(String givenString) {
+
+        String[] arr = givenString.split(" ");
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < arr.length; i++) {
+            sb.append(Character.toUpperCase(arr[i].charAt(0)))
+                    .append(arr[i].substring(1)).append(" ");
+        }
+        return sb.toString().trim();
+    }
 
     class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.CompaniesViewHolder> {
 
@@ -263,5 +364,6 @@ public class CatalogueActivity extends AppCompatActivity {
 
             }
         }
+
     }
 }

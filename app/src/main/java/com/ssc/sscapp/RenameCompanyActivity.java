@@ -128,7 +128,9 @@ public class RenameCompanyActivity extends AppCompatActivity {
                     });
 
                 }
-
+                Intent CatalogueIntent = new Intent(RenameCompanyActivity.this, CatalogueActivity.class);
+                startActivity(CatalogueIntent);
+                finish();
             }
 
         });
