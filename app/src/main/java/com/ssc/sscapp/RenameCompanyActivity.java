@@ -50,6 +50,7 @@ public class RenameCompanyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent CatalogueIntent = new Intent(RenameCompanyActivity.this, CatalogueActivity.class);
                 startActivity(CatalogueIntent);
+                finish();
             }
         });
 
@@ -62,63 +63,20 @@ public class RenameCompanyActivity extends AppCompatActivity {
                 if (newname.equals("")) {
                     Toast.makeText(RenameCompanyActivity.this, "Please input a value", Toast.LENGTH_SHORT).show();
                 } else {
-                    FirebaseDatabase.getInstance().getReference().child("Companies").child(oldname).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    FirebaseDatabase.getInstance().getReference().child("Companies").child(oldname).removeValue();
+                    FirebaseDatabase.getInstance().getReference().child("Companies").child(newname).child("name").setValue(newname);
+                    Query query = FirebaseDatabase.getInstance()
+                            .getReference().child("PartNo").orderByChild("companyname").equalTo(oldname);
+                    query.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onSuccess(Void aVoid) {
-
-                        }
-                    });
-
-                    FirebaseDatabase.getInstance().getReference().child("Companies").child(newname).child("name").setValue(newname).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-
-                        }
-                    });
-                    FirebaseDatabase.getInstance().getReference().child("PartNo").orderByChild("companyname").equalTo(oldname).addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                HashMap<String, Object> result = new HashMap<>();
-                                result.put("companyname", newname);
-                                dataSnapshot.getRef().child("companyname").setValue(newname).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(RenameCompanyActivity.this, "Name updated successfully", Toast.LENGTH_SHORT).show();
-                                            Intent CatalogueIntent = new Intent(RenameCompanyActivity.this, CatalogueActivity.class);
-                                            startActivity(CatalogueIntent);
-                                            finish();
-                                        } else {
-                                            Toast.makeText(RenameCompanyActivity.this, "Error While Renaming", Toast.LENGTH_SHORT).show();
-                                            Intent CatalogueIntent = new Intent(RenameCompanyActivity.this, CatalogueActivity.class);
-                                            startActivity(CatalogueIntent);
-                                            finish();
-                                        }
-                                    }
-                                });
-//
-                            } else {
+                              for(  DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                  snapshot.getRef().child("companyname").setValue(newname);
+                              }
                                 Intent CatalogueIntent = new Intent(RenameCompanyActivity.this, CatalogueActivity.class);
                                 startActivity(CatalogueIntent);
-                                finish();
                             }
-
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
                         }
 
                         @Override
@@ -127,11 +85,12 @@ public class RenameCompanyActivity extends AppCompatActivity {
                         }
                     });
 
+
                 }
                 Intent CatalogueIntent = new Intent(RenameCompanyActivity.this, CatalogueActivity.class);
                 startActivity(CatalogueIntent);
-                finish();
             }
+
 
         });
 

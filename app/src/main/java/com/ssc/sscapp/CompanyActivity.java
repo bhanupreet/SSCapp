@@ -58,9 +58,9 @@ public class CompanyActivity extends AppCompatActivity {
         mtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainintent = new Intent(CompanyActivity.this, CompanyActivity.class);
-                mainintent.putExtra("Company name", companyName);
-                mainintent.putExtra("partnorefstring",partnorefstring);
+                Intent mainintent = new Intent(CompanyActivity.this, CatalogueActivity.class);
+//                mainintent.putExtra("Company name", companyName);
+//                mainintent.putExtra("partnorefstring",partnorefstring);
                 startActivity(mainintent);
             }
         });
@@ -163,7 +163,7 @@ public class CompanyActivity extends AppCompatActivity {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         PartNo partNo = snapshot.getValue(PartNo.class);
-                        if (partNo.name.contains(searchtext)) {
+                        if (partNo.name.toLowerCase().contains(searchtext.toLowerCase())) {
                             partNoList.add(partNo);
                         }
                     }

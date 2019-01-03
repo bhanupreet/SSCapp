@@ -21,11 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
         catalogbtn = findViewById(R.id.main_cataloguebtn);
         aboutusbtn = findViewById(R.id.aboutusbtn);
-        faqbtn = findViewById(R.id.faqbtn);
         mainAppbar = findViewById(R.id.mainAppbar);
 
         setSupportActionBar(mainAppbar);
-        getSupportActionBar().setTitle("SSC");
+        getSupportActionBar().setTitle("Home");
 
         catalogbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         aboutusbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent CatalogueIntent = new Intent(MainActivity.this,SearchActivity.class);
+                Intent CatalogueIntent = new Intent(MainActivity.this,ContactUsActivity.class);
                 startActivity(CatalogueIntent);
             }
         });

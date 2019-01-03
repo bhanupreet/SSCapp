@@ -65,7 +65,8 @@ public class AddPartNo extends AppCompatActivity {
             public void onClick(View v) {
                 mprogressdialog.show();
                 String partno = mpartno.getEditText().getText().toString();
-                partno= partno.substring(0,1).toUpperCase() + partno.substring(1).toLowerCase();
+                partno = toTitleCase(partno);
+             //   partno= partno.substring(0,1).toUpperCase() + partno.substring(1).toLowerCase();
 
                 if(!partno.equals("")) {
                     HashMap<String, Object> result = new HashMap<>();
@@ -107,5 +108,17 @@ public class AddPartNo extends AppCompatActivity {
         });
 
     }
+    public static String toTitleCase(String givenString) {
+
+        String[] arr = givenString.split(" ");
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < arr.length; i++) {
+            sb.append(Character.toUpperCase(arr[i].charAt(0)))
+                    .append(arr[i].substring(1)).append(" ");
+        }
+        return sb.toString().trim();
+    }
+
 
 }

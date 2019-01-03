@@ -165,7 +165,7 @@ public class CatalogueActivity extends AppCompatActivity {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Companies companies = snapshot.getValue(Companies.class);
-                        if (companies.name.contains(searchtext)) {
+                        if (companies.name.toLowerCase().contains(searchtext.toLowerCase())) {
                             companiesList.add(companies);
                         }
                     }
