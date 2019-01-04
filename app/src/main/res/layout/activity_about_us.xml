@@ -20,7 +20,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:id="@+id/phoneno"
-        android:textSize="24sp"
+        android:textSize="24dp"
         android:textColor="#212121"
         />
     <TextView
@@ -30,8 +30,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:textSize="24sp"
-        android:text="Address: C203 Shop no 2, gas factory, Phase 2, Mayapuri Industrial Area, New Delhi: 110064"/>
+        android:textSize="24dp"
+        android:text="Adress: C203 Shop no 2, gas factory, Phase 2, Mayapuri Industrial Area, New Delhi: 110064"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:textSize="24sp"
+        android:textSize="24dp"
         android:text="Email: SSC@gmail.com"/>
 
 

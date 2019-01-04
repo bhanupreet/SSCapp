@@ -17,9 +17,9 @@
         android:layout_width="match_parent"></include>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:text=" Satnam Sales Corporation"
-        android:textSize="30sp"
+        android:textSize="24dp"
         android:textStyle="bold"
         android:id="@+id/satnamsalestext"
         android:textColor="@color/colorAccent"
@@ -36,10 +36,10 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:text="Truck Parts"
         android:gravity="center"
-        android:textSize="24sp"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@color/colorAccent"
         />
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
 
         android:layout_margin="20dp"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/rectanglebg"
         android:textColor="#ffffff"
@@ -62,7 +62,7 @@
         android:background="@drawable/rectanglebg"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:id="@+id/aboutusbtn" />
 
 

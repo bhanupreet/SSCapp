@@ -17,8 +17,7 @@
         android:layout_below="@+id/renameCompanyappbar"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="">
+        android:layout_marginRight="20dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -36,5 +35,6 @@
         android:layout_marginRight="20dp"
         android:backgroundTint="@color/colorAccent"
         android:text="Rename"
+        android:textSize="14sp"
         android:textColor="#ffffff" />
 </RelativeLayout>

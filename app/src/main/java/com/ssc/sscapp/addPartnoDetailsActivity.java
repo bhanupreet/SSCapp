@@ -60,12 +60,10 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
     //company deletion
     //company rename
     //company search
-    //part no search
-
-    //To do
     //front page    (truck photo , truck parts in main acrtivity)  (change name to ssc truck parts (satnam sales corporation ) in main activity")
     //contact us page
-    //price updation of all parts (maybe)
+    //part no search
+
 
 
 

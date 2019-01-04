@@ -37,6 +37,7 @@
         android:layout_marginRight="20dp"
         android:backgroundTint="@color/colorAccent"
         android:text="Add"
+        android:textSize="14dp"
         android:textColor="#ffffff" />
 
 

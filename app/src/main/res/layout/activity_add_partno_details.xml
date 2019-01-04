@@ -112,6 +112,7 @@
         android:layout_below="@id/cost_price_input"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+
         android:layout_marginRight="20dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -129,6 +130,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:textSize="14dp"
         android:backgroundTint="@color/colorAccent"
         android:text="Add"
         android:textColor="#ffffff" />
@@ -141,6 +143,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+        android:textSize="14dp"
         android:backgroundTint="@color/colorAccent"
         android:text="Upload image"
         android:textColor="#ffffff" />
@@ -148,22 +151,24 @@
     <TextView
         android:id="@+id/result"
         android:layout_width="130dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/modelinput"
+        android:layout_height="40dp"
+        android:layout_below="@+id/uploadimagebtn"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="23dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="3dp"
+        android:textSize="14dp"
         android:textColor="#3131"
         />
     <Button
         android:id="@+id/partnodetails_deletebtn"
         android:layout_centerHorizontal="true"
-        android:layout_width="800dp"
+        android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@id/result"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textSize="18dp"
         android:backgroundTint="@color/colorAccent"
         android:text="Delete"
         android:textColor="#ffffff" />

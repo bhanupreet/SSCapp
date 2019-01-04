@@ -10,7 +10,7 @@
         android:textColor="#212121"
         android:id="@+id/name"
         android:text="Sample Name"
-        android:textSize="24sp"
+        android:textSize="22dp"
         android:layout_marginLeft="11dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"/>
