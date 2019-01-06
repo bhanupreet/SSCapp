@@ -1,4 +1,4 @@
-package com.ssc.sscapp;
+package com.ssc.sscappadmin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

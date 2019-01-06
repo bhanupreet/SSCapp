@@ -1,4 +1,4 @@
-package com.ssc.sscapp;
+package com.ssc.sscappadmin;
 
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -84,16 +84,18 @@ public class CompanyActivity extends AppCompatActivity {
                 .getReference().child("PartNo").orderByChild("companyname").equalTo(companyName);
 
         addbtn = findViewById(R.id.addpartnoBtn);
-        addbtn.setVisibility(View.INVISIBLE);
-        addbtn.setClickable(false);
-//        addbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent AddIntent = new Intent(CompanyActivity.this, AddPartNo.class);
-//                AddIntent.putExtra("Company name",companyName);
-//                startActivity(AddIntent);
-//            }
-//        });
+
+//        addbtn.setVisibility(View.INVISIBLE);
+//        addbtn.setClickable(false);
+
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent AddIntent = new Intent(CompanyActivity.this, AddPartNo.class);
+                AddIntent.putExtra("Company name",companyName);
+                startActivity(AddIntent);
+            }
+        });
         mprogressdialog.show();
 
         query.addValueEventListener(valueEventListener);

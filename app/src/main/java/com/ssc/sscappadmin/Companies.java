@@ -1,6 +1,4 @@
-package com.ssc.sscapp;
-
-import android.widget.TextView;
+package com.ssc.sscappadmin;
 
 public class Companies {
 

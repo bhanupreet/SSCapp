@@ -1,4 +1,4 @@
-package com.ssc.sscapp;
+package com.ssc.sscappadmin;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,7 +1,6 @@
-package com.ssc.sscapp;
+package com.ssc.sscappadmin;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,8 +40,8 @@ import java.util.HashMap;
 public class addPartnoDetailsActivity extends AppCompatActivity {
 
     private TextInputLayout mSamplePartNo, mSSS_code, mreference, mModel, mCost_price, mNameinput;
-    private String SSCcode, reference, suitable_for, model, partnorefstring, price, cost_price;
-    private String ssccoderefstring, referencestring, suitableforstring, pricestring, costpricestring, modelstring, nameinput, companynamestring, imagestring = " ";
+    private String SSCcode, reference, model, partnorefstring, cost_price;
+    private String ssccoderefstring, referencestring, costpricestring, modelstring, nameinput, companynamestring, imagestring = " ";
     private Button mAddBtn, mUploadimagebtn, mDeletebtn;
     private androidx.appcompat.widget.Toolbar mToolbar;
     private ProgressDialog mProgressDialaog;
@@ -78,8 +77,6 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         partnorefstring = getIntent().getStringExtra("partnorefstring");
         ssccoderefstring = getIntent().getStringExtra("ssccoderefstring");
         referencestring = getIntent().getStringExtra("referencestring");
-        suitableforstring = getIntent().getStringExtra("suitableforstring");
-        pricestring = getIntent().getStringExtra("pricestring");
         costpricestring = getIntent().getStringExtra("costpricestring");
         modelstring = getIntent().getStringExtra("modelstring");
         companynamestring = getIntent().getStringExtra("Company name");
@@ -110,6 +107,7 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(partnorefstring);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

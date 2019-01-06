@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ssc.sscapp">
+    package="com.ssc.sscappadmin">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,16 +10,16 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Satnam Sales CorporationC"
+        android:label="SSC Admin"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.ssc.sscappadmin.MainActivity" />
         <activity
-            android:name=".CatalogueActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".SplashActivity">
+            android:name="com.ssc.sscappadmin.CatalogueActivity"
+            android:parentActivityName="com.ssc.sscappadmin.MainActivity" />
+        <activity android:name="com.ssc.sscappadmin.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,34 +27,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ContactUsActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.ssc.sscappadmin.ContactUsActivity"
+            android:parentActivityName="com.ssc.sscappadmin.MainActivity" />
         <activity
-            android:name=".AddCompActivity"
-            android:parentActivityName=".CatalogueActivity" />
+            android:name="com.ssc.sscappadmin.AddCompActivity"
+            android:parentActivityName="com.ssc.sscappadmin.CatalogueActivity" />
         <activity
-            android:name=".CompanyActivity"
+            android:name="com.ssc.sscappadmin.CompanyActivity"
             android:label="@string/title_activity_company"
-            android:parentActivityName=".CatalogueActivity"
+            android:parentActivityName="com.ssc.sscappadmin.CatalogueActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".AddPartNo"
-            android:parentActivityName=".CompanyActivity" />
+            android:name="com.ssc.sscappadmin.AddPartNo"
+            android:parentActivityName="com.ssc.sscappadmin.CompanyActivity" />
         <activity
-            android:name=".PartNoDetails"
-            android:parentActivityName=".CompanyActivity" />
+            android:name="com.ssc.sscappadmin.PartNoDetails"
+            android:parentActivityName="com.ssc.sscappadmin.CompanyActivity" />
         <activity
-            android:name=".addPartnoDetailsActivity"
-            android:parentActivityName=".PartNoDetails" />
+            android:name="com.ssc.sscappadmin.addPartnoDetailsActivity"
+            android:parentActivityName="com.ssc.sscappadmin.PartNoDetails" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".imageActivity"
-            android:parentActivityName=".PartNoDetails" />
-        <activity android:name=".RenameCompanyActivity"
+            android:name="com.ssc.sscappadmin.imageActivity"
+            android:parentActivityName="com.ssc.sscappadmin.PartNoDetails" />
+        <activity android:name="com.ssc.sscappadmin.RenameCompanyActivity"
             android:excludeFromRecents="true"
-            android:parentActivityName=".CatalogueActivity"></activity>
+            android:parentActivityName="com.ssc.sscappadmin.CatalogueActivity"></activity>
 
     </application>
 
