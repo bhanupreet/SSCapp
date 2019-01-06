@@ -40,7 +40,7 @@ import java.util.HashMap;
 
 public class addPartnoDetailsActivity extends AppCompatActivity {
 
-    private TextInputLayout mSamplePartNo, mSSS_code, mreference, mModel, msuitable_for, mPrice, mCost_price, mNameinput;
+    private TextInputLayout mSamplePartNo, mSSS_code, mreference, mModel, mCost_price, mNameinput;
     private String SSCcode, reference, suitable_for, model, partnorefstring, price, cost_price;
     private String ssccoderefstring, referencestring, suitableforstring, pricestring, costpricestring, modelstring, nameinput, companynamestring, imagestring = " ";
     private Button mAddBtn, mUploadimagebtn, mDeletebtn;
@@ -88,16 +88,12 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         // mSamplePartNo = findViewById(R.id.samplepartno);
         mSSS_code = findViewById(R.id.ssc_code_input);
         mreference = findViewById(R.id.reference_input);
-        msuitable_for = findViewById(R.id.suitablefor_input);
-        mPrice = findViewById(R.id.price_input);
         mCost_price = findViewById(R.id.cost_price_input);
         mModel = findViewById(R.id.modelinput);
         mNameinput = findViewById(R.id.name_input);
 
         mSSS_code.getEditText().setText(ssccoderefstring);
         mreference.getEditText().setText(referencestring);
-        msuitable_for.getEditText().setText(suitableforstring);
-        mPrice.getEditText().setText(pricestring);
         mCost_price.getEditText().setText(costpricestring);
         mModel.getEditText().setText(modelstring);
         mNameinput.getEditText().setText(partnorefstring);
@@ -132,8 +128,6 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SSCcode = mSSS_code.getEditText().getText().toString();
                 reference = mreference.getEditText().getText().toString();
-                suitable_for = msuitable_for.getEditText().getText().toString();
-                price = mPrice.getEditText().getText().toString();
                 cost_price = mCost_price.getEditText().getText().toString();
                 model = mModel.getEditText().getText().toString();
                 nameinput = mNameinput.getEditText().getText().toString();
@@ -145,13 +139,6 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
 
                 if (!reference.equals("")) {
                     result.put("reference", reference);
-                }
-                if (!suitable_for.equals("")) {
-                    result.put("suitable_for", suitable_for);
-                }
-
-                if (!price.equals("")) {
-                    result.put("price", price);
                 }
 
                 if (!cost_price.equals("")) {

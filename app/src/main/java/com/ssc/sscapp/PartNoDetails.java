@@ -37,7 +37,7 @@ public class PartNoDetails extends AppCompatActivity {
     private RecyclerView PartnoRecycler;
     private List<PartNo> partNoList;
     private PartNoAdapter adapter;
-    private String partnorefsrtring,ssccoderefstring,referencestring,suitableforstring,pricestring,costpricestring,modelstring,imagestring,companyName;
+    private String partnorefsrtring,ssccoderefstring,referencestring,costpricestring,modelstring,imagestring,companyName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,14 +148,11 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
             partNoViewHolder.mSamplePartNo.setText(partNo.name);
             partNoViewHolder.mSSc_code.setText(partNo.ssc_code);
             partNoViewHolder.mreference.setText(partNo.reference);
-            partNoViewHolder.msuitable_for.setText(partNo.suitable_for);
-            partNoViewHolder.mPrice.setText(partNo.price);
-            partNoViewHolder.mCost_price.setText(partNo.cost_price);
             partNoViewHolder.mModel.setText(partNo.model);
 
             Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
             partNoViewHolder.mWatermark.setImageResource(R.drawable.watemark);
-            partNoViewHolder.mWatermark.setAlpha(0.5f);
+            partNoViewHolder.mWatermark.setAlpha(0.65f);
 
 
 
@@ -185,9 +182,6 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
 
             ssccoderefstring = partNo.ssc_code;
             referencestring = partNo.reference;
-            suitableforstring = partNo.suitable_for;
-            pricestring = partNo.price;
-            costpricestring = partNo.cost_price;
             modelstring = partNo.model;
             imagestring = partNo.image;
             companyName = partNo.companyname;
@@ -202,7 +196,7 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
 
     private class PartNoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView  mSSc_code, mreference, msuitable_for, mModel,mSamplePartNo,mPrice,mCost_price;
+        TextView  mSSc_code, mreference, mModel,mSamplePartNo;
         ImageView mItemImage,mWatermark;
         public PartNoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -210,9 +204,6 @@ private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
             mSamplePartNo = itemView.findViewById(R.id.samplepartno);
             mSSc_code = itemView.findViewById(R.id.ssc_code);
             mreference = itemView.findViewById(R.id.reference);
-            msuitable_for = itemView.findViewById(R.id.suitablefor);
-            mPrice = itemView.findViewById(R.id.price);
-            mCost_price = itemView.findViewById(R.id.cost_price);
             mModel = itemView.findViewById(R.id.model);
             mItemImage =   itemView.findViewById(R.id.itemimage_partnoDetaild);
 
