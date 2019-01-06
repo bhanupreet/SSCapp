@@ -22,7 +22,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.File;
 
 public class ContactUsActivity extends AppCompatActivity {
-    private TextView mPhone, mEmail;
+    private TextView mPhone, mEmail,mphone2,mlandline;
     private androidx.appcompat.widget.Toolbar mToolbar;
 
 
@@ -32,6 +32,9 @@ public class ContactUsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_us);
 
         mPhone = findViewById(R.id.phoneno);
+        mphone2 = findViewById(R.id.phoneno2);
+        mlandline = findViewById(R.id.landline);
+
         mPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +43,25 @@ public class ContactUsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mphone2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:+91 7982119819"));
+                startActivity(intent);
+            }
+        });
+
+        mlandline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:011 28114314"));
+                startActivity(intent);
+            }
+        });
+
 
 
         mToolbar = findViewById(R.id.contactusappbar);

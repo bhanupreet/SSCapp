@@ -64,6 +64,8 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
     //contact us page
     //part no search
 
+    //TODO
+    //Totitle case function have feature for 2 spacesw
 
 
 

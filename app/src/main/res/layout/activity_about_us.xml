@@ -13,10 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/contactusappbar"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Phone: +91 958242627"
+        android:text="Phone: +91 95824 26427"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:id="@+id/phoneno"
@@ -26,12 +27,33 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="             +91 79821 19819"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/phoneno2"
+        android:textSize="24dp"
+        android:textColor="#212121"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Office:   011  2811 4314"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/landline"
+        android:textSize="24dp"
+        android:textColor="#212121"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textColor="#212121"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:textSize="24dp"
-        android:text="Adress: C203 Shop no 2, gas factory, Phase 2, Mayapuri Industrial Area, New Delhi: 110064"/>
+        android:text="Adress: C203 Shop No 2, Gas Factory, Phase 2, Mayapuri Industrial Area, New Delhi: 110064"/>
 
     <TextView
         android:layout_width="match_parent"
