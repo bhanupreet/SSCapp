@@ -67,22 +67,25 @@ public class PartNoDetails extends AppCompatActivity {
             }
         });
 
-        maddbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addintent = new Intent(PartNoDetails.this,addPartnoDetailsActivity.class);
-                addintent.putExtra("partnorefstring",partnorefsrtring);
-                addintent.putExtra("ssccoderefstring",ssccoderefstring);
-                addintent.putExtra("referencestring",referencestring);
-                addintent.putExtra("suitableforstring",suitableforstring);
-                addintent.putExtra("pricestring",pricestring);
-                addintent.putExtra("costpricestring",costpricestring);
-                addintent.putExtra("modelstring",modelstring);
-                addintent.putExtra("image",imagestring);
-                addintent.putExtra("Company name",companyName);
-                startActivity(addintent);
-            }
-        });
+        maddbtn.setClickable(false);
+        maddbtn.setVisibility(View.INVISIBLE);
+
+//        maddbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent addintent = new Intent(PartNoDetails.this,addPartnoDetailsActivity.class);
+//                addintent.putExtra("partnorefstring",partnorefsrtring);
+//                addintent.putExtra("ssccoderefstring",ssccoderefstring);
+//                addintent.putExtra("referencestring",referencestring);
+//                addintent.putExtra("suitableforstring",suitableforstring);
+//                addintent.putExtra("pricestring",pricestring);
+//                addintent.putExtra("costpricestring",costpricestring);
+//                addintent.putExtra("modelstring",modelstring);
+//                addintent.putExtra("image",imagestring);
+//                addintent.putExtra("Company name",companyName);
+//                startActivity(addintent);
+//            }
+//        });
 
         PartnoRecycler.setHasFixedSize(true);
         PartnoRecycler.setLayoutManager(new LinearLayoutManager(this));
