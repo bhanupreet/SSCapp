@@ -4,6 +4,9 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -65,6 +68,13 @@ public class CompanyActivity extends AppCompatActivity {
             }
         });
 
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        //we are connected to a network
+        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+
+
         mprogressdialog = new ProgressDialog(this);
         mprogressdialog.setCanceledOnTouchOutside(false);
         mprogressdialog.setTitle("please wait while we load the data");
@@ -82,21 +92,28 @@ public class CompanyActivity extends AppCompatActivity {
         PartNoRef= FirebaseDatabase.getInstance().getReference().child("Companies").child(companyName);
         Query query = FirebaseDatabase.getInstance()
                 .getReference().child("PartNo").orderByChild("companyname").equalTo(companyName);
+        query.keepSynced(true);
 
         addbtn = findViewById(R.id.addpartnoBtn);
 
-//        addbtn.setVisibility(View.INVISIBLE);
-//        addbtn.setClickable(false);
+        addbtn.setVisibility(View.INVISIBLE);
+        addbtn.setClickable(false);
 
-        addbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent AddIntent = new Intent(CompanyActivity.this, AddPartNo.class);
-                AddIntent.putExtra("Company name",companyName);
-                startActivity(AddIntent);
-            }
-        });
+//        addbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent AddIntent = new Intent(CompanyActivity.this, AddPartNo.class);
+//                AddIntent.putExtra("Company name",companyName);
+//                startActivity(AddIntent);
+//            }
+//        });
         mprogressdialog.show();
+
+        if(!connected){
+            Toast.makeText(getApplicationContext(),"Please Connect to the internet, the data might not be available",Toast.LENGTH_LONG).show();
+            mprogressdialog.dismiss();
+
+        }
 
         query.addValueEventListener(valueEventListener);
 
@@ -131,6 +148,7 @@ public class CompanyActivity extends AppCompatActivity {
 
                     Query query = FirebaseDatabase.getInstance()
                             .getReference().child("PartNo").orderByChild("name");
+                    query.keepSynced(true);
                     query.addValueEventListener(search(newText));
                     // Toast.makeText(getApplicationContext(), "textChanged :" + newText, Toast.LENGTH_LONG).show();
 
@@ -147,6 +165,7 @@ public class CompanyActivity extends AppCompatActivity {
                 //   search(query);
                 Query query2 = FirebaseDatabase.getInstance()
                         .getReference().child("PartNo").orderByChild("name");
+                query2.keepSynced(true);
 
                 query2.addValueEventListener(search(query));
                 //  Toast.makeText(getApplicationContext(),"searchvalue :"+query,Toast.LENGTH_LONG).show();
@@ -252,6 +271,14 @@ public class CompanyActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull PartNoViewHolder partNoViewHolder, final int i) {
             PartNo partNo = partNoList.get(i);
             partNoViewHolder.name.setText(partNo.name);
+            if(partNo.image.equals("default image")){
+                partNoViewHolder.name.setBackgroundColor(Color.YELLOW);
+            }
+            else
+            {
+                partNoViewHolder.name.setBackgroundColor(Color.GREEN);
+
+            }
 
             partNoViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

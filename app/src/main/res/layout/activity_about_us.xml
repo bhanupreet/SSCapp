@@ -55,15 +55,6 @@
         android:textSize="24dp"
         android:text="Adress: C203 Shop No 2, Gas Factory, Phase 2, Mayapuri Industrial Area, New Delhi: 110064"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#212121"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:textSize="24dp"
-        android:text="Email: SSC@gmail.com"/>
 
 
 

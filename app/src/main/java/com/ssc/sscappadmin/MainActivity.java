@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
+
+       // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         catalogbtn = findViewById(R.id.main_cataloguebtn);
         aboutusbtn = findViewById(R.id.aboutusbtn);

@@ -6,7 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="300dp"
+        android:id="@+id/screenshotthis">
         <ImageView
             android:id="@+id/itemimage_partnoDetaild"
             android:layout_width="280dp"
@@ -129,63 +130,34 @@
         android:textColor="#212121"
         android:textSize="16dp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#4141" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:background="#4141" />-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="4dp"
-        android:text="Price"
-        android:textColor="@color/colorAccent"
-        android:textSize="18dp" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="10dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginTop="4dp"-->
+        <!--android:text="Cost Price"-->
+        <!--android:textColor="@color/colorAccent"-->
+        <!--android:textSize="18dp" />-->
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="2dp"
-        android:text="#12344"
-        android:textColor="#212121"
-        android:textSize="16dp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#4141" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="4dp"
-        android:text="Cost Price"
-        android:textColor="@color/colorAccent"
-        android:textSize="18dp" />
-
-    <TextView
-        android:id="@+id/cost_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="2dp"
-        android:text="#12344"
-        android:textColor="#212121"
-        android:textSize="16dp" />
+    <!--<TextView-->
+        <!--android:id="@+id/cost_price"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="10dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginTop="2dp"-->
+        <!--android:text="#12344"-->
+        <!--android:textColor="#212121"-->
+        <!--android:textSize="16dp" />-->
 
 
 </LinearLayout>

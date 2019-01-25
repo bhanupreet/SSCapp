@@ -46,7 +46,7 @@ public class imageActivity extends AppCompatActivity {
 
         Picasso.get().load(imageurl).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(fullscreenphoto);
        // mWatermark.setImageResource(R.drawable.watemark);
-        mWatermark.setAlpha(0.5f);
+        mWatermark.setAlpha(0.65f);
 
     }
 }

@@ -4,10 +4,10 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ssc.sscapp"
-        minSdkVersion 16
+        minSdkVersion 22
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -43,6 +43,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    implementation 'com.google.firebase:firebase-appindexing:17.1.0'
+
 
 
 }

@@ -69,20 +69,23 @@ public class PartNoDetails extends AppCompatActivity {
             }
         });
 
-        maddbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addintent = new Intent(PartNoDetails.this, addPartnoDetailsActivity.class);
-                addintent.putExtra("partnorefstring", partnorefsrtring);
-                addintent.putExtra("ssccoderefstring", ssccoderefstring);
-                addintent.putExtra("referencestring", referencestring);
-                addintent.putExtra("costpricestring", costpricestring);
-                addintent.putExtra("modelstring", modelstring);
-                addintent.putExtra("image", imagestring);
-                addintent.putExtra("Company name", companyName);
-                startActivity(addintent);
-            }
-        });
+        maddbtn.setVisibility(View.INVISIBLE);
+        maddbtn.setClickable(false);
+
+//        maddbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent addintent = new Intent(PartNoDetails.this, addPartnoDetailsActivity.class);
+//                addintent.putExtra("partnorefstring", partnorefsrtring);
+//                addintent.putExtra("ssccoderefstring", ssccoderefstring);
+//                addintent.putExtra("referencestring", referencestring);
+//                addintent.putExtra("costpricestring", costpricestring);
+//                addintent.putExtra("modelstring", modelstring);
+//                addintent.putExtra("image", imagestring);
+//                addintent.putExtra("Company name", companyName);
+//                startActivity(addintent);
+//            }
+//        });
 
         PartnoRecycler.setHasFixedSize(true);
         PartnoRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -94,6 +97,7 @@ public class PartNoDetails extends AppCompatActivity {
 
         Query query = FirebaseDatabase.getInstance()
                 .getReference().child("PartNo").orderByChild("name").equalTo(partnorefsrtring);
+        query.keepSynced(true);
 
 
         query.addValueEventListener(valueEventListener);
@@ -147,7 +151,7 @@ public class PartNoDetails extends AppCompatActivity {
             partNoViewHolder.mSamplePartNo.setText(partNo.name);
             partNoViewHolder.mSSc_code.setText(partNo.ssc_code);
             partNoViewHolder.mreference.setText(partNo.reference);
-            partNoViewHolder.mCost_price.setText(partNo.cost_price);
+//            partNoViewHolder.mCost_price.setText(partNo.cost_price);
             partNoViewHolder.mModel.setText(partNo.model);
 
             Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
@@ -181,7 +185,7 @@ public class PartNoDetails extends AppCompatActivity {
 
             ssccoderefstring = partNo.ssc_code;
             referencestring = partNo.reference;
-            costpricestring = partNo.cost_price;
+//            costpricestring = partNo.cost_price;
             modelstring = partNo.model;
             imagestring = partNo.image;
             companyName = partNo.companyname;
@@ -196,7 +200,8 @@ public class PartNoDetails extends AppCompatActivity {
 
     private class PartNoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mSSc_code, mreference, mModel, mSamplePartNo, mCost_price;
+        TextView mSSc_code, mreference, mModel, mSamplePartNo;
+//                TextView mCost_price;
         ImageView mItemImage, mWatermark;
 
         public PartNoViewHolder(@NonNull View itemView) {
@@ -205,7 +210,7 @@ public class PartNoDetails extends AppCompatActivity {
             mSamplePartNo = itemView.findViewById(R.id.samplepartno);
             mSSc_code = itemView.findViewById(R.id.ssc_code);
             mreference = itemView.findViewById(R.id.reference);
-            mCost_price = itemView.findViewById(R.id.cost_price);
+//            mCost_price = itemView.findViewById(R.id.cost_price);
             mModel = itemView.findViewById(R.id.model);
             mItemImage = itemView.findViewById(R.id.itemimage_partnoDetaild);
 
