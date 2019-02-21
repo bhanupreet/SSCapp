@@ -3,9 +3,11 @@ package com.ssc.sscappadmin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
@@ -15,7 +17,8 @@ public class imageActivity extends AppCompatActivity {
     private PhotoView fullscreenphoto;
     private ImageView mWatermark;
     private androidx.appcompat.widget.Toolbar mToolbar;
-    private String partnorefstring, companynamestring;
+    private String partnorefstring, companynamestring,imagecoderefstring;
+    private TextView mImagecode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +28,20 @@ public class imageActivity extends AppCompatActivity {
         String imageurl = getIntent().getStringExtra("image");
         partnorefstring = getIntent().getStringExtra("partnorefstring");
         companynamestring = getIntent().getStringExtra("Company name");
+        imagecoderefstring = getIntent().getStringExtra("imagecode");
 
         fullscreenphoto = findViewById(R.id.fullscreenimage);
         mToolbar = findViewById(R.id.fullscreenimagappbar);
         mWatermark = findViewById(R.id.fullscreenwatermark);
+        mImagecode = findViewById(R.id.imagecode);
+
+        if(imagecoderefstring.contains("ssc")){
+            imagecoderefstring.replace("ssc","");
+        }
+
+        mImagecode.setText(imagecoderefstring);
+        mImagecode.setTextColor(Color.YELLOW);
+        mImagecode.setTextSize(15);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

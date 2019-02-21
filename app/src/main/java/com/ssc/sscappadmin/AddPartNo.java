@@ -78,7 +78,7 @@ public class AddPartNo extends AppCompatActivity {
                     result.put("model", "default model/size");
                     result.put("image","default image");
                     result.put("price","N.A");
-                    result.put("cost_price","N.A.");
+                    result.put("cost_price","yes");
 
                     // DatabaseReference companyref = FirebaseDatabase.getInstance().getReference("Comapnies").push();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();

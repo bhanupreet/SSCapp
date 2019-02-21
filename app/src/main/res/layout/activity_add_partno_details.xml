@@ -73,7 +73,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cost Price" />
+            android:hint="Availability" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -95,15 +95,16 @@
 
     <Button
         android:id="@+id/addpartnodetails_addbtn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/modelinput"
+        android:layout_below="@+id/partnodetails_deletebtn"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="14dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Add"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp"
+        android:backgroundTint="#008000"
+        android:text="Add/ update part"
         android:textColor="#ffffff" />
 
     <Button
@@ -118,6 +119,20 @@
         android:backgroundTint="@color/colorAccent"
         android:text="Upload image"
         android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/deleteimagebtn"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/modelinput"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="14dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Delete Image"
+        android:textColor="#ffffff" />
+
 
     <TextView
         android:id="@+id/result"
@@ -136,12 +151,12 @@
         android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@id/result"
+        android:layout_below="@id/deleteimagebtn"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:textSize="18dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Delete"
+        android:backgroundTint="#a9a9a9"
+        android:text="Delete part"
         android:textColor="#ffffff" />
 </RelativeLayout>
 

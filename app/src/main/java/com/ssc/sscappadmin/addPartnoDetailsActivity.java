@@ -42,7 +42,7 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
     private TextInputLayout mSamplePartNo, mSSS_code, mreference, mModel, mCost_price, mNameinput;
     private String SSCcode, reference, model, partnorefstring, cost_price;
     private String ssccoderefstring, referencestring, costpricestring, modelstring, nameinput, companynamestring, imagestring = " ";
-    private Button mAddBtn, mUploadimagebtn, mDeletebtn;
+    private Button mAddBtn, mUploadimagebtn, mDeletebtn, mDeleteImagebtn;
     private androidx.appcompat.widget.Toolbar mToolbar;
     private ProgressDialog mProgressDialaog;
     private StorageReference mImageStorage;
@@ -87,6 +87,7 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         mreference = findViewById(R.id.reference_input);
         mCost_price = findViewById(R.id.cost_price_input);
         mModel = findViewById(R.id.modelinput);
+        mDeleteImagebtn = findViewById(R.id.deleteimagebtn);
         mNameinput = findViewById(R.id.name_input);
 
         mSSS_code.getEditText().setText(ssccoderefstring);
@@ -120,6 +121,14 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
 
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
+
+        mDeleteImagebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imagestring = "default image";
+
+            }
+        });
 
         mAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override

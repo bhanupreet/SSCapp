@@ -8,13 +8,16 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +44,7 @@ public class CompanyActivity extends AppCompatActivity {
     private PartNoAdapter adapter;
     private FloatingActionButton addbtn;
     private DatabaseReference PartNoRef;
-    private String partnorefstring,companyName;
+    private String partnorefstring, companyName;
     private ProgressDialog mprogressdialog;
     private Toolbar mtoolbar;
 
@@ -69,7 +72,7 @@ public class CompanyActivity extends AppCompatActivity {
         });
 
         boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         //we are connected to a network
         connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
@@ -89,34 +92,33 @@ public class CompanyActivity extends AppCompatActivity {
         adapter = new PartNoAdapter(this, partNoList);
         PartnoRecycler.setAdapter(adapter);
 
-        PartNoRef= FirebaseDatabase.getInstance().getReference().child("Companies").child(companyName);
+        PartNoRef = FirebaseDatabase.getInstance().getReference().child("Companies").child(companyName);
         Query query = FirebaseDatabase.getInstance()
                 .getReference().child("PartNo").orderByChild("companyname").equalTo(companyName);
         query.keepSynced(true);
 
         addbtn = findViewById(R.id.addpartnoBtn);
 
-        addbtn.setVisibility(View.INVISIBLE);
-        addbtn.setClickable(false);
+//        addbtn.setVisibility(View.INVISIBLE);
+//        addbtn.setClickable(false);
 
-//        addbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent AddIntent = new Intent(CompanyActivity.this, AddPartNo.class);
-//                AddIntent.putExtra("Company name",companyName);
-//                startActivity(AddIntent);
-//            }
-//        });
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent AddIntent = new Intent(CompanyActivity.this, AddPartNo.class);
+                AddIntent.putExtra("Company name", companyName);
+                startActivity(AddIntent);
+            }
+        });
         mprogressdialog.show();
 
-        if(!connected){
-            Toast.makeText(getApplicationContext(),"Please Connect to the internet, the data might not be available",Toast.LENGTH_LONG).show();
+        if (!connected) {
+            Toast.makeText(getApplicationContext(), "Please Connect to the internet, the data might not be available", Toast.LENGTH_LONG).show();
             mprogressdialog.dismiss();
 
         }
 
         query.addValueEventListener(valueEventListener);
-
 
 
         //mCompanyRef = FirebaseDatabase.getInstance().getReference().child("Companies");
@@ -209,6 +211,7 @@ public class CompanyActivity extends AppCompatActivity {
         };
         return searchvalueEventListener;
     }
+
     public static String toTitleCase(String givenString) {
 
         String[] arr = givenString.split(" ");
@@ -228,15 +231,17 @@ public class CompanyActivity extends AppCompatActivity {
             if (dataSnapshot.exists()) {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                     PartNo partNo= snapshot.getValue(PartNo.class);
-                    partNoList.add(partNo);
+                    PartNo partNo = snapshot.getValue(PartNo.class);
+
+                    if (!partNo.cost_price.toLowerCase().equals("no")) {
+                        partNoList.add(partNo);
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 mprogressdialog.dismiss();
 
-            }
-            else {
-                Toast.makeText(CompanyActivity.this,"no parts found",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(CompanyActivity.this, "no parts found", Toast.LENGTH_SHORT).show();
                 mprogressdialog.dismiss();
 
             }
@@ -245,17 +250,18 @@ public class CompanyActivity extends AppCompatActivity {
         @Override
         public void onCancelled(DatabaseError databaseError) {
             mprogressdialog.dismiss();
-            Toast.makeText(CompanyActivity.this  ,"an error occured while fetching data",Toast.LENGTH_SHORT).show();
+            Toast.makeText(CompanyActivity.this, "an error occured while fetching data", Toast.LENGTH_SHORT).show();
 
         }
     };
 
-    private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder>{
+    private class PartNoAdapter extends RecyclerView.Adapter<PartNoViewHolder> {
         private Context mctx;
         private List<PartNo> partNoList;
+
         public PartNoAdapter(Context mctx, List<PartNo> partNoList) {
 
-            this.partNoList= partNoList;
+            this.partNoList = partNoList;
             this.mctx = mctx;
         }
 
@@ -263,7 +269,7 @@ public class CompanyActivity extends AppCompatActivity {
         @Override
         public PartNoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
-            View view = LayoutInflater.from(mctx).inflate(R.layout.single_name_layout, parent, false);
+            View view = LayoutInflater.from(mctx).inflate(R.layout.custom_part_no_ssc, parent, false);
             return new PartNoViewHolder(view);
         }
 
@@ -271,11 +277,10 @@ public class CompanyActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull PartNoViewHolder partNoViewHolder, final int i) {
             PartNo partNo = partNoList.get(i);
             partNoViewHolder.name.setText(partNo.name);
-            if(partNo.image.equals("default image")){
+            partNoViewHolder.mSSCcode.setText(partNo.ssc_code);
+            if (partNo.image.equals("default image")) {
                 partNoViewHolder.name.setBackgroundColor(Color.YELLOW);
-            }
-            else
-            {
+            } else {
                 partNoViewHolder.name.setBackgroundColor(Color.GREEN);
 
             }
@@ -285,7 +290,7 @@ public class CompanyActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     partnorefstring = partNoList.get(i).name;
                     Intent profileIntent = new Intent(CompanyActivity.this, PartNoDetails.class);
-                    profileIntent.putExtra("Company name",companyName);
+                    profileIntent.putExtra("Company name", companyName);
                     profileIntent.putExtra("partnorefstring", partnorefstring);
                     startActivity(profileIntent);
                 }
@@ -301,10 +306,12 @@ public class CompanyActivity extends AppCompatActivity {
 
     private class PartNoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name;
+        TextView name,mSSCcode;
+
         public PartNoViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.name);
+            name = itemView.findViewById(R.id.customname);
+            mSSCcode = itemView.findViewById(R.id.customssccode);
 
 
         }
