@@ -87,7 +87,7 @@ public class AddCompActivity extends AppCompatActivity {
 
             }
         });
-
+// new comment
     }
     public static String toTitleCase(String givenString) {
         String[] arr = givenString.split(" ");
