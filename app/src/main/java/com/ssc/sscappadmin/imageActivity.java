@@ -17,7 +17,7 @@ public class imageActivity extends AppCompatActivity {
     private PhotoView fullscreenphoto;
     private ImageView mWatermark;
     private androidx.appcompat.widget.Toolbar mToolbar;
-    private String partnorefstring, companynamestring,imagecoderefstring;
+    private String partnorefstring, companynamestring, imagecoderefstring;
     private TextView mImagecode;
 
     @Override
@@ -35,14 +35,13 @@ public class imageActivity extends AppCompatActivity {
         mWatermark = findViewById(R.id.fullscreenwatermark);
         mImagecode = findViewById(R.id.imagecode);
 
-        if(imagecoderefstring.contains("ssc")){
-            imagecoderefstring.replace("ssc","");
+        if (imagecoderefstring.contains("ssc")) {
+            imagecoderefstring.replace("ssc", "");
         }
 
-        mImagecode.setText(imagecoderefstring);
-        mImagecode.setTextColor(Color.YELLOW);
-        mImagecode.setTextSize(15);
-
+        if (!imagecoderefstring.equals("default ssc code")) {
+            mImagecode.setText(imagecoderefstring);
+        }
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(partnorefstring);
@@ -58,7 +57,7 @@ public class imageActivity extends AppCompatActivity {
         });
 
         Picasso.get().load(imageurl).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(fullscreenphoto);
-       // mWatermark.setImageResource(R.drawable.watemark);
+        // mWatermark.setImageResource(R.drawable.watemark);
         mWatermark.setAlpha(0.65f);
 
     }

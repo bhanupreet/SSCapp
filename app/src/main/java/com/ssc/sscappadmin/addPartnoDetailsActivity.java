@@ -125,7 +125,26 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         mDeleteImagebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imagestring = "default image";
+                AlertDialog.Builder alert = new AlertDialog.Builder(addPartnoDetailsActivity.this);
+
+                alert.setTitle("Delete Image");
+                alert.setMessage("Are you sure you want to delete the image?");
+                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        imagestring = "default image";
+                        resultdisplay.setText("no 0image");
+                    }
+                });
+                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // close dialog
+                        dialog.cancel();
+                    }
+                });
+                alert.show();
+
 
             }
         });

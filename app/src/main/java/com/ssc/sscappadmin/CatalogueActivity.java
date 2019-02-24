@@ -113,16 +113,16 @@ public class CatalogueActivity extends AppCompatActivity {
         query.keepSynced(true);
 
         addbtn = findViewById(R.id.addBtn);
-//        addbtn.setClickable(false);
-//        addbtn.setVisibility(View.INVISIBLE);
+        addbtn.setClickable(false);
+        addbtn.setVisibility(View.INVISIBLE);
 
-        addbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent AddIntent = new Intent(CatalogueActivity.this, AddCompActivity.class);
-                startActivity(AddIntent);
-            }
-        });
+//        addbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent AddIntent = new Intent(CatalogueActivity.this, AddCompActivity.class);
+//                startActivity(AddIntent);
+//            }
+//        });
 
         query.addValueEventListener(valueEventListener);
         //mCompanyRef = FirebaseDatabase.getInstance().getReference().child("Companies");
@@ -298,84 +298,84 @@ public class CatalogueActivity extends AppCompatActivity {
             });
 
 
-            CompaniesViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    AlertDialog.Builder delete = new AlertDialog.Builder(CatalogueActivity.this);
-                    CharSequence options[] = new CharSequence[]{"Delete","Rename"};
-                    delete.setItems(options, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (which == 0)
-                            {
-                                AlertDialog.Builder alert = new AlertDialog.Builder(CatalogueActivity.this);
-                            alert.setTitle("Delete entry");
-                            alert.setMessage("Are you sure you want to delete?");
-                            alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
-                                    companyname = CompaniesList.get(i).name;
-                                    FirebaseDatabase.getInstance().getReference().child("Companies").child(Companies.name).removeValue();
-                                    Query delete = FirebaseDatabase.getInstance().getReference().child("PartNo").orderByChild("companyname").equalTo(companyname);
-                                    delete.addChildEventListener(new ChildEventListener() {
-                                        @Override
-                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                            String partnorefstring = dataSnapshot.getKey();
-                                            FirebaseStorage storage = FirebaseStorage.getInstance();
-                                            StorageReference storageRef = storage.getReference();
-                                            StorageReference desertRef = storageRef.child("itemimages/" + partnorefstring + ".jpg");
-                                            desertRef.delete();
-                                            dataSnapshot.getRef().setValue(null);
-                                        }
-
-                                        @Override
-                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                        }
-
-                                        @Override
-                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                        }
-
-                                        @Override
-                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-
-                                    // FirebaseDatabase.getInstance().getReference().child("PartNo").
-                                    // Intent profileIntent = new Intent(addPartnoDetailsActivity.this, CompanyActivity.class);
-                                }
-                            });
-                            alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // close dialog
-                                    dialog.cancel();
-                                }
-                            });
-                            alert.show();
-                        }
-                        if(which==1){
-                                Intent RenameIntent = new Intent(CatalogueActivity.this,RenameCompanyActivity.class);
-                                companyname = CompaniesList.get(i).name;
-                                RenameIntent.putExtra("companyname",companyname);
-                                startActivity(RenameIntent);
-                                finish();
-                            }
-                    }
-                    });
-
-                    delete.show();
-                    return true;
-                }
-            });
+//            CompaniesViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View v) {
+//                    AlertDialog.Builder delete = new AlertDialog.Builder(CatalogueActivity.this);
+//                    CharSequence options[] = new CharSequence[]{"Delete","Rename"};
+//                    delete.setItems(options, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            if (which == 0)
+//                            {
+//                                AlertDialog.Builder alert = new AlertDialog.Builder(CatalogueActivity.this);
+//                            alert.setTitle("Delete entry");
+//                            alert.setMessage("Are you sure you want to delete?");
+//                            alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    // continue with delete
+//                                    companyname = CompaniesList.get(i).name;
+//                                    FirebaseDatabase.getInstance().getReference().child("Companies").child(Companies.name).removeValue();
+//                                    Query delete = FirebaseDatabase.getInstance().getReference().child("PartNo").orderByChild("companyname").equalTo(companyname);
+//                                    delete.addChildEventListener(new ChildEventListener() {
+//                                        @Override
+//                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                                            String partnorefstring = dataSnapshot.getKey();
+//                                            FirebaseStorage storage = FirebaseStorage.getInstance();
+//                                            StorageReference storageRef = storage.getReference();
+//                                            StorageReference desertRef = storageRef.child("itemimages/" + partnorefstring + ".jpg");
+//                                            desertRef.delete();
+//                                            dataSnapshot.getRef().setValue(null);
+//                                        }
+//
+//                                        @Override
+//                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onCancelled(DatabaseError databaseError) {
+//
+//                                        }
+//                                    });
+//
+//                                    // FirebaseDatabase.getInstance().getReference().child("PartNo").
+//                                    // Intent profileIntent = new Intent(addPartnoDetailsActivity.this, CompanyActivity.class);
+//                                }
+//                            });
+//                            alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    // close dialog
+//                                    dialog.cancel();
+//                                }
+//                            });
+//                            alert.show();
+//                        }
+//                        if(which==1){
+//                                Intent RenameIntent = new Intent(CatalogueActivity.this,RenameCompanyActivity.class);
+//                                companyname = CompaniesList.get(i).name;
+//                                RenameIntent.putExtra("companyname",companyname);
+//                                startActivity(RenameIntent);
+//                                finish();
+//                            }
+//                    }
+//                    });
+//
+//                    delete.show();
+//                    return true;
+//                }
+//            });
 
 
         }

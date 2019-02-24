@@ -16,7 +16,7 @@
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/fullscreenimage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_below="@+id/fullscreenimagappbar" />
 
@@ -24,19 +24,25 @@
     <ImageView
         android:id="@+id/fullscreenwatermark"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/fullscreenimagappbar"
         android:src="@drawable/watemark" />
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="ssc_code"
-        android:textSize="20dp"
-        android:paddingTop="180dp"
-        android:layout_marginLeft="20dp"
+        android:layout_below="@id/fullscreenimagappbar"
+        android:text=""
+        android:textSize="22dp"
+        android:paddingTop="250dp"
+        android:layout_marginLeft="11dp"
         android:id="@+id/imagecode"
-        android:textColor="#212121"
-        android:layout_below="@id/fullscreenimage"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         android:gravity="center_vertical"
+        android:textColorHighlight="#ffffff"
+        android:shadowColor="#ffffff"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="8"
         />
 </RelativeLayout>

@@ -40,7 +40,7 @@ import java.util.List;
 public class CompanyActivity extends AppCompatActivity {
 
     private RecyclerView PartnoRecycler;
-    private List<PartNo> partNoList;
+    private List<PartNo> partNoList, partsearchlist, allpartslist;
     private PartNoAdapter adapter;
     private FloatingActionButton addbtn;
     private DatabaseReference PartNoRef;
@@ -89,27 +89,34 @@ public class CompanyActivity extends AppCompatActivity {
         PartnoRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         partNoList = new ArrayList<>();
+        partsearchlist = new ArrayList<>();
+        allpartslist = new ArrayList<>();
         adapter = new PartNoAdapter(this, partNoList);
         PartnoRecycler.setAdapter(adapter);
 
-        PartNoRef = FirebaseDatabase.getInstance().getReference().child("Companies").child(companyName);
         Query query = FirebaseDatabase.getInstance()
                 .getReference().child("PartNo").orderByChild("companyname").equalTo(companyName);
         query.keepSynced(true);
+        query.addValueEventListener(valueEventListener);
+
+
+        Query allpartsquery = FirebaseDatabase.getInstance().getReference().child("PartNo").orderByChild("cost_price").equalTo("yes");
+
+       allpartsquery.addValueEventListener(allpartslistener);
 
         addbtn = findViewById(R.id.addpartnoBtn);
 
-//        addbtn.setVisibility(View.INVISIBLE);
-//        addbtn.setClickable(false);
+        addbtn.setVisibility(View.INVISIBLE);
+        addbtn.setClickable(false);
 
-        addbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent AddIntent = new Intent(CompanyActivity.this, AddPartNo.class);
-                AddIntent.putExtra("Company name", companyName);
-                startActivity(AddIntent);
-            }
-        });
+//        addbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent AddIntent = new Intent(CompanyActivity.this, AddPartNo.class);
+//                AddIntent.putExtra("Company name", companyName);
+//                startActivity(AddIntent);
+//            }
+//        });
         mprogressdialog.show();
 
         if (!connected) {
@@ -118,11 +125,11 @@ public class CompanyActivity extends AppCompatActivity {
 
         }
 
-        query.addValueEventListener(valueEventListener);
 
 
         //mCompanyRef = FirebaseDatabase.getInstance().getReference().child("Companies");
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,37 +146,63 @@ public class CompanyActivity extends AppCompatActivity {
         searchView.setIconifiedByDefault(true);// Do not iconify the widget; expand it by defaul
 
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(final String newText) {
 
                 if (newText.equals("")) {
-                    return false;
+                    partNoList.clear();
+                    for(PartNo partNo : allpartslist){
+                        partNoList.add(partNo);
+                    }
+                    adapter.notifyDataSetChanged();
+
+                    return  true;
                 } else {
-                    newText = toTitleCase(newText);
+                    partNoList.clear();
+                    for(PartNo partNo : allpartslist){
+                        partNoList.add(partNo);
+                    }
+                    adapter.notifyDataSetChanged();
                     //  search(newText);
                     // This is your adapter that will be filtered
-
-                    Query query = FirebaseDatabase.getInstance()
-                            .getReference().child("PartNo").orderByChild("name");
-                    query.keepSynced(true);
-                    query.addValueEventListener(search(newText));
-                    // Toast.makeText(getApplicationContext(), "textChanged :" + newText, Toast.LENGTH_LONG).show();
-
-
+                    partsearchlist.clear();
+                    for(PartNo partNo : partNoList) {
+                        if (partNo.name.toLowerCase().contains(newText)) {
+                            partsearchlist.add(partNo);
+                        }
+                    }
+                    partNoList.clear();
+                    for(PartNo partNo : partsearchlist){
+                            partNoList.add(partNo);
+                        }
+                    adapter.notifyDataSetChanged();
                     return true;
                 }
 
             }
 
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(final String query) {
                 // **Here you can get the value "query" which is entered in the search box.**
 
-                query = toTitleCase(query);
+                // query = toTitleCase(query);
                 //   search(query);
-                Query query2 = FirebaseDatabase.getInstance()
-                        .getReference().child("PartNo").orderByChild("name");
-                query2.keepSynced(true);
-
-                query2.addValueEventListener(search(query));
+                partNoList.clear();
+                for(PartNo partNo : allpartslist){
+                    partNoList.add(partNo);
+                }
+                adapter.notifyDataSetChanged();
+                //  search(newText);
+                // This is your adapter that will be filtered
+                partsearchlist.clear();
+                for(PartNo partNo : partNoList) {
+                    if (partNo.name.toLowerCase().contains(query)) {
+                        partsearchlist.add(partNo);
+                    }
+                }
+                partNoList.clear();
+                for(PartNo partNo : partsearchlist){
+                    partNoList.add(partNo);
+                }
+                adapter.notifyDataSetChanged();
                 //  Toast.makeText(getApplicationContext(),"searchvalue :"+query,Toast.LENGTH_LONG).show();
                 return true;
             }
@@ -188,21 +221,24 @@ public class CompanyActivity extends AppCompatActivity {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         PartNo partNo = snapshot.getValue(PartNo.class);
-                        if (partNo.name.toLowerCase().contains(searchtext.toLowerCase())) {
+                        if (partNo.name.toLowerCase().contains(searchtext)) {
                             partNoList.add(partNo);
                         }
+
                     }
                     adapter.notifyDataSetChanged();
 
 
                 } else {
-                    Toast.makeText(CompanyActivity.this, "no parts found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CompanyActivity.this, "no companies found", Toast.LENGTH_SHORT).show();
                 }
+                //mProgress.setVisibility(View.INVISIBLE);
                 mprogressdialog.dismiss();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                // mProgress.setVisibility(View.INVISIBLE);
                 mprogressdialog.dismiss();
                 Toast.makeText(CompanyActivity.this, "an error occured while fetching data", Toast.LENGTH_SHORT).show();
 
@@ -224,6 +260,8 @@ public class CompanyActivity extends AppCompatActivity {
         return sb.toString().trim();
     }
 
+
+
     public ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -233,12 +271,46 @@ public class CompanyActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     PartNo partNo = snapshot.getValue(PartNo.class);
 
+
+
+
+                    // redo this when in admin
+//
                     if (!partNo.cost_price.toLowerCase().equals("no")) {
                         partNoList.add(partNo);
                     }
+
+//                    partNoList.add(partNo);
                 }
                 adapter.notifyDataSetChanged();
                 mprogressdialog.dismiss();
+
+            } else {
+                Toast.makeText(CompanyActivity.this, "no parts found", Toast.LENGTH_SHORT).show();
+                mprogressdialog.dismiss();
+
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            mprogressdialog.dismiss();
+            Toast.makeText(CompanyActivity.this, "an error occured while fetching data", Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
+
+    public ValueEventListener allpartslistener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            allpartslist.clear();
+            if (dataSnapshot.exists()) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    PartNo partNo = snapshot.getValue(PartNo.class);
+                    allpartslist.add(partNo);
+                }
 
             } else {
                 Toast.makeText(CompanyActivity.this, "no parts found", Toast.LENGTH_SHORT).show();
@@ -277,7 +349,9 @@ public class CompanyActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull PartNoViewHolder partNoViewHolder, final int i) {
             PartNo partNo = partNoList.get(i);
             partNoViewHolder.name.setText(partNo.name);
-            partNoViewHolder.mSSCcode.setText(partNo.ssc_code);
+            if (!partNo.ssc_code.contains("default ssc code") ) {
+                partNoViewHolder.mSSCcode.setText(partNo.ssc_code);
+            }
             if (partNo.image.equals("default image")) {
                 partNoViewHolder.name.setBackgroundColor(Color.YELLOW);
             } else {
@@ -306,7 +380,7 @@ public class CompanyActivity extends AppCompatActivity {
 
     private class PartNoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name,mSSCcode;
+        TextView name, mSSCcode;
 
         public PartNoViewHolder(@NonNull View itemView) {
             super(itemView);

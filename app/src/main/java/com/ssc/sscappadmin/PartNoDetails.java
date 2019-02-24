@@ -155,7 +155,7 @@ public class PartNoDetails extends AppCompatActivity {
             partNoViewHolder.mSamplePartNo.setText(partNo.name);
             partNoViewHolder.mSSc_code.setText(partNo.ssc_code);
             partNoViewHolder.mreference.setText(partNo.reference);
-            partNoViewHolder.mCost_price.setText(partNo.cost_price);
+//            partNoViewHolder.mCost_price.setText(partNo.cost_price);
             partNoViewHolder.mModel.setText(partNo.model);
 
             Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
@@ -207,7 +207,7 @@ public class PartNoDetails extends AppCompatActivity {
     private class PartNoViewHolder extends RecyclerView.ViewHolder {
 
         TextView mSSc_code, mreference, mModel, mSamplePartNo;
-                TextView mCost_price;
+//                TextView mCost_price;
         ImageView mItemImage, mWatermark;
 
         public PartNoViewHolder(@NonNull View itemView) {
@@ -216,7 +216,7 @@ public class PartNoDetails extends AppCompatActivity {
             mSamplePartNo = itemView.findViewById(R.id.samplepartno);
             mSSc_code = itemView.findViewById(R.id.ssc_code);
             mreference = itemView.findViewById(R.id.reference);
-            mCost_price = itemView.findViewById(R.id.cost_price);
+//            mCost_price = itemView.findViewById(R.id.cost_price);
             mModel = itemView.findViewById(R.id.model);
             mItemImage = itemView.findViewById(R.id.itemimage_partnoDetaild);
 
