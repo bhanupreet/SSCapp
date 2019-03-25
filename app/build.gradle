@@ -6,8 +6,8 @@ android {
         applicationId "com.ssc.sscapp"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 8
-        versionName "3"
+        versionCode 9
+        versionName "4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

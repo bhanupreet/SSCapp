@@ -10,8 +10,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="0dp"
+        android:contentDescription="@string/ssc_logo"
         android:minWidth="0dp"
-        android:src="@drawable/splash"/>
+        android:minHeight="0dp"
+        android:src="@drawable/splash" />
 
 </RelativeLayout>
