@@ -40,12 +40,27 @@ public class ProductPageFragment extends Fragment {
         mRecycler = view.findViewById(R.id.cataloguelist_recycler);
         adapter = new ProductPageAdapter(mList, getContext());
         mRecycler.setHasFixedSize(true);
-        mRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mRecycler.setLayoutManager(layoutManager);
         mRecycler.setAdapter(adapter);
         mRecycler.scrollToPosition(mList.indexOf(partNo));
         SnapHelper helper = new LinearSnapHelper();
         helper.attachToRecyclerView(mRecycler);
         adapter.notifyDataSetChanged();
+
+        mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (layoutManager.findFirstVisibleItemPosition() == mList.indexOf(partNo)) {
+                    ProductListFragment.setToolBarTitle(partNo.getName(), view);
+                } else {
+                    int pos = layoutManager.findFirstCompletelyVisibleItemPosition();
+                    if (pos != -1)
+                        ProductListFragment.setToolBarTitle(mList.get(pos).getName(), view);
+                }
+            }
+        });
 
         return view;
     }
