@@ -2,31 +2,27 @@ package com.ssc.sscappadmin;
 
 import android.content.Context;
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.ssc.sscappadmin.Model.PartNo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,7 +155,7 @@ public class PartNoDetails extends AppCompatActivity {
             partNoViewHolder.mModel.setText(partNo.model);
 
             Picasso.get().load(partNo.image).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(partNoViewHolder.mItemImage);
-            partNoViewHolder.mWatermark.setImageResource(R.drawable.watemark);
+            partNoViewHolder.mWatermark.setImageResource(R.drawable.watermark);
             partNoViewHolder.mWatermark.setAlpha(0.7f);
 
 

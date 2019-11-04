@@ -1,9 +1,12 @@
-package com.ssc.sscappadmin;
+package com.ssc.sscappadmin.Activities;
 
 import android.content.Intent;
-import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.ssc.sscappadmin.R;
 
 public class SplashActivity extends AppCompatActivity {
         // Splash screen timer

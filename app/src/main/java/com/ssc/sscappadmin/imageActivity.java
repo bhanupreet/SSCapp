@@ -1,13 +1,12 @@
 package com.ssc.sscappadmin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
@@ -57,7 +56,7 @@ public class imageActivity extends AppCompatActivity {
         });
 
         Picasso.get().load(imageurl).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(fullscreenphoto);
-        // mWatermark.setImageResource(R.drawable.watemark);
+        // mWatermark.setImageResource(R.drawable.watermark);
         mWatermark.setAlpha(0.65f);
 
     }

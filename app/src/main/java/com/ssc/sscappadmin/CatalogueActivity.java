@@ -1,44 +1,34 @@
 package com.ssc.sscappadmin;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.ssc.sscappadmin.Model.Companies;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,7 +182,7 @@ public class CatalogueActivity extends AppCompatActivity {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Companies companies = snapshot.getValue(Companies.class);
-                        if (companies.name.toLowerCase().contains(searchtext.toLowerCase())) {
+                        if (companies.getName().toLowerCase().contains(searchtext.toLowerCase())) {
                             companiesList.add(companies);
                         }
                     }
@@ -284,13 +274,13 @@ public class CatalogueActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull final CompaniesViewHolder CompaniesViewHolder, final int i) {
             final Companies Companies = CompaniesList.get(i);
-            CompaniesViewHolder.name.setText(Companies.name);
+            CompaniesViewHolder.name.setText(Companies.getName());
 
 
             CompaniesViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    companyname = CompaniesList.get(i).name;
+                    companyname = CompaniesList.get(i).getName();
                     Intent profileIntent = new Intent(CatalogueActivity.this, CompanyActivity.class);
                     profileIntent.putExtra("Company name", companyname);
                     startActivity(profileIntent);
