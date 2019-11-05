@@ -12,12 +12,13 @@ import com.ssc.sscappadmin.R;
 class ProductListViewHolder extends RecyclerView.ViewHolder {
 
     ImageView mImageview, mSelecteTick;
-    TextView mName;
+    TextView mName, mSSC_Code;
 
     ProductListViewHolder(@NonNull View itemView) {
         super(itemView);
         mImageview = itemView.findViewById(R.id.productimage);
         mName = itemView.findViewById(R.id.productname);
         mSelecteTick = itemView.findViewById(R.id.selectedTick);
+        mSSC_Code = itemView.findViewById(R.id.ssc_code_new);
     }
 }

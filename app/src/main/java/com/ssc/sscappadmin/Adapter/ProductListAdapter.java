@@ -52,8 +52,24 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHold
             holder.mSelecteTick.setVisibility(View.VISIBLE);
         } else
             holder.mSelecteTick.setVisibility(View.GONE);
+        Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.splash).into(holder.mImageview);
 
-        Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).into(holder.mImageview);
+        if (partNo.getSsc_code().contains("ssc")) {
+            partNo.ssc_code.replace("ssc", "");
+        }
+
+        if (!partNo.ssc_code.equals("default ssc code")) {
+            holder.mSSC_Code.setText(partNo.ssc_code);
+        } else {
+            holder.mSSC_Code.setVisibility(View.GONE);
+        }
+        holder.mSSC_Code.bringToFront();
+//        if (partNo.getImage().equals("default image")) {
+//            holder.mImageview.setBackground(mCtx.getDrawable(R.drawable.splash));
+//        } else {
+//            holder.mImageview.setBackground(null);
+//        }
+
         holder.itemView.setOnClickListener(v -> {
             if (mItemClickListener != null) {
                 mItemClickListener.onItemClick(position, holder.mImageview);

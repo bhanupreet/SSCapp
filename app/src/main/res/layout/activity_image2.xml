@@ -6,30 +6,27 @@
     tools:context=".imageActivity">
 
 
-    <include
-        android:id="@+id/fullscreenimagappbar"
-        layout="@layout/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></include>
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/fullscreenimage"
+        android:layout_marginTop="?android:actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/fullscreenimagappbar" />
+        android:layout_centerVertical="true" />
 
 
     <ImageView
+        android:layout_marginTop="?android:actionBarSize"
+
         android:id="@+id/fullscreenwatermark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/fullscreenimagappbar"
         android:src="@drawable/watermark" />
     <TextView
+        android:layout_marginTop="?android:actionBarSize"
+
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/fullscreenimagappbar"
         android:text=""
         android:textSize="22dp"
         android:paddingTop="250dp"

@@ -2,14 +2,17 @@ package com.ssc.sscappadmin.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,27 +29,26 @@ import com.ssc.sscappadmin.R;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CatolgueListFragment extends Fragment {
 
 
     private RecyclerView mRecycler;
     private CatalogueAdapter adapter;
-    private List<Companies> mList = new ArrayList<>();
+    private List<Companies> mList = new ArrayList<>(), mAllList = new ArrayList<>(), mSearchList = new ArrayList<>();
     private Context mCtx;
     Query query;
-    private CardView layout;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
-
 
     @Override
     public void onResume() {
         super.onResume();
-//        query.addListenerForSingleValueEvent(valueEventListener);
     }
 
     @Nullable
@@ -93,13 +95,18 @@ public class CatolgueListFragment extends Fragment {
     }
 
     private ValueEventListener valueEventListener = new ValueEventListener() {
+
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            mList.clear();
+            mAllList.clear();
             if (dataSnapshot.exists()) {
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     mList.add(snapshot.getValue(Companies.class));
                     adapter.notifyItemInserted(mList.size() - 1);
                 }
+                mAllList.addAll(mList);
                 adapter.notifyDataSetChanged();
             }
         }
@@ -110,4 +117,44 @@ public class CatolgueListFragment extends Fragment {
         }
     };
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        // Inflate the options menu from XML
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.search_actions, menu);
+
+        // Get the SearchView and set the searchable configuration
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
+
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextChange(final String newText) {
+
+                if (newText.equals("")) {
+                    mList.clear();
+                    mList.addAll(mAllList);
+                } else {
+                    mSearchList.clear();
+                    for (Companies profile : mAllList) {
+                        if (!TextUtils.isEmpty(profile.getName())
+                                && profile.getName().toLowerCase().contains(newText.toLowerCase())
+                                && !mSearchList.contains(profile))
+                            mSearchList.add(profile);
+                    }
+                    mList.clear();
+                    mList.addAll(mSearchList);
+                }
+                adapter.notifyDataSetChanged();
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(final String newText) {
+                return false;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+    }
 }

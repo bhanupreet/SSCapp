@@ -100,7 +100,7 @@ public class CompanyActivity extends AppCompatActivity {
 
         Query allpartsquery = FirebaseDatabase.getInstance().getReference().child("PartNo").orderByChild("cost_price").equalTo("yes");
 
-       allpartsquery.addValueEventListener(allpartslistener);
+        allpartsquery.addValueEventListener(allpartslistener);
 
         addbtn = findViewById(R.id.addpartnoBtn);
 
@@ -122,7 +122,6 @@ public class CompanyActivity extends AppCompatActivity {
             mprogressdialog.dismiss();
 
         }
-
 
 
         //mCompanyRef = FirebaseDatabase.getInstance().getReference().child("Companies");
@@ -148,30 +147,30 @@ public class CompanyActivity extends AppCompatActivity {
 
                 if (newText.equals("")) {
                     partNoList.clear();
-                    for(PartNo partNo : allpartslist){
+                    for (PartNo partNo : allpartslist) {
                         partNoList.add(partNo);
                     }
                     adapter.notifyDataSetChanged();
 
-                    return  true;
+                    return true;
                 } else {
                     partNoList.clear();
-                    for(PartNo partNo : allpartslist){
+                    for (PartNo partNo : allpartslist) {
                         partNoList.add(partNo);
                     }
                     adapter.notifyDataSetChanged();
                     //  search(newText);
                     // This is your adapter that will be filtered
                     partsearchlist.clear();
-                    for(PartNo partNo : partNoList) {
+                    for (PartNo partNo : partNoList) {
                         if (partNo.name.toLowerCase().contains(newText)) {
                             partsearchlist.add(partNo);
                         }
                     }
                     partNoList.clear();
-                    for(PartNo partNo : partsearchlist){
-                            partNoList.add(partNo);
-                        }
+                    for (PartNo partNo : partsearchlist) {
+                        partNoList.add(partNo);
+                    }
                     adapter.notifyDataSetChanged();
                     return true;
                 }
@@ -184,20 +183,20 @@ public class CompanyActivity extends AppCompatActivity {
                 // query = toTitleCase(query);
                 //   search(query);
                 partNoList.clear();
-                for(PartNo partNo : allpartslist){
+                for (PartNo partNo : allpartslist) {
                     partNoList.add(partNo);
                 }
                 adapter.notifyDataSetChanged();
                 //  search(newText);
                 // This is your adapter that will be filtered
                 partsearchlist.clear();
-                for(PartNo partNo : partNoList) {
+                for (PartNo partNo : partNoList) {
                     if (partNo.name.toLowerCase().contains(query)) {
                         partsearchlist.add(partNo);
                     }
                 }
                 partNoList.clear();
-                for(PartNo partNo : partsearchlist){
+                for (PartNo partNo : partsearchlist) {
                     partNoList.add(partNo);
                 }
                 adapter.notifyDataSetChanged();
@@ -259,7 +258,6 @@ public class CompanyActivity extends AppCompatActivity {
     }
 
 
-
     public ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -268,8 +266,6 @@ public class CompanyActivity extends AppCompatActivity {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     PartNo partNo = snapshot.getValue(PartNo.class);
-
-
 
 
                     // redo this when in admin
@@ -347,7 +343,7 @@ public class CompanyActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull PartNoViewHolder partNoViewHolder, final int i) {
             PartNo partNo = partNoList.get(i);
             partNoViewHolder.name.setText(partNo.name);
-            if (!partNo.ssc_code.contains("default ssc code") ) {
+            if (!partNo.ssc_code.contains("default ssc code")) {
                 partNoViewHolder.mSSCcode.setText(partNo.ssc_code);
             }
             if (partNo.image.equals("default image")) {

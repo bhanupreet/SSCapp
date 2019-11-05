@@ -50,6 +50,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-appindexing:19.0.0'
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
 
+    compile 'com.jraska:falcon:2.1.1'
+
 
 }
 

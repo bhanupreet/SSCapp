@@ -30,7 +30,6 @@ public class imageActivity extends AppCompatActivity {
         imagecoderefstring = getIntent().getStringExtra("imagecode");
 
         fullscreenphoto = findViewById(R.id.fullscreenimage);
-        mToolbar = findViewById(R.id.fullscreenimagappbar);
         mWatermark = findViewById(R.id.fullscreenwatermark);
         mImagecode = findViewById(R.id.imagecode);
 
