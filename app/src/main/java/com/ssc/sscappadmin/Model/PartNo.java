@@ -3,6 +3,8 @@ package com.ssc.sscappadmin.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Nullable;
+
 public class PartNo implements Parcelable {
 
     public String name, ssc_code, reference, model, image, cost_price, companyname;
@@ -111,6 +113,17 @@ public class PartNo implements Parcelable {
     public PartNo() {
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        PartNo o1 = (PartNo) obj;
+        return o1.getName().equalsIgnoreCase(this.getName()) && o1.getSsc_code().equalsIgnoreCase(this.getSsc_code());
+    }
 
     public PartNo(String name, String ssc_code, String reference, String model, String image, String cost_price, String companyname, boolean visibility, boolean selected) {
         this.name = name;

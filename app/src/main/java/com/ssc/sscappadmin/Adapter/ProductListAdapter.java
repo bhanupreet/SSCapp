@@ -1,6 +1,7 @@
 package com.ssc.sscappadmin.Adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,15 +55,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHold
             holder.mSelecteTick.setVisibility(View.GONE);
         Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.splash).into(holder.mImageview);
 
-        if (partNo.getSsc_code().contains("ssc")) {
+        if (!TextUtils.isEmpty(partNo.getSsc_code()) && partNo.getSsc_code().contains("ssc")) {
             partNo.ssc_code.replace("ssc", "");
         }
 
-        if (!partNo.ssc_code.equals("default ssc code")) {
-            holder.mSSC_Code.setText(partNo.ssc_code);
-        } else {
+        if (partNo.ssc_code.equals("default ssc code")) {
+
             holder.mSSC_Code.setVisibility(View.GONE);
+        } else {
+            holder.mSSC_Code.setText(partNo.ssc_code);
+
         }
+
         holder.mSSC_Code.bringToFront();
 //        if (partNo.getImage().equals("default image")) {
 //            holder.mImageview.setBackground(mCtx.getDrawable(R.drawable.splash));
@@ -80,7 +84,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHold
             if (mItemLongClickListner != null) {
                 mItemLongClickListner.onItemLongClick(position);
             }
-            return false;
+            return true;
         });
 
     }

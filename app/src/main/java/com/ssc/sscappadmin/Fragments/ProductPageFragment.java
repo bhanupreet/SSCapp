@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -39,11 +41,15 @@ public class ProductPageFragment extends Fragment {
     private ProductPageAdapter adapter;
     private List<PartNo> mList = new ArrayList<>();
     private String name = "";
+    private boolean multiselect = false;
+    private List<PartNo> mSelectionList = new ArrayList<>();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -70,7 +76,7 @@ public class ProductPageFragment extends Fragment {
                     Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
                     whatsappIntent.setType("text/plain");
                     whatsappIntent.setPackage("com.whatsapp");
-                    whatsappIntent.putExtra(Intent.EXTRA_TEXT,name );
+                    whatsappIntent.putExtra(Intent.EXTRA_TEXT, name);
                     whatsappIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
                     whatsappIntent.setType("image/jpeg");
                     whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -78,7 +84,7 @@ public class ProductPageFragment extends Fragment {
                     try {
                         startActivity(whatsappIntent);
                     } catch (android.content.ActivityNotFoundException ex) {
-                        Toast.makeText(getContext(), "Whatsapp not installed", Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(), "Whatsapp not installed", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -133,6 +139,7 @@ public class ProductPageFragment extends Fragment {
         });
 
         adapter.addItemClickListener((position, animatedview) -> {
+
             FullScreenImageFragment fragment = new FullScreenImageFragment();
             Bundle bundle1 = new Bundle();
             bundle1.putParcelableArrayList("objectList", (ArrayList<? extends Parcelable>) mList);
@@ -140,12 +147,13 @@ public class ProductPageFragment extends Fragment {
             fragment.setArguments(bundle1);
             getFragmentManager()
                     .beginTransaction()
-                    .addToBackStack("image")
                     .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .addToBackStack("image")
+                    .addSharedElement(animatedview, ViewCompat.getTransitionName(animatedview))
+
                     .replace(R.id.productlist_container, fragment)
                     .commit();
         });
-
         return view;
     }
 

@@ -1,44 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".imageActivity">
-
+    android:layout_height="match_parent">
 
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/fullscreenimage"
-        android:layout_marginTop="?android:actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true" />
+        android:layout_marginTop="?android:actionBarSize"
+        android:adjustViewBounds="true"
+        android:transitionName="image_anim"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
-        android:layout_marginTop="?android:actionBarSize"
-
         android:id="@+id/fullscreenwatermark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/watermark" />
-    <TextView
         android:layout_marginTop="?android:actionBarSize"
+        android:scaleType="fitCenter"
+        android:src="@drawable/watermark"
+        app:layout_constraintBottom_toBottomOf="@id/fullscreenimage"
+        app:layout_constraintEnd_toEndOf="@id/fullscreenimage"
+        app:layout_constraintStart_toStartOf="@id/fullscreenimage"
+        app:layout_constraintTop_toTopOf="@id/fullscreenimage" />
+
+    <TextView
+        android:id="@+id/imagecode"
 
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text=""
-        android:textSize="22dp"
-        android:paddingTop="250dp"
         android:layout_marginLeft="11dp"
-        android:id="@+id/imagecode"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
+        android:layout_marginTop="?android:actionBarSize"
         android:gravity="center_vertical"
-        android:textColorHighlight="#ffffff"
+        android:paddingTop="250dp"
         android:shadowColor="#ffffff"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
         android:shadowRadius="8"
-        />
-</RelativeLayout>
+        android:text=""
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHighlight="#ffffff"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/fullscreenimage"
+        app:layout_constraintStart_toStartOf="@id/fullscreenimage" />
+</androidx.constraintlayout.widget.ConstraintLayout>

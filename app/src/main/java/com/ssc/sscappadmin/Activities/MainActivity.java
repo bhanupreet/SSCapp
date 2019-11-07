@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.ssc.sscappadmin.ContactUsActivity;
@@ -77,8 +79,17 @@ public class MainActivity extends AppCompatActivity {
 //                    ref.updateChildren(companymap).addOnSuccessListener(aVoid -> Toast.makeText(getApplicationContext(), "added new values", Toast.LENGTH_SHORT).show());
 //                    FirebaseDatabase.getInstance().getReference().child("Companies").child(company.getName()).removeValue();
 //                }
-                Intent CatalogueIntent = new Intent(MainActivity.this, ProductListActivity.class);
-                startActivity(CatalogueIntent);
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(MainActivity.this, v, "transition");
+                int revealX = (int) (v.getX() + v.getWidth() / 2);
+                int revealY = (int) (v.getY() + v.getHeight() / 2);
+
+                Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
+                intent.putExtra(ProductListActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
+                intent.putExtra(ProductListActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
+
+                ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
             }
         });
 

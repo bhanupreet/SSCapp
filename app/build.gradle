@@ -6,8 +6,8 @@ android {
         applicationId "com.ssc.sscapp"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 9
-        versionName "4"
+        versionCode 10
+        versionName "10"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -50,7 +50,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-appindexing:19.0.0'
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
 
-    compile 'com.jraska:falcon:2.1.1'
+    implementation 'com.jraska:falcon:2.1.1'
+    implementation 'com.google.firebase:firebase-appindexing:19.0.0'
 
 
 }

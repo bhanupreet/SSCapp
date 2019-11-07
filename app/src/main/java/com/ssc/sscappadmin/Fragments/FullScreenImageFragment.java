@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,10 +49,10 @@ public class FullScreenImageFragment extends Fragment {
         mWatermark = view.findViewById(R.id.fullscreenwatermark);
         mImagecode = view.findViewById(R.id.imagecode);
 
+
         Bundle bundle = getArguments();
         PartNo partNo = bundle.getParcelable("object");
         imagecoderefstring = partNo.getSsc_code();
-
         name = partNo.getName();
 
         if (imagecoderefstring.contains("ssc")) {
@@ -72,6 +73,8 @@ public class FullScreenImageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+
         setHasOptionsMenu(true);
     }
 
@@ -122,4 +125,5 @@ public class FullScreenImageFragment extends Fragment {
         inflater.inflate(R.menu.share_actions, menu);
 
     }
+
 }

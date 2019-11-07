@@ -6,24 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.android.material.textfield.TextInputLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import id.zelory.compressor.Compressor;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,6 +27,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+
+import id.zelory.compressor.Compressor;
 
 public class addPartnoDetailsActivity extends AppCompatActivity {
 
@@ -82,6 +75,11 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         companynamestring = getIntent().getStringExtra("Company name");
         imagestring = getIntent().getStringExtra("image");
 
+        mSSS_code.getEditText().setText(ssccoderefstring);
+        mreference.getEditText().setText(referencestring);
+        mCost_price.getEditText().setText(costpricestring);
+        mModel.getEditText().setText(modelstring);
+        mNameinput.getEditText().setText(partnorefstring);
         // mSamplePartNo = findViewById(R.id.samplepartno);
         mSSS_code = findViewById(R.id.ssc_code_input);
         mreference = findViewById(R.id.reference_input);
@@ -89,13 +87,6 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         mModel = findViewById(R.id.modelinput);
         mDeleteImagebtn = findViewById(R.id.deleteimagebtn);
         mNameinput = findViewById(R.id.name_input);
-
-        mSSS_code.getEditText().setText(ssccoderefstring);
-        mreference.getEditText().setText(referencestring);
-        mCost_price.getEditText().setText(costpricestring);
-        mModel.getEditText().setText(modelstring);
-        mNameinput.getEditText().setText(partnorefstring);
-
         mModel = findViewById(R.id.modelinput);
         mAddBtn = findViewById(R.id.addpartnodetails_addbtn);
         mUploadimagebtn = findViewById(R.id.uploadimagebtn);
@@ -109,157 +100,126 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(partnorefstring);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mainintent = new Intent(addPartnoDetailsActivity.this, PartNoDetails.class);
-                mainintent.putExtra("Company name", companynamestring);
-                mainintent.putExtra("partnorefstring", partnorefstring);
-                startActivity(mainintent);
-            }
+        mToolbar.setNavigationOnClickListener(v -> {
+            Intent mainintent = new Intent(addPartnoDetailsActivity.this, PartNoDetails.class);
+            mainintent.putExtra("Company name", companynamestring);
+            mainintent.putExtra("partnorefstring", partnorefstring);
+            startActivity(mainintent);
         });
 
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
-        mDeleteImagebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(addPartnoDetailsActivity.this);
+        mDeleteImagebtn.setOnClickListener(v -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(addPartnoDetailsActivity.this);
 
-                alert.setTitle("Delete Image");
-                alert.setMessage("Are you sure you want to delete the image?");
-                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                        imagestring = "default image";
-                        resultdisplay.setText("no 0image");
-                    }
-                });
-                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // close dialog
-                        dialog.cancel();
-                    }
-                });
-                alert.show();
+            alert.setTitle("Delete Image");
+            alert.setMessage("Are you sure you want to delete the image?");
+            alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                // continue with delete
+                imagestring = "default image";
+                resultdisplay.setText("no 0image");
+            });
+            alert.setNegativeButton(android.R.string.no, (dialog, which) -> {
+                // close dialog
+                dialog.cancel();
+            });
+            alert.show();
 
 
-            }
         });
 
-        mAddBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SSCcode = mSSS_code.getEditText().getText().toString();
-                reference = mreference.getEditText().getText().toString();
-                cost_price = mCost_price.getEditText().getText().toString();
-                model = mModel.getEditText().getText().toString();
-                nameinput = mNameinput.getEditText().getText().toString();
-                HashMap<String, Object> result = new HashMap<>();
+        mAddBtn.setOnClickListener(v -> {
+            SSCcode = mSSS_code.getEditText().getText().toString();
+            reference = mreference.getEditText().getText().toString();
+            cost_price = mCost_price.getEditText().getText().toString();
+            model = mModel.getEditText().getText().toString();
+            nameinput = mNameinput.getEditText().getText().toString();
+            HashMap<String, Object> result = new HashMap<>();
 
-                if (!SSCcode.equals("")) {
-                    result.put("ssc_code", SSCcode);
-                }
+            if (!SSCcode.equals("")) {
+                result.put("ssc_code", SSCcode);
+            }
+            if (!reference.equals("")) {
+                result.put("reference", reference);
+            }
 
-                if (!reference.equals("")) {
-                    result.put("reference", reference);
-                }
+            if (!cost_price.equals("")) {
+                result.put("cost_price", cost_price);
+            }
 
-                if (!cost_price.equals("")) {
-                    result.put("cost_price", cost_price);
-                }
+            if (!model.equals("")) {
+                result.put("model", model);
+            }
 
-                if (!model.equals("")) {
-                    result.put("model", model);
-                }
-
-                if (imagestring.equals("")) {
-                    result.put("image", imagestring);
-                } else {
-                    result.put("image", imagestring);
-                }
-                result.put("name", nameinput);
-                result.put("companyname", companynamestring);
+            if (imagestring.equals("")) {
+                result.put("image", imagestring);
+            } else {
+                result.put("image", imagestring);
+            }
+            result.put("name", nameinput);
+            result.put("companyname", companynamestring);
 
 
-                if (!partnorefstring.equals(nameinput)) {
+            if (!partnorefstring.equals(nameinput)) {
+                FirebaseDatabase.getInstance().getReference().child("PartNo").child(partnorefstring).removeValue();
+
+            }
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference().child("PartNo").child(nameinput);
+            myRef.updateChildren(result).
+
+                    addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+
+                            Toast.makeText(addPartnoDetailsActivity.this, "details added successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(addPartnoDetailsActivity.this, "an error occured while uploadig data", Toast.LENGTH_SHORT).show();
+
+                        }
+                        // mProgressDialaog.dismiss();
+
+                    });
+
+
+            Intent mainintent = new Intent(addPartnoDetailsActivity.this, PartNoDetails.class);
+            mainintent.putExtra("Company name", companynamestring);
+            mainintent.putExtra("partnorefstring", nameinput);
+            startActivity(mainintent);
+        });
+
+        mUploadimagebtn.setOnClickListener(v -> CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(addPartnoDetailsActivity.this));
+
+        mDeletebtn.setOnClickListener(v -> {
+
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(addPartnoDetailsActivity.this);
+
+            alert.setTitle("Delete entry");
+            alert.setMessage("Are you sure you want to delete?");
+            alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    // continue with delete
                     FirebaseDatabase.getInstance().getReference().child("PartNo").child(partnorefstring).removeValue();
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference storageRef = storage.getReference();
+                    StorageReference desertRef = storageRef.child("itemimages/" + partnorefstring + ".jpg");
+                    desertRef.delete();
+                    Intent profileIntent = new Intent(addPartnoDetailsActivity.this, CompanyActivity.class);
+                    profileIntent.putExtra("Company name", companynamestring);
+                    startActivity(profileIntent);
+
 
                 }
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference().child("PartNo").child(nameinput);
-                myRef.updateChildren(result).
-
-                        addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-
-                                    Toast.makeText(addPartnoDetailsActivity.this, "details added successfully", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(addPartnoDetailsActivity.this, "an error occured while uploadig data", Toast.LENGTH_SHORT).show();
-
-                                }
-                                // mProgressDialaog.dismiss();
-
-                            }
-                        });
-
-
-                Intent mainintent = new Intent(addPartnoDetailsActivity.this, PartNoDetails.class);
-                mainintent.putExtra("Company name", companynamestring);
-                mainintent.putExtra("partnorefstring", nameinput);
-                startActivity(mainintent);
-            }
-
-        });
-
-        mUploadimagebtn.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .start(addPartnoDetailsActivity.this);
-            }
-        });
-
-        mDeletebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(addPartnoDetailsActivity.this);
-
-                alert.setTitle("Delete entry");
-                alert.setMessage("Are you sure you want to delete?");
-                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                        FirebaseDatabase.getInstance().getReference().child("PartNo").child(partnorefstring).removeValue();
-                        FirebaseStorage storage = FirebaseStorage.getInstance();
-                        StorageReference storageRef = storage.getReference();
-                        StorageReference desertRef = storageRef.child("itemimages/" + partnorefstring + ".jpg");
-                        desertRef.delete();
-                        Intent profileIntent = new Intent(addPartnoDetailsActivity.this, CompanyActivity.class);
-                        profileIntent.putExtra("Company name", companynamestring);
-                        startActivity(profileIntent);
-
-
-                    }
-                });
-                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // close dialog
-                        dialog.cancel();
-                    }
-                });
-                alert.show();
-            }
+            });
+            alert.setNegativeButton(android.R.string.no, (dialog, which) -> {
+                // close dialog
+                dialog.cancel();
+            });
+            alert.show();
         });
     }
 
@@ -303,28 +263,22 @@ public class addPartnoDetailsActivity extends AppCompatActivity {
                 StorageReference filepath = mImageStorage.child("itemimages").child(partnorefstring + ".jpg");
 
                 UploadTask uploadTask = filepath.putBytes(thumb_byte);
-                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                uploadTask.addOnCompleteListener(task -> {
 
-                        if (task.isSuccessful()) {
+                    if (task.isSuccessful()) {
 
-                            mImageStorage.child("itemimages").child(partnorefstring + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
+                        mImageStorage.child("itemimages").child(partnorefstring + ".jpg").getDownloadUrl().addOnSuccessListener(uri -> {
 
-                                    downloadUrl = uri.toString();
-                                    if (!downloadUrl.equals("")) {
-                                        imagestring = downloadUrl;
-                                    }
-                                    mProgressDialaog.dismiss();
-                                    resultdisplay.setText(downloadUrl);
-                                    //Toast.makeText(addPartnoDetailsActivity.this, downloadUrl, Toast.LENGTH_SHORT).show();
+                            downloadUrl = uri.toString();
+                            if (!downloadUrl.equals("")) {
+                                imagestring = downloadUrl;
+                            }
+                            mProgressDialaog.dismiss();
+                            resultdisplay.setText(downloadUrl);
+                            //Toast.makeText(addPartnoDetailsActivity.this, downloadUrl, Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
+                        });
 
-                        }
                     }
                 });
 

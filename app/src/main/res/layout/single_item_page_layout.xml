@@ -14,6 +14,7 @@
             android:id="@+id/item_page_image"
             android:layout_width="280dp"
             android:layout_height="280dp"
+            android:transitionName="image_anim"
             android:layout_marginTop="20dp"
             android:contentDescription="product image"
             android:src="@drawable/ic_settings_black_24dp"

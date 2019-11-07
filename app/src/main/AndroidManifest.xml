@@ -17,18 +17,22 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activities.AddProductActivity"></activity>
+        <activity android:name=".Activities.TransferActivity" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.ssc.sscappadmin"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
         <activity
             android:name=".Activities.ProductListActivity"
-            android:parentActivityName=".Activities.MainActivity"></activity>
+            android:parentActivityName=".Activities.MainActivity" />
         <activity android:name=".Activities.MainActivity" />
         <activity
             android:name=".CatalogueActivity"
@@ -44,7 +48,7 @@
             android:name=".ContactUsActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
-            android:name=".AddCompActivity"
+            android:name=".Activities.AddCompActivity"
             android:parentActivityName=".CatalogueActivity" />
         <activity
             android:name=".CompanyActivity"

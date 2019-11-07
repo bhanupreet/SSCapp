@@ -28,17 +28,16 @@ import com.ssc.sscappadmin.Model.Companies;
 import com.ssc.sscappadmin.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-
-public class CatolgueListFragment extends Fragment {
-
-
+public class TransferFragment extends Fragment {
     private RecyclerView mRecycler;
     private CatalogueAdapter adapter;
     private List<Companies> mList = new ArrayList<>(), mAllList = new ArrayList<>(), mSearchList = new ArrayList<>();
     private Context mCtx;
     Query query;
+    private List<String> mSelectedList;
     private TextView mNoParts;
 
 
@@ -65,24 +64,30 @@ public class CatolgueListFragment extends Fragment {
         query = FirebaseDatabase.getInstance().getReference().child("Company").orderByChild("name");
         query.addListenerForSingleValueEvent(valueEventListener);
 
+        Bundle bundle = getArguments();
+        mSelectedList = new ArrayList<>();
+        mSelectedList = bundle.getStringArrayList("objectList");
+        Toast.makeText(getContext(),Integer.toString(mSelectedList.size()),Toast.LENGTH_LONG).show();
         adapter = new CatalogueAdapter(mList, mCtx);
         mRecycler.setLayoutManager(new LinearLayoutManager(mCtx));
         mRecycler.setAdapter(adapter);
         adapter.addItemClickListener((position, animatedview) -> {
+            for (String key : mSelectedList) {
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("companyname", mList.get(position).getName());
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("PartNoList")
+                        .child(key)
+                        .updateChildren(map).addOnSuccessListener(aVoid -> {
+                    Toast.makeText(mCtx, mList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                });
+                map.clear();
+            }
+            getFragmentManager().popBackStack();
+            getFragmentManager().popBackStack();
 
-            String companyName = mList.get(position).getName();
-            Toast.makeText(mCtx, companyName, Toast.LENGTH_SHORT).show();
-
-            ProductListFragment fragment = new ProductListFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("company", companyName);
-            fragment.setArguments(bundle);
-            getFragmentManager()
-                    .beginTransaction()
-                    .addToBackStack("settings")
-                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right)
-                    .replace(R.id.productlist_container, fragment)
-                    .commit();
 
         });
 
