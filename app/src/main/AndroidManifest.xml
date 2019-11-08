@@ -18,7 +18,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".Activities.AddProductActivity"></activity>
-        <activity android:name=".Activities.TransferActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -34,9 +33,6 @@
             android:name=".Activities.ProductListActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <activity android:name=".Activities.MainActivity" />
-        <activity
-            android:name=".CatalogueActivity"
-            android:parentActivityName=".Activities.MainActivity" />
         <activity android:name=".Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,35 +41,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ContactUsActivity"
-            android:parentActivityName=".Activities.MainActivity" />
-        <activity
-            android:name=".Activities.AddCompActivity"
-            android:parentActivityName=".CatalogueActivity" />
-        <activity
-            android:name=".CompanyActivity"
-            android:label="@string/title_activity_company"
-            android:parentActivityName=".CatalogueActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".AddPartNo"
-            android:parentActivityName=".CompanyActivity" />
-        <activity
-            android:name=".PartNoDetails"
-            android:parentActivityName=".CompanyActivity" />
-        <activity
-            android:name=".addPartnoDetailsActivity"
-            android:parentActivityName=".PartNoDetails" />
+            android:name=".Activities.AddCompActivity"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity
-            android:name=".imageActivity"
-            android:parentActivityName=".PartNoDetails" />
-        <activity
-            android:name=".RenameCompanyActivity"
-            android:excludeFromRecents="true"
-            android:parentActivityName=".CatalogueActivity" />
     </application>
 
 </manifest>

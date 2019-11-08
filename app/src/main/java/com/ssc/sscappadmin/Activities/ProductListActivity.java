@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ssc.sscappadmin.Fragments.CatolgueListFragment;
 import com.ssc.sscappadmin.R;
 
@@ -26,6 +27,17 @@ public class ProductListActivity extends AppCompatActivity {
     private int revealX;
     private int revealY;
 
+
+    public static FloatingActionButton getFab() {
+        return fab;
+    }
+
+    public static void setFab(FloatingActionButton fab) {
+        ProductListActivity.fab = fab;
+    }
+
+    private static FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +45,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
 
+        fab = findViewById(R.id.productListfragment_addbtn);
         rootLayout = findViewById(R.id.rootlayout);
         mToolBar = findViewById(R.id.productlist_toolbar);
         setSupportActionBar(mToolBar);
@@ -91,4 +104,6 @@ public class ProductListActivity extends AppCompatActivity {
         }
         return (super.onOptionsItemSelected(item));
     }
+
+
 }

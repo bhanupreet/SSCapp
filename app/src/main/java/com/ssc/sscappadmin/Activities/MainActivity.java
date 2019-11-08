@@ -10,7 +10,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 
 import com.google.firebase.FirebaseApp;
-import com.ssc.sscappadmin.ContactUsActivity;
 import com.ssc.sscappadmin.Model.Companies;
 import com.ssc.sscappadmin.Model.PartNo;
 import com.ssc.sscappadmin.R;

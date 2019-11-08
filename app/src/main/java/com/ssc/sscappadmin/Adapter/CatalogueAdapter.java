@@ -55,6 +55,12 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueViewHolder> 
                 mItemClickListener.onItemClick(position, holder.layout);
             }
         });
+        holder.itemView.setOnLongClickListener(view -> {
+            if (mItemLongClickListner != null) {
+                mItemLongClickListner.onItemLongClick(position);
+            }
+            return true;
+        });
 
     }
 

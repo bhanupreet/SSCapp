@@ -2,6 +2,7 @@ package com.ssc.sscappadmin.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.transition.TransitionInflater;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ssc.sscappadmin.Activities.AddProductActivity;
 import com.ssc.sscappadmin.Activities.ProductListActivity;
 import com.ssc.sscappadmin.Adapter.ProductListAdapter;
 import com.ssc.sscappadmin.Model.PartNo;
@@ -43,9 +45,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import static android.text.TextUtils.isEmpty;
+import static com.ssc.sscappadmin.Activities.ProductListActivity.getFab;
 
-
-public class ProductListFragment extends Fragment {
+public class ProductListFragment extends Fragment implements View.OnClickListener {
     private RecyclerView mRecycler;
     private ProductListAdapter adapter;
     private ShimmerRecyclerView shimmerAdapter;
@@ -56,6 +58,7 @@ public class ProductListFragment extends Fragment {
     private ActionMode mActionmode;
     private boolean isSelectAll = false;
     private String companyname;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +89,14 @@ public class ProductListFragment extends Fragment {
                 .equalTo(companyname);
 
         query.addListenerForSingleValueEvent(listener);
-//        query.keepSynced(true);
+        ProductListActivity.getFab().setVisibility(View.VISIBLE);
+        getFab().setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+        getFab().setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), AddProductActivity.class);
+            intent.putExtra("companyname", companyname);
+            startActivity(intent);
+        });
+        query.keepSynced(true);
 
 
         setToolBarTitle(companyname, view);
@@ -203,9 +213,10 @@ public class ProductListFragment extends Fragment {
                 mNoParts.setVisibility(View.GONE);
                 mList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    PartNo partNo = snapshot.getValue(PartNo.class);
+                    partNo.setUid(snapshot.getKey());
                     if (!mList.contains(snapshot.getValue(PartNo.class))) {
-
-                        mList.add(snapshot.getValue(PartNo.class));
+                        mList.add(partNo);
                         keyobject.put(snapshot.getKey(), snapshot.getValue(PartNo.class));
                     }
                 }
@@ -228,7 +239,6 @@ public class ProductListFragment extends Fragment {
         mRecycler = view.findViewById(R.id.cataloguelist_recycler);
         mNoParts = view.findViewById(R.id.noParts);
         mNoParts.setVisibility(View.GONE);
-
         shimmerAdapter = view.findViewById(R.id.shimmer_recycler_view);
     }
 
@@ -381,9 +391,10 @@ public class ProductListFragment extends Fragment {
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
-
-                if (!mList.contains(snapshot.getValue(PartNo.class))) {
-                    mList.add(snapshot.getValue(PartNo.class));
+                PartNo partNo = snapshot.getValue(PartNo.class);
+                partNo.setUid(snapshot.getKey());
+                if (!mList.contains(snapshot.getValue(PartNo.class)) && snapshot.getValue(PartNo.class).isVisibility()) {
+                    mList.add(partNo);
                     keyobject.put(snapshot.getKey(), snapshot.getValue(PartNo.class));
                 }
                 adapter.notifyDataSetChanged();
@@ -472,6 +483,12 @@ public class ProductListFragment extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.selection_menu, menu);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
 
     }
 }

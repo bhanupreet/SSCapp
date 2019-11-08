@@ -1,6 +1,8 @@
 package com.ssc.sscappadmin.Fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,12 +25,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.ssc.sscappadmin.Activities.AddCompActivity;
+import com.ssc.sscappadmin.Activities.ProductListActivity;
 import com.ssc.sscappadmin.Adapter.CatalogueAdapter;
 import com.ssc.sscappadmin.Model.Companies;
 import com.ssc.sscappadmin.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.ssc.sscappadmin.Activities.ProductListActivity.getFab;
 
 
 public class CatolgueListFragment extends Fragment {
@@ -51,6 +59,7 @@ public class CatolgueListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        queryfunct();
     }
 
     @Nullable
@@ -62,8 +71,15 @@ public class CatolgueListFragment extends Fragment {
 
         FindIds(view);
         mCtx = getContext();
-        query = FirebaseDatabase.getInstance().getReference().child("Company").orderByChild("name");
-        query.addListenerForSingleValueEvent(valueEventListener);
+        queryfunct();
+
+        ProductListActivity.getFab().setVisibility(View.VISIBLE);
+
+        getFab().setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+        getFab().setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), AddCompActivity.class);
+            startActivity(intent);
+        });
 
         adapter = new CatalogueAdapter(mList, mCtx);
         mRecycler.setLayoutManager(new LinearLayoutManager(mCtx));
@@ -80,15 +96,84 @@ public class CatolgueListFragment extends Fragment {
             getFragmentManager()
                     .beginTransaction()
                     .addToBackStack("settings")
-                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right)
+                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                     .replace(R.id.productlist_container, fragment)
                     .commit();
+
+        });
+
+        adapter.addItemLongClickListener(position -> {
+            AlertDialog.Builder delete = new AlertDialog.Builder(getContext());
+            CharSequence options[] = new CharSequence[]{"Delete", "Rename"};
+            delete.setItems(options, (dialogInterface, i) -> {
+                switch (i) {
+                    case 0:
+                        deletedialog(mList.get(position));
+                        break;
+                    case 1:
+                        renameCompany(position);
+                }
+            });
+//                    CharSequence options[] = new CharSequence[]{"Delete","Rename"};
+            renameCompany(position);
 
         });
 
         ProductListFragment.setToolBarTitle("Products", view);
 
         return view;
+    }
+
+    private void deletedialog(Companies companyname) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+        alert.setTitle("Delete entry");
+        alert.setMessage("Are you sure you want to delete?");
+        alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+            // continue with delete
+            FirebaseDatabase.getInstance().getReference().child("Company").child(companyname.getUid());
+
+            Query query = FirebaseDatabase.getInstance().getReference().child("PartNoList").orderByChild("companyname").equalTo(companyname.getName());
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String key = snapshot.getKey();
+                            snapshot.getRef().removeValue();
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            StorageReference storageRef = storage.getReference();
+                            StorageReference desertRef = storageRef.child("itemimages/" + key + ".jpg");
+                            desertRef.delete();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            Intent profileIntent = new Intent(getContext(), ProductListActivity.class);
+            startActivity(profileIntent);
+        });
+        alert.setNegativeButton(android.R.string.no, (dialog, which) -> {
+            // close dialog
+            dialog.cancel();
+        });
+        alert.show();
+    }
+
+    private void renameCompany(int position) {
+        Intent AddCompIntent = new Intent(getContext(), AddCompActivity.class);
+        AddCompIntent.putExtra("object", mList.get(position));
+        startActivity(AddCompIntent);
+    }
+
+    private void queryfunct() {
+        query = FirebaseDatabase.getInstance().getReference().child("Company").orderByChild("name");
+        query.addListenerForSingleValueEvent(valueEventListener);
     }
 
     private void FindIds(View view) {
@@ -108,7 +193,9 @@ public class CatolgueListFragment extends Fragment {
                 mNoParts.setVisibility(View.GONE);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    mList.add(snapshot.getValue(Companies.class));
+                    Companies company = snapshot.getValue(Companies.class);
+                    company.setUid(snapshot.getKey());
+                    mList.add(company);
                     adapter.notifyItemInserted(mList.size() - 1);
                 }
                 mAllList.addAll(mList);

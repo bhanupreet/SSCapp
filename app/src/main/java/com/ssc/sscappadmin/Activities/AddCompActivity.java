@@ -14,8 +14,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.ssc.sscappadmin.Model.Companies;
 import com.ssc.sscappadmin.R;
 
 import java.util.HashMap;
@@ -27,6 +32,8 @@ public class AddCompActivity extends AppCompatActivity implements View.OnClickLi
     private DatabaseReference mDatabase;
     private ProgressDialog mprogressdialog;
     private Toolbar mToolbar;
+    DatabaseReference myRef;
+    Companies companyObject;
 
 
     @Override
@@ -50,17 +57,27 @@ public class AddCompActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseApp.initializeApp(this);
         mcompampanyname = findViewById(R.id.name_input);
 
+        companyObject = getIntent().getParcelableExtra("object");
+        if (companyObject != null) {
+            mcompampanyname.getEditText().setText(companyObject.getName());
+            mAddBtn.setText("Update");
+            getSupportActionBar().setTitle(companyObject.getName());
+
+        }
+
         mAddBtn.setOnClickListener(this);
 // new comment
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
 
 
     }
@@ -72,13 +89,41 @@ public class AddCompActivity extends AppCompatActivity implements View.OnClickLi
             String companynamestring = mcompampanyname.getEditText().getText().toString();
             if (!TextUtils.isEmpty(companynamestring)) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference().child("Company").push();
+                if (companyObject != null) {
+                    myRef = database.getReference().child("Company").child(companyObject.getUid());
+
+                    String oldname = companyObject.getName();
+                    Query query = FirebaseDatabase.getInstance()
+                            .getReference().child("PartNoList").orderByChild("companyname").equalTo(oldname);
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    HashMap<String, Object> map1 = new HashMap<>();
+                                    map1.put("companyname", companynamestring);
+                                    snapshot.getRef().updateChildren(map1);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                } else
+                    myRef = database.getReference().child("Company").push();
+
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("name", companynamestring);
+
                 myRef.updateChildren(map).addOnSuccessListener(aVoid -> {
                     Toast.makeText(AddCompActivity.this, "Company added successfully", Toast.LENGTH_SHORT).show();
                     Intent mainintent = new Intent(AddCompActivity.this, ProductListActivity.class);
                     startActivity(mainintent);
+                    finishAffinity();
                 });
             } else
                 Toast.makeText(AddCompActivity.this, "Field cannot be left blank", Toast.LENGTH_SHORT).show();

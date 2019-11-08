@@ -7,20 +7,36 @@ import androidx.annotation.Nullable;
 
 public class PartNo implements Parcelable {
 
-    public String name, ssc_code, reference, model, image, cost_price, companyname;
-    boolean visibility, selected = false;
+    public String name;
+    public String ssc_code;
+    public String reference;
+    public String model;
+    public String image;
 
-    public PartNo(String name, String ssc_code, String reference, String model, String image, String cost_price, String companyname, boolean visibility) {
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String companyname;
+
+    public PartNo(String name, String ssc_code, String reference, String model, String image, String companyname, String uid, boolean visibility, boolean selected) {
         this.name = name;
         this.ssc_code = ssc_code;
         this.reference = reference;
         this.model = model;
         this.image = image;
-        this.cost_price = cost_price;
         this.companyname = companyname;
+        this.uid = uid;
         this.visibility = visibility;
-
+        this.selected = selected;
     }
+
+    public String uid;
+    boolean visibility, selected = false;
 
     protected PartNo(Parcel in) {
         name = in.readString();
@@ -28,8 +44,8 @@ public class PartNo implements Parcelable {
         reference = in.readString();
         model = in.readString();
         image = in.readString();
-        cost_price = in.readString();
         companyname = in.readString();
+        uid = in.readString();
         visibility = in.readByte() != 0;
         selected = in.readByte() != 0;
     }
@@ -86,14 +102,6 @@ public class PartNo implements Parcelable {
         this.image = image;
     }
 
-    public String getCost_price() {
-        return cost_price;
-    }
-
-    public void setCost_price(String cost_price) {
-        this.cost_price = cost_price;
-    }
-
     public String getCompanyname() {
         return companyname;
     }
@@ -122,19 +130,8 @@ public class PartNo implements Parcelable {
             return false;
         }
         PartNo o1 = (PartNo) obj;
-        return o1.getName().equalsIgnoreCase(this.getName()) && o1.getSsc_code().equalsIgnoreCase(this.getSsc_code());
-    }
 
-    public PartNo(String name, String ssc_code, String reference, String model, String image, String cost_price, String companyname, boolean visibility, boolean selected) {
-        this.name = name;
-        this.ssc_code = ssc_code;
-        this.reference = reference;
-        this.model = model;
-        this.image = image;
-        this.cost_price = cost_price;
-        this.companyname = companyname;
-        this.visibility = visibility;
-        this.selected = selected;
+        return o1.getName().equalsIgnoreCase(this.getName()) && o1.getCompanyname().equalsIgnoreCase(this.getCompanyname());
     }
 
     public boolean isSelected() {
@@ -144,6 +141,7 @@ public class PartNo implements Parcelable {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
 
     @Override
     public int describeContents() {
@@ -157,8 +155,8 @@ public class PartNo implements Parcelable {
         parcel.writeString(reference);
         parcel.writeString(model);
         parcel.writeString(image);
-        parcel.writeString(cost_price);
         parcel.writeString(companyname);
+        parcel.writeString(uid);
         parcel.writeByte((byte) (visibility ? 1 : 0));
         parcel.writeByte((byte) (selected ? 1 : 0));
     }

@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ssc.sscappadmin.Activities.ProductListActivity;
 import com.ssc.sscappadmin.Adapter.CatalogueAdapter;
 import com.ssc.sscappadmin.Model.Companies;
 import com.ssc.sscappadmin.R;
@@ -92,6 +93,8 @@ public class TransferFragment extends Fragment {
         });
 
         ProductListFragment.setToolBarTitle("Products", view);
+        ProductListActivity.getFab().setVisibility(View.GONE);
+
 
         return view;
     }

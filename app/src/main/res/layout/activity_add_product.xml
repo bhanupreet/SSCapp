@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="fill_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="fill_parent">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -62,25 +62,10 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cost_price_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/reference_input"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Availability" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/modelinput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cost_price_input"
+            android:layout_below="@id/reference_input"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
 
@@ -99,13 +84,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/partnodetails_deletebtn"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:textSize="18dp"
-            android:layout_marginLeft="20dp"
             android:backgroundTint="#008000"
             android:text="Add/ update part"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
 
         <Button
             android:id="@+id/uploadimagebtn"
@@ -115,10 +100,10 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:textSize="14dp"
             android:backgroundTint="@color/colorAccent"
             android:text="Upload image"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
 
         <Button
             android:id="@+id/deleteimagebtn"
@@ -126,38 +111,38 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/modelinput"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
-            android:textSize="14dp"
+            android:layout_marginRight="20dp"
             android:backgroundTint="@color/colorAccent"
             android:text="Delete Image"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
 
 
-        <TextView
+        <ImageView
             android:id="@+id/result"
             android:layout_width="130dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/uploadimagebtn"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="23dp"
             android:layout_marginTop="3dp"
-            android:textSize="14dp"
             android:textColor="#212121"
-            />
+            android:textSize="14dp" />
+
         <Button
             android:id="@+id/partnodetails_deletebtn"
-            android:layout_centerHorizontal="true"
             android:layout_width="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_below="@id/deleteimagebtn"
             android:layout_height="wrap_content"
+            android:layout_below="@id/result"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
-            android:textSize="18dp"
+            android:layout_marginRight="20dp"
             android:backgroundTint="#a9a9a9"
             android:text="Delete part"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
     </RelativeLayout>
 
 </ScrollView>

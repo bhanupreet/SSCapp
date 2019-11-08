@@ -1,6 +1,9 @@
 package com.ssc.sscappadmin.Model;
 
-public class Companies {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Companies implements Parcelable {
 
     public Companies(String name) {
         this.name = name;
@@ -8,6 +11,23 @@ public class Companies {
 
 
     private String name,uid;
+
+    protected Companies(Parcel in) {
+        name = in.readString();
+        uid = in.readString();
+    }
+
+    public static final Creator<Companies> CREATOR = new Creator<Companies>() {
+        @Override
+        public Companies createFromParcel(Parcel in) {
+            return new Companies(in);
+        }
+
+        @Override
+        public Companies[] newArray(int size) {
+            return new Companies[size];
+        }
+    };
 
     public String getUid() {
         return uid;
@@ -31,5 +51,16 @@ public class Companies {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(uid);
     }
 }

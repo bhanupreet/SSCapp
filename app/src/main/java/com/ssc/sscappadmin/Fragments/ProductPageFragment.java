@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import com.jraska.falcon.Falcon;
+import com.ssc.sscappadmin.Activities.AddProductActivity;
+import com.ssc.sscappadmin.Activities.ProductListActivity;
 import com.ssc.sscappadmin.Adapter.ProductPageAdapter;
 import com.ssc.sscappadmin.Model.PartNo;
 import com.ssc.sscappadmin.R;
@@ -35,6 +37,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ssc.sscappadmin.Activities.ProductListActivity.getFab;
+
 
 public class ProductPageFragment extends Fragment {
     private RecyclerView mRecycler;
@@ -43,6 +47,7 @@ public class ProductPageFragment extends Fragment {
     private String name = "";
     private boolean multiselect = false;
     private List<PartNo> mSelectionList = new ArrayList<>();
+    LinearLayoutManager layoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,7 +121,7 @@ public class ProductPageFragment extends Fragment {
         mRecycler = view.findViewById(R.id.cataloguelist_recycler);
         adapter = new ProductPageAdapter(mList, getContext());
         mRecycler.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+       layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setAdapter(adapter);
         mRecycler.scrollToPosition(mList.indexOf(partNo));
@@ -153,6 +158,15 @@ public class ProductPageFragment extends Fragment {
 
                     .replace(R.id.productlist_container, fragment)
                     .commit();
+        });
+
+        ProductListActivity.getFab().setVisibility(View.VISIBLE);
+        getFab().setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_edit));
+
+        getFab().setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), AddProductActivity.class);
+            intent.putExtra("object",mList.get(layoutManager.findFirstCompletelyVisibleItemPosition()));
+            startActivity(intent);
         });
         return view;
     }

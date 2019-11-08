@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.jraska.falcon.Falcon;
 import com.squareup.picasso.Picasso;
+import com.ssc.sscappadmin.Activities.ProductListActivity;
 import com.ssc.sscappadmin.Model.PartNo;
 import com.ssc.sscappadmin.R;
 
@@ -49,6 +50,7 @@ public class FullScreenImageFragment extends Fragment {
         mWatermark = view.findViewById(R.id.fullscreenwatermark);
         mImagecode = view.findViewById(R.id.imagecode);
 
+        ProductListActivity.getFab().setVisibility(View.GONE);
 
         Bundle bundle = getArguments();
         PartNo partNo = bundle.getParcelable("object");
