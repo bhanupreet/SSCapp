@@ -80,23 +80,35 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
         shimmerAdapter.setVisibility(View.VISIBLE);
 
         Bundle bundle = getArguments();
-        companyname = bundle.getString("company");
-        Query query = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("PartNoList")
-                .orderByChild("companyname")
-                .equalTo(companyname);
+        mAllList = bundle.getParcelableArrayList("objectlist");
+        if (mAllList==null) {
+            companyname = bundle.getString("company");
+            Query query = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("PartNoList")
+                    .orderByChild("companyname")
+                    .equalTo(companyname);
 
-        query.addListenerForSingleValueEvent(listener);
-        ProductListActivity.getFab().setVisibility(View.VISIBLE);
-        getFab().setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
-        getFab().setOnClickListener(view1 -> {
-            Intent intent = new Intent(getActivity(), AddProductActivity.class);
-            intent.putExtra("companyname", companyname);
-            startActivity(intent);
-        });
-        query.keepSynced(true);
+            query.addListenerForSingleValueEvent(listener);
+            query.keepSynced(true);
+            setToolBarTitle("Products", view);
+
+
+        } else {
+            mList.addAll(mAllList);
+            shimmerAdapter.hideShimmerAdapter();
+        }
+
+        if (ProductListActivity.getFab() != null) {
+            ProductListActivity.getFab().setVisibility(View.VISIBLE);
+            getFab().setImageResource(R.drawable.ic_add_black_24dp);
+            getFab().setOnClickListener(view1 -> {
+                Intent intent = new Intent(getActivity(), AddProductActivity.class);
+                intent.putExtra("companyname", companyname);
+                startActivity(intent);
+            });
+        }
 
 
         setToolBarTitle(companyname, view);
@@ -135,13 +147,7 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        adapter.addItemLongClickListener(position -> {
-//            makeText(getContext(),mList.get(position).getName(),Toast.LENGTH_SHORT).show();
-//            multiselect = !multiselect;
-            itemLongClick(position);
 
-
-        });
         return view;
     }
 
@@ -149,8 +155,6 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
         multiselect = !multiselect;
         ProductListActivity productListActivity = (ProductListActivity) getActivity();
         startActionMode(productListActivity);
-
-
         mSelectionList.add(mList.get(position));
         mList.get(position).setSelected(!mList.get(position).isSelected());
         adapter.notifyItemChanged(position);
@@ -224,9 +228,17 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
                 mNoParts.setVisibility(View.VISIBLE);
                 mNoParts.bringToFront();
             }
+            mAllList=new ArrayList<>(mList);
 //            Collections.sort(mList, (m1, m2) -> m1.getName().compareToIgnoreCase(m2.getName()));
             adapter.notifyDataSetChanged();
             shimmerAdapter.hideShimmerAdapter();
+            adapter.addItemLongClickListener(position -> {
+//            makeText(getContext(),mList.get(position).getName(),Toast.LENGTH_SHORT).show();
+//            multiselect = !multiselect;
+                itemLongClick(position);
+
+
+            });
         }
 
         @Override
@@ -249,6 +261,7 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (getFragmentManager().getBackStackEntryCount() != 0) {
@@ -256,7 +269,7 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
                 }
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
         }
     }
 
@@ -270,33 +283,10 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
         // Get the SearchView and set the searchable configuration
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        Query query = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("PartNoList");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    mAllList.clear();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        mAllList.add(snapshot.getValue(PartNo.class));
-                    }
-                }
-                adapter.notifyDataSetChanged();
-                shimmerAdapter.hideShimmerAdapter();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
         searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             public boolean onQueryTextChange(final String newText) {
-
+                mList.clear();
                 if (newText.equals("")) {
                     mList.clear();
                     mList.addAll(mAllList);
@@ -305,7 +295,11 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
 
                     mSearchList.clear();
                     for (PartNo profile : mAllList) {
-                        if (!isEmpty(profile.getName()) && !isEmpty(profile.getSsc_code()) && !isEmpty(profile.getModel()) && !isEmpty(profile.getReference())) {
+                        if (!isEmpty(profile.getName())
+                                && !isEmpty(profile.getSsc_code())
+                                && !isEmpty(profile.getModel())
+                                && !isEmpty(profile.getReference())
+                                && !mSearchList.contains(profile)) {
                             if (profile.getName().toLowerCase().contains(newText.toLowerCase())
                                     || profile.getSsc_code().toLowerCase().contains(newText.toLowerCase())
                                     || profile.getReference().toLowerCase().contains(newText.toLowerCase())
@@ -393,7 +387,7 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
                 PartNo partNo = snapshot.getValue(PartNo.class);
                 partNo.setUid(snapshot.getKey());
-                if (!mList.contains(snapshot.getValue(PartNo.class)) && snapshot.getValue(PartNo.class).isVisibility()) {
+                if (!mList.contains(partNo) && partNo.isVisibility()) {
                     mList.add(partNo);
                     keyobject.put(snapshot.getKey(), snapshot.getValue(PartNo.class));
                 }
@@ -465,13 +459,6 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
 
     }
 
-//    @Override
-//    public void doBack() {
-//        Toast.makeText(getActivity(), "OnBackpress Click", Toast.LENGTH_LONG).show();
-//        resetActionMode();
-////        SetFAB();
-//    }
-
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         return super.onContextItemSelected(item);
@@ -488,7 +475,6 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-
 
     }
 }

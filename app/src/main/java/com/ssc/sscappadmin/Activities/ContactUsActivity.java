@@ -3,6 +3,7 @@ package com.ssc.sscappadmin.Activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ssc.sscappadmin.R;
 
 public class ContactUsActivity extends AppCompatActivity {
-    private TextView mPhone, mEmail,mphone2,mlandline;
+    private TextView mPhone, mEmail, mphone2, mlandline;
     private androidx.appcompat.widget.Toolbar mToolbar;
 
 
@@ -48,5 +49,14 @@ public class ContactUsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
 
+            return true;
+        } else
+            return false;
+    }
 }

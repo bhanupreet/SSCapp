@@ -1,72 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         tools:context=".Activities.MainActivity">
 
-    <include layout="@layout/appbar"
-        android:id="@+id/mainAppbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"></include>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=" Satnam Sales Corporation"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:id="@+id/satnamsalestext"
-        android:textColor="@color/colorAccent"
-        android:layout_margin="20dp"
-        android:gravity="center"/>
+        <include
+            android:id="@+id/mainAppbar"
+            layout="@layout/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="top" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_margin="20dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:padding="20dp"
-        android:background="@drawable/truck1"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Truck Parts"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccent"
-        />
-    <Button
-        android:id="@+id/main_cataloguebtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_margin="20dp"
-        android:textSize="18dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rectanglebg"
-        android:textColor="#ffffff"
-        android:text="@string/catalogue" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:text="Contact Us"
-        android:background="@drawable/rectanglebg"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:textSize="18dp"
-        android:id="@+id/aboutusbtn" />
+            <TextView
+                android:id="@+id/satnamsalestext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text=" Satnam Sales Corporation"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
+            <ImageView
+                android:id="@+id/truckimage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/truck1"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@id/satnamsalestext" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/truckpartstext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Truck Parts"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/truckimage" />
+
+            <Button
+                android:id="@+id/main_cataloguebtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_margin="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rectanglebg"
+                android:text="@string/catalogue"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/truckpartstext" />
+
+            <Button
+                android:id="@+id/aboutusbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/rectanglebg"
+                android:text="Contact Us"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/main_cataloguebtn" />
+            <Button
+                android:id="@+id/Searchbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/rectanglebg"
+                android:text="Search Product"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/aboutusbtn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

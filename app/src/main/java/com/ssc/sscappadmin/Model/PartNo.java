@@ -2,6 +2,7 @@ package com.ssc.sscappadmin.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
@@ -131,7 +132,10 @@ public class PartNo implements Parcelable {
         }
         PartNo o1 = (PartNo) obj;
 
-        return o1.getName().equalsIgnoreCase(this.getName()) && o1.getCompanyname().equalsIgnoreCase(this.getCompanyname());
+        if (!TextUtils.isEmpty(this.getCompanyname()) || !TextUtils.isEmpty(this.getName()) || !TextUtils.isEmpty(o1.getName()) || !TextUtils.isEmpty(o1.getCompanyname()))
+            return o1.getName().equalsIgnoreCase(this.getName()) && o1.getCompanyname().equalsIgnoreCase(this.getCompanyname());
+        else
+            return false;
     }
 
     public boolean isSelected() {

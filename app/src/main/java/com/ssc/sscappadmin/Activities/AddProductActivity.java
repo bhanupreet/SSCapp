@@ -147,7 +147,8 @@ public class AddProductActivity extends AppCompatActivity implements OnClickList
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference();
                     StorageReference desertRef = storageRef.child("itemimages/" + key + ".jpg");
-                    desertRef.delete().addOnSuccessListener(aVoid -> resultdisplay.setImageBitmap(null));
+                    desertRef.delete();
+                    resultdisplay.setImageBitmap(null);
                 });
                 alert.setNegativeButton(android.R.string.no, (dialog, which) -> {
                     // close dialog

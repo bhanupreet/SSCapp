@@ -75,7 +75,7 @@ public class CatolgueListFragment extends Fragment {
 
         ProductListActivity.getFab().setVisibility(View.VISIBLE);
 
-        getFab().setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+        getFab().setImageResource(R.drawable.ic_add_black_24dp);
         getFab().setOnClickListener(view1 -> {
             Intent intent = new Intent(getActivity(), AddCompActivity.class);
             startActivity(intent);
@@ -115,7 +115,7 @@ public class CatolgueListFragment extends Fragment {
                 }
             });
 //                    CharSequence options[] = new CharSequence[]{"Delete","Rename"};
-            renameCompany(position);
+            delete.show();
 
         });
 
@@ -131,7 +131,7 @@ public class CatolgueListFragment extends Fragment {
         alert.setMessage("Are you sure you want to delete?");
         alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
             // continue with delete
-            FirebaseDatabase.getInstance().getReference().child("Company").child(companyname.getUid());
+            FirebaseDatabase.getInstance().getReference().child("Company").child(companyname.getUid()).removeValue();
 
             Query query = FirebaseDatabase.getInstance().getReference().child("PartNoList").orderByChild("companyname").equalTo(companyname.getName());
             query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -228,6 +228,7 @@ public class CatolgueListFragment extends Fragment {
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             public boolean onQueryTextChange(final String newText) {
 
+                mList.clear();
                 if (newText.equals("")) {
                     mList.clear();
                     mList.addAll(mAllList);

@@ -121,7 +121,7 @@ public class ProductPageFragment extends Fragment {
         mRecycler = view.findViewById(R.id.cataloguelist_recycler);
         adapter = new ProductPageAdapter(mList, getContext());
         mRecycler.setHasFixedSize(true);
-       layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setAdapter(adapter);
         mRecycler.scrollToPosition(mList.indexOf(partNo));
@@ -160,14 +160,16 @@ public class ProductPageFragment extends Fragment {
                     .commit();
         });
 
-        ProductListActivity.getFab().setVisibility(View.VISIBLE);
-        getFab().setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_edit));
+        if (ProductListActivity.getFab() != null) {
+            ProductListActivity.getFab().setVisibility(View.VISIBLE);
+            getFab().setImageResource(R.drawable.ic_edit);
 
-        getFab().setOnClickListener(view1 -> {
-            Intent intent = new Intent(getActivity(), AddProductActivity.class);
-            intent.putExtra("object",mList.get(layoutManager.findFirstCompletelyVisibleItemPosition()));
-            startActivity(intent);
-        });
+            getFab().setOnClickListener(view1 -> {
+                Intent intent = new Intent(getActivity(), AddProductActivity.class);
+                intent.putExtra("object", mList.get(layoutManager.findFirstCompletelyVisibleItemPosition()));
+                startActivity(intent);
+            });
+        }
         return view;
     }
 

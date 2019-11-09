@@ -50,8 +50,9 @@ public class FullScreenImageFragment extends Fragment {
         mWatermark = view.findViewById(R.id.fullscreenwatermark);
         mImagecode = view.findViewById(R.id.imagecode);
 
-        ProductListActivity.getFab().setVisibility(View.GONE);
-
+        if (ProductListActivity.getFab() != null) {
+            ProductListActivity.getFab().setVisibility(View.GONE);
+        }
         Bundle bundle = getArguments();
         PartNo partNo = bundle.getParcelable("object");
         imagecoderefstring = partNo.getSsc_code();

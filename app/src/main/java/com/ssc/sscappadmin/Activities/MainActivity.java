@@ -2,7 +2,6 @@ package com.ssc.sscappadmin.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +18,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button catalogbtn, aboutusbtn, faqbtn;
+    private Button catalogbtn, aboutusbtn, searchbtn;
     private androidx.appcompat.widget.Toolbar mainAppbar;
     private List<Companies> companiesList = new ArrayList<>();
     private List<PartNo> partNoList = new ArrayList<>();
@@ -35,14 +34,18 @@ public class MainActivity extends AppCompatActivity {
 
         catalogbtn = findViewById(R.id.main_cataloguebtn);
         aboutusbtn = findViewById(R.id.aboutusbtn);
+        searchbtn = findViewById(R.id.Searchbtn);
         mainAppbar = findViewById(R.id.mainAppbar);
+
+        searchbtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+        });
 
         setSupportActionBar(mainAppbar);
         getSupportActionBar().setTitle("Home");
 
-        catalogbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        catalogbtn.setOnClickListener(v -> {
 
 //                if (size == partNoList.size()) {
 //                    for (PartNo partNo : partNoList) {
@@ -79,17 +82,16 @@ public class MainActivity extends AppCompatActivity {
 //                    FirebaseDatabase.getInstance().getReference().child("Companies").child(company.getName()).removeValue();
 //                }
 
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(MainActivity.this, v, "transition");
-                int revealX = (int) (v.getX() + v.getWidth() / 2);
-                int revealY = (int) (v.getY() + v.getHeight() / 2);
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(MainActivity.this, v, "transition");
+            int revealX = (int) (v.getX() + v.getWidth() / 2);
+            int revealY = (int) (v.getY() + v.getHeight() / 2);
 
-                Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
-                intent.putExtra(ProductListActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
-                intent.putExtra(ProductListActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
+            Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
+            intent.putExtra(ProductListActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
+            intent.putExtra(ProductListActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
 
-                ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
-            }
+            ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
         });
 
 

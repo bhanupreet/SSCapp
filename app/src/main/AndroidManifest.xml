@@ -17,7 +17,8 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.AddProductActivity"></activity>
+        <activity android:name=".Activities.SearchActivity"></activity>
+        <activity android:name=".Activities.AddProductActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -40,11 +41,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activities.AddCompActivity"/>
+        <activity android:name=".Activities.AddCompActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".Activities.ContactUsActivity"
+            android:parentActivityName=".Activities.MainActivity" />
     </application>
 
 </manifest>
