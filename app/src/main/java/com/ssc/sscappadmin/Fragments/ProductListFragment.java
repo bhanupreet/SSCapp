@@ -51,11 +51,14 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
     private RecyclerView mRecycler;
     private ProductListAdapter adapter;
     private ShimmerRecyclerView shimmerAdapter;
-    private List<PartNo> mList = new ArrayList<>(), mAllList = new ArrayList<>(), mSearchList = new ArrayList<>(), mSelectionList = new ArrayList<>();
+    private List<PartNo> mList = new ArrayList<>();
+    private List<PartNo> mAllList = new ArrayList<>();
+    private List<PartNo> mSearchList = new ArrayList<>();
+    private List<PartNo> mSelectionList = new ArrayList<>();
     private boolean multiselect = false;
     private TextView mNoParts;
     private HashMap<String, Object> keyobject = new HashMap<>();
-    private ActionMode mActionmode;
+    public static ActionMode mActionmode;
     private boolean isSelectAll = false;
     private String companyname;
 
@@ -81,7 +84,7 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
 
         Bundle bundle = getArguments();
         mAllList = bundle.getParcelableArrayList("objectlist");
-        if (mAllList==null) {
+        if (mAllList == null) {
             companyname = bundle.getString("company");
             Query query = FirebaseDatabase
                     .getInstance()
@@ -158,6 +161,9 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
         mSelectionList.add(mList.get(position));
         mList.get(position).setSelected(!mList.get(position).isSelected());
         adapter.notifyItemChanged(position);
+        if (getFab() != null) {
+            getFab().setVisibility(View.GONE);
+        }
     }
 
 
@@ -228,7 +234,7 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
                 mNoParts.setVisibility(View.VISIBLE);
                 mNoParts.bringToFront();
             }
-            mAllList=new ArrayList<>(mList);
+            mAllList = new ArrayList<>(mList);
 //            Collections.sort(mList, (m1, m2) -> m1.getName().compareToIgnoreCase(m2.getName()));
             adapter.notifyDataSetChanged();
             shimmerAdapter.hideShimmerAdapter();
@@ -356,7 +362,7 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
 
         @Override
         public void onDestroyActionMode(ActionMode actionMode) {
-            mActionmode = null;
+            resetActionMode();
 //            doBack();
         }
     };
@@ -421,12 +427,16 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
         });
     }
 
-    private void resetActionMode() {
+    public void resetActionMode() {
         multiselect = false;
         if (mActionmode != null)
             mActionmode.finish();
         for (PartNo profile : mList)
             profile.setSelected(false);
+
+        if (getFab() != null) {
+            getFab().setVisibility(View.VISIBLE);
+        }
 
         mSelectionList.clear();
 //        sort(filterlist);
@@ -477,4 +487,6 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
 
     }
+
+
 }

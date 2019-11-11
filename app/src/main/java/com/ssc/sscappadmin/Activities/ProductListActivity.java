@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ssc.sscappadmin.Fragments.CatolgueListFragment;
+import com.ssc.sscappadmin.Fragments.ProductListFragment;
 import com.ssc.sscappadmin.R;
 
 public class ProductListActivity extends AppCompatActivity {
@@ -27,6 +28,12 @@ public class ProductListActivity extends AppCompatActivity {
     private int revealX;
     private int revealY;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (ProductListFragment.mActionmode != null)
+            ProductListFragment.mActionmode.finish();
+    }
 
     public static FloatingActionButton getFab() {
         return fab;

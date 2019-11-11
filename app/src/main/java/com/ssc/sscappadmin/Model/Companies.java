@@ -2,6 +2,9 @@ package com.ssc.sscappadmin.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+
+import androidx.annotation.Nullable;
 
 public class Companies implements Parcelable {
 
@@ -10,7 +13,7 @@ public class Companies implements Parcelable {
     }
 
 
-    private String name,uid;
+    private String name, uid;
 
     protected Companies(Parcel in) {
         name = in.readString();
@@ -62,5 +65,21 @@ public class Companies implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(uid);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        Companies o1 = (Companies) obj;
+
+        if (!TextUtils.isEmpty(this.getName()) && !TextUtils.isEmpty(o1.getName()))
+            return o1.getName().equals(this.getName());
+        else
+            return false;
     }
 }

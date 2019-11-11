@@ -10,14 +10,15 @@
         android:layout_margin="5dp"
         android:layout_marginTop="?android:actionBarSize"
         android:paddingBottom="10dp">
+
         <ImageView
             android:id="@+id/item_page_image"
             android:layout_width="280dp"
             android:layout_height="280dp"
-            android:transitionName="image_anim"
             android:layout_marginTop="20dp"
             android:contentDescription="product image"
             android:src="@drawable/ic_settings_black_24dp"
+            android:transitionName="image_anim"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,11 +28,11 @@
             android:layout_width="280dp"
             android:layout_height="280dp"
             android:layout_marginTop="20dp"
+            android:alpha="0.65"
             android:background="@drawable/watermark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
 
         <androidx.cardview.widget.CardView
@@ -46,9 +47,10 @@
 
             <TextView
                 android:id="@+id/item_page_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="Name"
                 android:textAlignment="center"

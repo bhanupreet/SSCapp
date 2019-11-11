@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -87,7 +86,7 @@ public class CatolgueListFragment extends Fragment {
         adapter.addItemClickListener((position, animatedview) -> {
 
             String companyName = mList.get(position).getName();
-            Toast.makeText(mCtx, companyName, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mCtx, companyName, Toast.LENGTH_SHORT).show();
 
             ProductListFragment fragment = new ProductListFragment();
             Bundle bundle = new Bundle();

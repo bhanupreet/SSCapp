@@ -67,7 +67,7 @@ public class FullScreenImageFragment extends Fragment {
         }
 
         ProductListFragment.setToolBarTitle(partNo.getName(), view);
-        Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.ic_settings_black_24dp).into(fullscreenphoto);
+        Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.noimage).into(fullscreenphoto);
         // mWatermark.setImageResource(R.drawable.watermark);
         mWatermark.setAlpha(0.65f);
         return view;

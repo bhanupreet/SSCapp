@@ -2,6 +2,9 @@ package com.ssc.sscappadmin.Fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -62,6 +65,7 @@ public class ProductPageFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_share: {
                 Bitmap bitmap = Falcon.takeScreenshotBitmap(getActivity());
+
                 try {
 
                     File cachePath = new File(getContext().getCacheDir(), "images");
@@ -144,20 +148,22 @@ public class ProductPageFragment extends Fragment {
         });
 
         adapter.addItemClickListener((position, animatedview) -> {
+            if (!mList.get(position).getImage().equals("default image")) {
 
-            FullScreenImageFragment fragment = new FullScreenImageFragment();
-            Bundle bundle1 = new Bundle();
-            bundle1.putParcelableArrayList("objectList", (ArrayList<? extends Parcelable>) mList);
-            bundle1.putParcelable("object", mList.get(position));
-            fragment.setArguments(bundle1);
-            getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                    .addToBackStack("image")
-                    .addSharedElement(animatedview, ViewCompat.getTransitionName(animatedview))
+                FullScreenImageFragment fragment = new FullScreenImageFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putParcelableArrayList("objectList", (ArrayList<? extends Parcelable>) mList);
+                bundle1.putParcelable("object", mList.get(position));
+                fragment.setArguments(bundle1);
+                getFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                        .addToBackStack("image")
+                        .addSharedElement(animatedview, ViewCompat.getTransitionName(animatedview))
 
-                    .replace(R.id.productlist_container, fragment)
-                    .commit();
+                        .replace(R.id.productlist_container, fragment)
+                        .commit();
+            }
         });
 
         if (ProductListActivity.getFab() != null) {
@@ -171,6 +177,37 @@ public class ProductPageFragment extends Fragment {
             });
         }
         return view;
+    }
+
+    public static Bitmap getRecyclerViewScreenshot(RecyclerView view) {
+        int size = view.getAdapter().getItemCount();
+        RecyclerView.ViewHolder holder = view.getAdapter().createViewHolder(view, 0);
+        view.getAdapter().onBindViewHolder(holder, 0);
+        holder.itemView.measure(View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        holder.itemView.layout(0, 0, holder.itemView.getMeasuredWidth(), holder.itemView.getMeasuredHeight());
+        Bitmap bigBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), holder.itemView.getMeasuredHeight() * size,
+                Bitmap.Config.ARGB_8888);
+        Canvas bigCanvas = new Canvas(bigBitmap);
+        bigCanvas.drawColor(Color.WHITE);
+        Paint paint = new Paint();
+        int iHeight = 0;
+        holder.itemView.setDrawingCacheEnabled(true);
+        holder.itemView.buildDrawingCache();
+        bigCanvas.drawBitmap(holder.itemView.getDrawingCache(), 0f, iHeight, paint);
+        holder.itemView.setDrawingCacheEnabled(false);
+        holder.itemView.destroyDrawingCache();
+        iHeight += holder.itemView.getMeasuredHeight();
+        for (int i = 1; i < size; i++) {
+            view.getAdapter().onBindViewHolder(holder, i);
+            holder.itemView.setDrawingCacheEnabled(true);
+            holder.itemView.buildDrawingCache();
+            bigCanvas.drawBitmap(holder.itemView.getDrawingCache(), 0f, iHeight, paint);
+            iHeight += holder.itemView.getMeasuredHeight();
+            holder.itemView.setDrawingCacheEnabled(false);
+            holder.itemView.destroyDrawingCache();
+        }
+        return bigBitmap;
     }
 
 }

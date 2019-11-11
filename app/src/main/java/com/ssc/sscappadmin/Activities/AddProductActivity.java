@@ -148,7 +148,7 @@ public class AddProductActivity extends AppCompatActivity implements OnClickList
                     StorageReference storageRef = storage.getReference();
                     StorageReference desertRef = storageRef.child("itemimages/" + key + ".jpg");
                     desertRef.delete();
-                    resultdisplay.setImageBitmap(null);
+                    resultdisplay.setBackgroundResource(R.drawable.noimage);
                 });
                 alert.setNegativeButton(android.R.string.no, (dialog, which) -> {
                     // close dialog
@@ -298,7 +298,7 @@ public class AddProductActivity extends AppCompatActivity implements OnClickList
                                 imagestring = downloadUrl;
                             }
                             mProgressDialaog.dismiss();
-                            Picasso.get().load(downloadUrl).into(resultdisplay);
+                            Picasso.get().load(downloadUrl).error(R.drawable.noimage).into(resultdisplay);
                             //Toast.makeText(addPartnoDetailsActivity.this, downloadUrl, Toast.LENGTH_SHORT).show();
 
                         });

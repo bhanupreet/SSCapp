@@ -13,6 +13,29 @@ public class PartNo implements Parcelable {
     public String reference;
     public String model;
     public String image;
+    public String cost_price;
+
+    public String getCost_price() {
+        return cost_price;
+    }
+
+    public void setCost_price(String cost_price) {
+        this.cost_price = cost_price;
+    }
+
+
+    public PartNo(String name, String ssc_code, String reference, String model, String image, String cost_price, String companyname, String uid, boolean visibility, boolean selected) {
+        this.name = name;
+        this.ssc_code = ssc_code;
+        this.reference = reference;
+        this.model = model;
+        this.image = image;
+        this.cost_price = cost_price;
+        this.companyname = companyname;
+        this.uid = uid;
+        this.visibility = visibility;
+        this.selected = selected;
+    }
 
     public String getUid() {
         return uid;
@@ -24,17 +47,6 @@ public class PartNo implements Parcelable {
 
     public String companyname;
 
-    public PartNo(String name, String ssc_code, String reference, String model, String image, String companyname, String uid, boolean visibility, boolean selected) {
-        this.name = name;
-        this.ssc_code = ssc_code;
-        this.reference = reference;
-        this.model = model;
-        this.image = image;
-        this.companyname = companyname;
-        this.uid = uid;
-        this.visibility = visibility;
-        this.selected = selected;
-    }
 
     public String uid;
     boolean visibility, selected = false;
@@ -132,8 +144,8 @@ public class PartNo implements Parcelable {
         }
         PartNo o1 = (PartNo) obj;
 
-        if (!TextUtils.isEmpty(this.getCompanyname()) || !TextUtils.isEmpty(this.getName()) || !TextUtils.isEmpty(o1.getName()) || !TextUtils.isEmpty(o1.getCompanyname()))
-            return o1.getName().equalsIgnoreCase(this.getName()) && o1.getCompanyname().equalsIgnoreCase(this.getCompanyname());
+        if (!TextUtils.isEmpty(this.getCompanyname()) && !TextUtils.isEmpty(this.getName())&& !TextUtils.isEmpty(o1.getName()) && !TextUtils.isEmpty(o1.getCompanyname()))
+            return o1.getName().equals(this.getName()) && o1.getCompanyname().equalsIgnoreCase(this.getCompanyname());
         else
             return false;
     }

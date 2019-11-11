@@ -48,10 +48,10 @@ public class ProductPageAdapter extends RecyclerView.Adapter<ProductPageViewHold
     public void onBindViewHolder(@NonNull ProductPageViewHolder holder, final int position) {
         PartNo partNo = mList.get(position);
         if (partNo != null) {
-            holder.mName.setText(partNo.getName());
-            holder.mSSC_Code.setText(partNo.getSsc_code());
-            holder.mReference.setText(partNo.getReference());
-            holder.mModel.setText(partNo.getModel());
+            holder.mName.setText(partNo.getName().toLowerCase());
+            holder.mSSC_Code.setText(partNo.getSsc_code().toLowerCase());
+            holder.mReference.setText(partNo.getReference().toLowerCase());
+            holder.mModel.setText(partNo.getModel().toLowerCase());
         }
 
         holder.mImageview.setOnClickListener(v -> {
@@ -61,7 +61,7 @@ public class ProductPageAdapter extends RecyclerView.Adapter<ProductPageViewHold
         });
 
 
-        Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).into(holder.mImageview);
+        Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.noimage).into(holder.mImageview);
 
         if (holder.mSSC_Code.getText().equals("default ssc code")) {
             holder.mSSC_CodeLayout.setVisibility(View.GONE);

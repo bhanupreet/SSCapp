@@ -56,7 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Truck Parts"
+                android:layout_marginTop="10dp"
+                android:text="Truck Parts: Derox Automotive"
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -72,7 +73,7 @@
                 android:background="@drawable/rectanglebg"
                 android:text="@string/catalogue"
                 android:textColor="#ffffff"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 app:layout_constraintTop_toBottomOf="@id/truckpartstext" />
 
             <Button
@@ -83,7 +84,7 @@
                 android:background="@drawable/rectanglebg"
                 android:text="Contact Us"
                 android:textColor="#ffffff"
-                android:textSize="18sp"
+                android:textSize="24dp"
                 app:layout_constraintTop_toBottomOf="@+id/main_cataloguebtn" />
             <Button
                 android:id="@+id/Searchbtn"
@@ -93,8 +94,21 @@
                 android:background="@drawable/rectanglebg"
                 android:text="Search Product"
                 android:textColor="#ffffff"
-                android:textSize="18sp"
+                android:textSize="24dp"
                 app:layout_constraintTop_toBottomOf="@+id/aboutusbtn" />
+
+            <Button
+                android:id="@+id/transfer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/rectanglebg"
+                android:text="transfer"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/Searchbtn" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
