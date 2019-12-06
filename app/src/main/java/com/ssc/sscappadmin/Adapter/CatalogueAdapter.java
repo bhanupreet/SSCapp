@@ -47,7 +47,9 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull CatalogueViewHolder holder, final int position) {
         final Companies companies = mList.get(position);
-        holder.name.setText(companies.getName().toLowerCase().trim());
+        if (companies.getName()!=null)
+        holder.name.setText(companies.getName().trim());
+
         ViewCompat.setTransitionName(holder.layout, companies.getUid());
 
         holder.itemView.setOnClickListener(v -> {

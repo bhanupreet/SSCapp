@@ -37,7 +37,7 @@ import id.zelory.compressor.Compressor;
 
 public class AddProductActivity extends AppCompatActivity implements OnClickListener {
 
-    private TextInputLayout mSSS_code, mreference, mModel, mNameinput;
+    private TextInputLayout mSSS_code, mNameinput;
     private Button mAddBtn, mUploadimagebtn, mDeletebtn, mDeleteImagebtn;
     private androidx.appcompat.widget.Toolbar mToolbar;
     private ProgressDialog mProgressDialaog;
@@ -84,10 +84,6 @@ public class AddProductActivity extends AppCompatActivity implements OnClickList
     private void setViews() {
         if (!partNo.getSsc_code().equals("default ssc code"))
             mSSS_code.getEditText().setText(partNo.getSsc_code());
-        if (!partNo.getReference().equals("default reference"))
-            mreference.getEditText().setText(partNo.getReference());
-        if (!partNo.getModel().equals("default model/size"))
-            mModel.getEditText().setText(partNo.getModel());
 
         if (partNo.getImage().equals("default image")) {
             mDeleteImagebtn.setVisibility(View.GONE);
@@ -106,11 +102,8 @@ public class AddProductActivity extends AppCompatActivity implements OnClickList
 
     private void FindIds() {
         mSSS_code = findViewById(R.id.ssc_code_input);
-        mreference = findViewById(R.id.reference_input);
-        mModel = findViewById(R.id.modelinput);
         mDeleteImagebtn = findViewById(R.id.deleteimagebtn);
         mNameinput = findViewById(R.id.name_input);
-        mModel = findViewById(R.id.modelinput);
         mAddBtn = findViewById(R.id.addpartnodetails_addbtn);
         mUploadimagebtn = findViewById(R.id.uploadimagebtn);
         resultdisplay = findViewById(R.id.result);
@@ -203,16 +196,6 @@ public class AddProductActivity extends AppCompatActivity implements OnClickList
             result.put("ssc_code", textof(mSSS_code));
         else
             result.put("ssc_code", "default ssc code");
-
-        if (!TextUtils.isEmpty(textof(mreference)))
-            result.put("reference", textof(mreference));
-        else
-            result.put("reference", "default reference");
-
-        if (!TextUtils.isEmpty(textof(mModel)))
-            result.put("model", textof(mModel));
-        else
-            result.put("model", "default model/size");
 
         if (!TextUtils.isEmpty(downloadUrl)) {
             result.put("image", downloadUrl);

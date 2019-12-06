@@ -46,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mainAppbar);
         getSupportActionBar().setTitle("Home");
 
+        transfer.setOnClickListener(v->{
+            Intent intent = new Intent(MainActivity.this,ExcelActivity.class);
+            startActivity(intent);
+        });
+
 //        transfer.setOnClickListener(v -> {
 ////            Query query = FirebaseDatabase.getInstance().getReference().child("PartNo");
 ////            query.addListenerForSingleValueEvent(new ValueEventListener() {

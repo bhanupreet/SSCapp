@@ -14,10 +14,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Satnam Sales Corporation"
         android:roundIcon="@mipmap/ic_launcher"
-        android:supportsRtl="false"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.SearchActivity"></activity>
+        <activity android:name=".Activities.ExcelActivity"></activity>
+        <activity android:name=".Activities.SearchActivity" />
         <activity android:name=".Activities.AddProductActivity" />
 
         <provider

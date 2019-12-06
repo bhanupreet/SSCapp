@@ -48,10 +48,8 @@ public class ProductPageAdapter extends RecyclerView.Adapter<ProductPageViewHold
     public void onBindViewHolder(@NonNull ProductPageViewHolder holder, final int position) {
         PartNo partNo = mList.get(position);
         if (partNo != null) {
-            holder.mName.setText(partNo.getName().toLowerCase());
-            holder.mSSC_Code.setText(partNo.getSsc_code().toLowerCase());
-            holder.mReference.setText(partNo.getReference().toLowerCase());
-            holder.mModel.setText(partNo.getModel().toLowerCase());
+            holder.mName.setText(partNo.getName());
+            holder.mSSC_Code.setText(partNo.getSsc_code());
         }
 
         holder.mImageview.setOnClickListener(v -> {
@@ -63,20 +61,11 @@ public class ProductPageAdapter extends RecyclerView.Adapter<ProductPageViewHold
 
         Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.noimage).into(holder.mImageview);
 
-        if (holder.mSSC_Code.getText().equals("default ssc code")) {
-            holder.mSSC_CodeLayout.setVisibility(View.GONE);
-        } else
-            holder.mSSC_CodeLayout.setVisibility(View.VISIBLE);
+        if (partNo.getImage().equals("default image"))
+            holder.mImageview.bringToFront();
 
-        if (holder.mReference.getText().equals("default reference"))
-            holder.mReferenceLayout.setVisibility(View.GONE);
-        else
-            holder.mReferenceLayout.setVisibility(View.VISIBLE);
-
-        if (holder.mModel.getText().equals("default model/size")) {
-            holder.mModelLayout.setVisibility(View.GONE);
-        } else
-            holder.mModelLayout.setVisibility(View.VISIBLE);
+        holder.mSSC_CodeLayout.setVisibility(View.VISIBLE);
+        holder.mGroup.setText(partNo.getCompanyname());
     }
 
     @Override

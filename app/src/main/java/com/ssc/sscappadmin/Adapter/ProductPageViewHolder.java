@@ -15,24 +15,17 @@ import com.ssc.sscappadmin.R;
 public class ProductPageViewHolder extends RecyclerView.ViewHolder {
 
     ImageView mImageview;
-    TextView mName, mSSC_Code, mModel, mReference;
-    CardView mModelLayout, mReferenceLayout, mSSC_CodeLayout;
-    ConstraintLayout mVisibility;
-    SwitchCompat mVisibilitySwitch;
+    TextView mName, mSSC_Code, mGroup, mReference;
+    CardView mGroupNameLayout, mSSC_CodeLayout;
 
     ProductPageViewHolder(@NonNull View itemView) {
         super(itemView);
         mImageview = itemView.findViewById(R.id.item_page_image);
-        mModel = itemView.findViewById(R.id.item_page_model);
+        mGroup = itemView.findViewById(R.id.item_page_group);
         mName = itemView.findViewById(R.id.item_page_name);
         mSSC_Code = itemView.findViewById(R.id.item_page_ssc_code);
-        mReference = itemView.findViewById(R.id.item_page_reference);
-
-        mModelLayout = itemView.findViewById(R.id.item_page_model_layout);
-        mReferenceLayout = itemView.findViewById(R.id.item_page_reference_layout);
+        mGroupNameLayout = itemView.findViewById(R.id.item_page_group_name_layout);
         mSSC_CodeLayout = itemView.findViewById(R.id.item_page_ssc_Code_layout);
-        mVisibility = itemView.findViewById(R.id.item_page_visibility_layout);
-        mVisibilitySwitch = itemView.findViewById(R.id.item_page_visibility_switch);
 
     }
 }

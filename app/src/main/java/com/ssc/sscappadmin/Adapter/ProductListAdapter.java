@@ -57,6 +57,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHold
         if (!TextUtils.isEmpty(partNo.getImage()))
             Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.noimage).into(holder.mImageview);
 
+        if(partNo.getImage().equals("default image"))
+            holder.mImageview.bringToFront();
+
         if (!TextUtils.isEmpty(partNo.getSsc_code()) && partNo.getSsc_code().contains("ssc")) {
             partNo.ssc_code.replace("ssc", "");
         }

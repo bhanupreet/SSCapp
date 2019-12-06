@@ -303,13 +303,9 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
                     for (PartNo profile : mAllList) {
                         if (!isEmpty(profile.getName())
                                 && !isEmpty(profile.getSsc_code())
-                                && !isEmpty(profile.getModel())
-                                && !isEmpty(profile.getReference())
                                 && !mSearchList.contains(profile)) {
                             if (profile.getName().toLowerCase().contains(newText.toLowerCase())
-                                    || profile.getSsc_code().toLowerCase().contains(newText.toLowerCase())
-                                    || profile.getReference().toLowerCase().contains(newText.toLowerCase())
-                                    || profile.getModel().toLowerCase().contains(newText.toLowerCase()))
+                                    || profile.getSsc_code().toLowerCase().contains(newText.toLowerCase()))
                                 mSearchList.add(profile);
                         }
                     }

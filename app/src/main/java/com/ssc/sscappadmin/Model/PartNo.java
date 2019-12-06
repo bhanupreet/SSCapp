@@ -10,32 +10,41 @@ public class PartNo implements Parcelable {
 
     public String name;
     public String ssc_code;
-    public String reference;
-    public String model;
     public String image;
-    public String cost_price;
 
-    public String getCost_price() {
-        return cost_price;
-    }
-
-    public void setCost_price(String cost_price) {
-        this.cost_price = cost_price;
-    }
-
-
-    public PartNo(String name, String ssc_code, String reference, String model, String image, String cost_price, String companyname, String uid, boolean visibility, boolean selected) {
+    public PartNo(String name, String ssc_code, String image, String companyname, String uid, boolean visibility, boolean selected) {
         this.name = name;
         this.ssc_code = ssc_code;
-        this.reference = reference;
-        this.model = model;
         this.image = image;
-        this.cost_price = cost_price;
         this.companyname = companyname;
         this.uid = uid;
         this.visibility = visibility;
         this.selected = selected;
     }
+
+    protected PartNo(Parcel in) {
+        name = in.readString();
+        ssc_code = in.readString();
+        image = in.readString();
+        companyname = in.readString();
+        uid = in.readString();
+        visibility = in.readByte() != 0;
+        selected = in.readByte() != 0;
+    }
+
+
+
+    public static final Creator<PartNo> CREATOR = new Creator<PartNo>() {
+        @Override
+        public PartNo createFromParcel(Parcel in) {
+            return new PartNo(in);
+        }
+
+        @Override
+        public PartNo[] newArray(int size) {
+            return new PartNo[size];
+        }
+    };
 
     public String getUid() {
         return uid;
@@ -51,30 +60,6 @@ public class PartNo implements Parcelable {
     public String uid;
     boolean visibility, selected = false;
 
-    protected PartNo(Parcel in) {
-        name = in.readString();
-        ssc_code = in.readString();
-        reference = in.readString();
-        model = in.readString();
-        image = in.readString();
-        companyname = in.readString();
-        uid = in.readString();
-        visibility = in.readByte() != 0;
-        selected = in.readByte() != 0;
-    }
-
-    public static final Creator<PartNo> CREATOR = new Creator<PartNo>() {
-        @Override
-        public PartNo createFromParcel(Parcel in) {
-            return new PartNo(in);
-        }
-
-        @Override
-        public PartNo[] newArray(int size) {
-            return new PartNo[size];
-        }
-    };
-
     public String getName() {
         return name;
     }
@@ -89,22 +74,6 @@ public class PartNo implements Parcelable {
 
     public void setSsc_code(String ssc_code) {
         this.ssc_code = ssc_code;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public String getImage() {
@@ -144,8 +113,8 @@ public class PartNo implements Parcelable {
         }
         PartNo o1 = (PartNo) obj;
 
-        if (!TextUtils.isEmpty(this.getCompanyname()) && !TextUtils.isEmpty(this.getName())&& !TextUtils.isEmpty(o1.getName()) && !TextUtils.isEmpty(o1.getCompanyname()))
-            return o1.getName().equals(this.getName()) && o1.getCompanyname().equalsIgnoreCase(this.getCompanyname());
+        if (!TextUtils.isEmpty(this.getSsc_code()) && !TextUtils.isEmpty(o1.getSsc_code()))
+            return o1.getSsc_code().equals(this.getSsc_code());
         else
             return false;
     }
@@ -158,7 +127,6 @@ public class PartNo implements Parcelable {
         this.selected = selected;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -168,8 +136,6 @@ public class PartNo implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(ssc_code);
-        parcel.writeString(reference);
-        parcel.writeString(model);
         parcel.writeString(image);
         parcel.writeString(companyname);
         parcel.writeString(uid);

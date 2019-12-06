@@ -8,11 +8,6 @@ import androidx.annotation.Nullable;
 
 public class Companies implements Parcelable {
 
-    public Companies(String name) {
-        this.name = name;
-    }
-
-
     private String name, uid;
 
     protected Companies(Parcel in) {

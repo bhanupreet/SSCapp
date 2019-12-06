@@ -192,10 +192,15 @@ public class CatolgueListFragment extends Fragment {
                 mNoParts.setVisibility(View.GONE);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    String name = snapshot.child("name").getValue(String.class);
                     Companies company = snapshot.getValue(Companies.class);
+//                    company.setName(name);
                     company.setUid(snapshot.getKey());
                     mList.add(company);
                     adapter.notifyItemInserted(mList.size() - 1);
+//                    if(TextUtils.isEmpty(company.getName())){
+//                        FirebaseDatabase.getInstance().getReference().child("Company").child(company.getUid()).removeValue();
+//                    }
                 }
                 mAllList.addAll(mList);
                 adapter.notifyDataSetChanged();
