@@ -25,7 +25,6 @@ public class SearchActivity extends AppCompatActivity {
     private List<PartNo> mList = new ArrayList<>();
     Toolbar mToolbar;
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);

@@ -90,15 +90,16 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.excel_groupfile:
+                companiesList.clear();
                 openFileExplorer(GROUP_FILE_REQUEST_CODE);
                 break;
             case R.id.excel_allparts_file:
+                PartNoList.clear();
                 openFileExplorer(PARTS_FILE_REQUEST_CODE);
                 break;
             case R.id.excel_save:
                 updateGroupList();
                 updatePartNoList();
-
                 break;
         }
     }
@@ -122,11 +123,12 @@ public class ExcelActivity extends AppCompatActivity implements View.OnClickList
                         map.put("name", partNo.getName());
                         map.put("ssc_code", partNo.getSsc_code());
                         map.put("companyname", partNo.getCompanyname());
-
+                        map.put("image", "default image");
                         if (mOldPartNoList.contains(partNo)) {
                             PartNo mOldPartNo = mOldPartNoList.get(PartNoList.indexOf(partNo));
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("PartNoList").child(mOldPartNo.getUid());
-                            map.put("image", mOldPartNo.getImage());
+                            if (!TextUtils.isEmpty(mOldPartNo.getImage()))
+                                map.put("image", mOldPartNo.getImage());
                             reference.updateChildren(map);
                         } else {
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("PartNoList").push();

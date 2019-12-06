@@ -48,7 +48,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHold
     @Override
     public void onBindViewHolder(@NonNull ProductListViewHolder holder, final int position) {
         final PartNo partNo = mList.get(position);
-        holder.mName.setText(partNo.getName().toLowerCase());
+        holder.mName.setText(partNo.getName().trim());
         if (partNo.isSelected()) {
             holder.mSelecteTick.setVisibility(View.VISIBLE);
         } else
@@ -57,7 +57,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHold
         if (!TextUtils.isEmpty(partNo.getImage()))
             Picasso.get().load(partNo.getImage()).placeholder(R.drawable.ic_settings_black_24dp).error(R.drawable.noimage).into(holder.mImageview);
 
-        if(partNo.getImage().equals("default image"))
+        if (TextUtils.isEmpty(partNo.getImage()) || partNo.getImage().equals("default image"))
             holder.mImageview.bringToFront();
 
         if (!TextUtils.isEmpty(partNo.getSsc_code()) && partNo.getSsc_code().contains("ssc")) {
