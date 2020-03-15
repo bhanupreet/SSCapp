@@ -45,25 +45,27 @@
                 android:hint="SSC Code" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/reference_input"
+
+        <TextView
+            android:id="@+id/modelinput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ssc_code_input"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            android:paddingLeft="10dp"
+            android:text="visibility"
+            android:textSize="20dp" />
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/modelinput"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:id="@+id/visibility_Switch"
             android:layout_height="wrap_content"
-            android:layout_below="@id/reference_input"
-            android:layout_marginLeft="20dp"
+            android:layout_below="@id/ssc_code_input"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
-
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp" />
 
 
         <Button

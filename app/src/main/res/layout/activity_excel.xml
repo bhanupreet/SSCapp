@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ssc.Derox.Activities.ExcelActivity">
+    tools:context="com.ssc.DeroxAdmin.Activities.ExcelActivity">
 
     <include
         android:id="@+id/excel_toolbar"
@@ -17,6 +17,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
+        android:visibility="gone"
         android:drawableRight="@drawable/ic_attach_file_black_24dp"
         android:text="Insert Group Name File"
         android:textSize="24dp"
