@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.ssc.DeroxAdmin"
+        applicationId "com.ssc.Derox"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 10
-        versionName "10"
+        versionCode 11
+        versionName "11"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
